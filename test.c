@@ -125,14 +125,16 @@ int main(){
     "     "};
 
     Tetromino test = tetrominoConstructor(truc);
-    for (int j = 0; j<5; j++){
+   /* for (int j = 0; j<5; j++){
         printf("x=%d y=%d\n",test.blocs[j][0],test.blocs[j][1]);
-    }
+    }*/
 
     Vecteur v;
     v.x = 1;
     v.y = 0;
     int temp;
+    printf("*******************\n");
+    system("clear");
     for (int i = 0; i<10; i++){
         temp = move_t(&test,v);
         if (temp){
@@ -144,6 +146,7 @@ int main(){
         printf("*******************\n");
         sleep(1);
         clear(tab_principal);
+        system("clear");
     }
     
     return 0;

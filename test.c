@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define COL 10
+#define LINE 10
+
 typedef struct{
     int x;
     int y;
@@ -33,25 +36,25 @@ Tetromino tetrominoConstructor(char tab[5][5]){
     return t;
 }
 
-void display(char tab[10][10],int n){
-    for (int i = 0; i<n; i++){
-        for (int j = 0; j<n; j++){
+void display(char tab[LINE][COL]){
+    for (int i = 0; i<LINE; i++){
+        for (int j = 0; j<COL; j++){
             printf("%c ",tab[i][j]);
         }
         printf("\n");
     }
 }
-void display_int(int tab[10][10],int n){
-    for (int i = 0; i<n; i++){
-        for (int j = 0; j<n; j++){
+void display_int(int tab[LINE][COL]){
+    for (int i = 0; i<LINE; i++){
+        for (int j = 0; j<COL; j++){
             printf("%d ",tab[i][j]);
         }
         printf("\n");
     }
 }
-void clear(int tab[10][10]){
-    for (int i = 0; i<10; i++){
-        for (int j = 0; j<10; j++){
+void clear(int tab[LINE][COL]){
+    for (int i = 0; i<LINE; i++){
+        for (int j = 0; j<COL; j++){
             
                 tab[i][j] = 0;
             
@@ -62,13 +65,14 @@ void clear(int tab[10][10]){
 
 int move_t(Tetromino *t,Vecteur v){
     for (int j = 0; j<5; j++){
-        if(t->blocs[j][0]>9){
+        if(t->blocs[j][0]>=9){
             t->isalive = 0;
+           
             return 1;
-        }  
+        }
     }
     for (int i = 0; i<5; i++){
-        if (t->isalive == 1 && t->blocs[i][0]<8 && t->blocs[i][1]<8){
+        if (t->isalive == 1 && t->blocs[i][0]<9 && t->blocs[i][1]<9){
             t->blocs[i][0] =  t->blocs[i][0] + v.x;
             t->blocs[i][1] =  t->blocs[i][1] + v.y;
         }
@@ -77,7 +81,7 @@ int move_t(Tetromino *t,Vecteur v){
 
 }
 
-void place_t(Tetromino *t,int tab[10][10]){
+void place_t(Tetromino *t,int tab[LINE][COL]){
     if (t->isalive){
         for (int i = 0; i<5; i++){
             
@@ -95,9 +99,9 @@ void place_t(Tetromino *t,int tab[10][10]){
     
 }
 
-void draw(int tab[10][10], char grille[10][10]){
-    for (int i = 0; i<10; i++){
-        for (int j = 0; j<10; j++){
+void draw(int tab[LINE][COL], char grille[LINE][COL]){
+    for (int i = 0; i<LINE; i++){
+        for (int j = 0; j<COL; j++){
             if (tab[i][j] == 1 || tab[i][j]==2){
                     grille[i][j] = '#';
             }else{
@@ -110,25 +114,25 @@ void draw(int tab[10][10], char grille[10][10]){
 
 
 int main(){
-    int tab_principal[10][10] = {0};
-char grille[10][10];
+    int tab_principal[LINE][COL] = {0};
+    char grille[LINE][COL];
 
-char truc[5][5] = 
-   {"  #  ",
-    "  ## ",
-    "  ## ",
-    "     ",
+    char truc[5][5] = 
+   {"     ",
+    "  #  ",
+    " ### ",
+    "  #  ",
     "     "};
 
-Tetromino test = tetrominoConstructor(truc);
-for (int j = 0; j<5; j++){
-    printf("x=%d y=%d\n",test.blocs[j][0],test.blocs[j][1]);
-}
+    Tetromino test = tetrominoConstructor(truc);
+    for (int j = 0; j<5; j++){
+        printf("x=%d y=%d\n",test.blocs[j][0],test.blocs[j][1]);
+    }
 
-Vecteur v;
-v.x = 1;
-v.y = 0;
-int temp;
+    Vecteur v;
+    v.x = 1;
+    v.y = 0;
+    int temp;
     for (int i = 0; i<10; i++){
         temp = move_t(&test,v);
         if (temp){
@@ -136,7 +140,7 @@ int temp;
         }
         place_t(&test,tab_principal);
         draw(tab_principal,grille);
-        display_int(tab_principal,10);
+        display(grille);
         printf("*******************\n");
         sleep(1);
         clear(tab_principal);

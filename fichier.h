@@ -3,6 +3,8 @@
 #include <math.h>
 #include <string.h>
 #include <time.h>
+#include "structs.h"
+
 
 
 

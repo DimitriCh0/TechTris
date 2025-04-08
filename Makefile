@@ -3,7 +3,7 @@ PROG = projet
 
 
 #Sources
-SRC = main.c
+SRC = main.c input.c
 
 #Règle par défaut : compile et exécute
 all: $(PROG)

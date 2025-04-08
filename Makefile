@@ -11,6 +11,7 @@ all: $(PROG)
 
 #Compilation du programme
 $(PROG): $(SRC) fichier.h
+	sudo apt-get install libsdl2-2.0-0
 	gcc -Wall -o $(PROG) $(SRC)
 
 #Nettoyage

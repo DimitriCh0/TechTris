@@ -1,9 +1,10 @@
-#include <stdio.h>
+#include "fichier.h"
 
-int main(int argc,char** argv){
-  int a = 0;
-  int b = 1;
-  printf("%d \n", a + b);
-  printf("Sah Dimitri");
-  return 0;
+
+
+
+
+int main(){
+	printf("Sah Dimitri\n");
+	return 0;
 }

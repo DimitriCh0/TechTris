@@ -1,6 +1,6 @@
 #include "fichier.h"
 
-
+/*Détecte quand on appuie sur une touche du clavier et renvoie un entier en fonction de la touche sur laquelle on appuie*/
 int key_input()
 {
     char c;
@@ -41,6 +41,7 @@ int key_input()
     }
 }
 
+/*Renvoie un vecteur différent en fonction de l'entier pris en argument : 2:<-  3:->  4:\/*/
 Vecteur keyToVect(int r)
 {
     Vecteur v;

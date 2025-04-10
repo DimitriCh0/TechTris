@@ -1,5 +1,6 @@
 #include "fichier.h"
 
+/*Construit une structure Tetromino à partir d'un double tableau de caractère représentant le dessin du tetromino*/
 Tetromino tetrominoConstructor(char tab[5][5]){
     Tetromino t;
     int n = 1;
@@ -20,6 +21,8 @@ Tetromino tetrominoConstructor(char tab[5][5]){
     t.isalive = 1;
     return t;
 }
+
+/*Renvoie 1 si le Tetromino touche la bordure gauche*/
 int isNotBorderL(Tetromino *t){
 	for (int i = 0; i<5; i++){
         	if (t->blocs[i][1] == 0){
@@ -29,6 +32,7 @@ int isNotBorderL(Tetromino *t){
     return 1;
 
 }
+/*Renvoie 1 si le Tetromino touche la bordure gauche*/
 int isNotBorderR(Tetromino *t){
 	for (int i = 0; i<5; i++){
         	if (t->blocs[i][1] == 9){
@@ -38,6 +42,7 @@ int isNotBorderR(Tetromino *t){
     return 1;
 
 }
+/*Applique un déplacement sur le Tetromino avec un vecteur*/
 int move_t(Tetromino *t,Vecteur v){
     for (int j = 0; j<5; j++){
         if(t->blocs[j][0]>=9){
@@ -64,7 +69,7 @@ int move_t(Tetromino *t,Vecteur v){
 }
 
 
-
+/*Place le Tetromino dans le tableau principal*/
 void place_t(Tetromino *t,int tab[LINE][COL]){
     if (t->isalive){
         for (int i = 0; i<5; i++){

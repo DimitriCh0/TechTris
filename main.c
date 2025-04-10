@@ -6,31 +6,43 @@
 
 int main(){
 	printf("Sah Dimitri\n");
-	App app;
-	int rendererFlags, windowFlags;
+	/*system ("/bin/stty raw");*/
+	int tab_principal[LINE][COL] = {0};
+    	char grille[LINE][COL];
+    	int n;
+    	int temp;
 
-    rendererFlags = SDL_RENDERER_ACCELERATED;
+    char truc[5][5] = 
+   {"     ",
+    "  #  ",
+    " ### ",
+    "  #  ",
+    "     "};
 
-	windowFlags = 0;
-	if(SDL_Init(SDL_INIT_VIDEO) < 0)
-    {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[debug] %s", SDL_GetError());
-        return -1;
-	}
-	app.window = SDL_CreateWindow("Tetris", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, windowFlags);
-	if (!app.window)
-    {
-        printf("Failed to open %d x %d window: %s\n", SCREEN_WIDTH, SCREEN_HEIGHT, SDL_GetError());
-        exit(1);
+    Tetromino test = tetrominoConstructor(truc);
+   /* for (int j = 0; j<5; j++){
+        printf("x=%d y=%d\n",test.blocs[j][0],test.blocs[j][1]);
+    }*/
+
+    printf("*******************\n");
+    system("clear");
+    while(1){
+    	n = key_input();
+    	temp = move_t(&test,keyToVect(n));
+        
+        place_t(&test,tab_principal);
+        draw(tab_principal,grille);
+        display_int(tab_principal);
+        printf("*******************\n");
+        sleep(0.1);
+        clear(tab_principal);
+        if (n!=0){
+        system("clear");
+        }
+       
     }
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
-	app.renderer = SDL_CreateRenderer(app.window, -1, rendererFlags);
-	if (!app.renderer)
-    {
-        printf("Failed to create renderer: %s\n", SDL_GetError());
-        exit(1);
-    }
-	SDL_DestroyWindow(app.window);     
-    SDL_Quit();
+    /*system ("/bin/stty cooked");*/
+
+    
 	return 0;
 }

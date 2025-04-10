@@ -70,12 +70,14 @@ int move_t(Tetromino *t,Vecteur v){
 
 
 
+
 /*Place le Tetromino dans le tableau principal*/
 void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v){
-    stillAlive(t,v);
-    if (isNotBorderL(t) && isNotBorderR(t)){
+    stillAlive(t,v,tab);
+    if (((v.y<=0 && isNotBorderL(t)) || (v.y>=0 && isNotBorderR(t))) && t->isalive){
         move_t(t,v);
     }
+    
     if (t->isalive){
         for (int i = 0; i<5; i++){
             

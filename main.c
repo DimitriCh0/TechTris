@@ -10,8 +10,7 @@ int main(){
 	int tab_principal[LINE][COL] = {0};
     	char grille[LINE][COL];
     	int n;
-    	int temp;
-
+        Vecteur v;
     char truc[5][5] = 
    {"     ",
     "  #  ",
@@ -28,11 +27,10 @@ int main(){
     system("clear");
     while(1){
     	n = key_input();
-    	temp = move_t(&test,keyToVect(n));
-        
-        place_t(&test,tab_principal);
+        v = keyToVect(n);
+        place_t(&test,tab_principal,v);
         draw(tab_principal,grille);
-        display_int(tab_principal);
+        display(grille);
         printf("*******************\n");
         sleep(0.1);
         clear(tab_principal);

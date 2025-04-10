@@ -39,6 +39,7 @@ int key_input()
         default:
             break;
     }
+    return 0;
 }
 
 /*Renvoie un vecteur différent en fonction de l'entier pris en argument : 2:<-  3:->  4:\/*/

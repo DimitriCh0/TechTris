@@ -42,35 +42,40 @@ int isNotBorderR(Tetromino *t){
     return 1;
 
 }
-/*Applique un déplacement sur le Tetromino avec un vecteur*/
-int move_t(Tetromino *t,Vecteur v){
-    for (int j = 0; j<5; j++){
-        if(t->blocs[j][0]>=9){
-            t->isalive = 0;
-           
-            return 1;
+
+int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL]){
+    if (t == NULL || tab == NULL){
+        exit(1);
+    }
+    for (int i=0; i<5; i++){
+        if (t->blocs[i][0]+v.x==10 || tab[t->blocs[i][0]+v.x][t->blocs[i][1]+v.y]==2){
+            t->isalive =0;
+            return 0;
         }
     }
-    for (int i = 0; i<5; i++){
-    	if (t->isalive == 1){
-    		if (v.y>0 && isNotBorderR(t) && t->blocs[i][0]<9){
-    			t->blocs[i][0] =  t->blocs[i][0] + v.x;
-            		t->blocs[i][1] =  t->blocs[i][1] + v.y;
-    		}
-    		if (v.y<0 && isNotBorderL(t) && t->blocs[i][0]<9){
-    			t->blocs[i][0] =  t->blocs[i][0] + v.x;
-            		t->blocs[i][1] =  t->blocs[i][1] + v.y;
-    		}
-    	
-    	}
+    return 1;
+}
+
+
+
+/*Applique un déplacement sur le Tetromino avec un vecteur*/
+int move_t(Tetromino *t,Vecteur v){
+    for (int i =0; i<5;i++){
+        t->blocs[i][0]+= v.x;
+        t->blocs[i][1]+= v.y;
     }
     return 0;
 
 }
 
 
+
 /*Place le Tetromino dans le tableau principal*/
-void place_t(Tetromino *t,int tab[LINE][COL]){
+void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v){
+    stillAlive(t,v);
+    if (isNotBorderL(t) && isNotBorderR(t)){
+        move_t(t,v);
+    }
     if (t->isalive){
         for (int i = 0; i<5; i++){
             

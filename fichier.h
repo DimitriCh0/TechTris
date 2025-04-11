@@ -9,11 +9,11 @@
 #include <SDL2/SDL.h>
 #include <unistd.h>
 
-
+#define NOMBRE_PIECES 7
+#define DIM 5
 #define COL 10
 #define LINE 10
-#define SCREEN_WIDTH   1280
-#define SCREEN_HEIGHT  720
+
 
 Tetromino tetrominoConstructor(char tab[5][5]);
 int move_t(Tetromino *t,Vecteur v);

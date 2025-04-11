@@ -3,7 +3,7 @@
 
 
 
-
+ 
 int main(){
 	printf("Sah Dimitri\n");
 	/*system ("/bin/stty raw");*/

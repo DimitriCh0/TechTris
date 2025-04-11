@@ -64,7 +64,7 @@ void rotation(int rotation, Tetromino *t){ // rotation : 4 si gauche, 5 si droit
 			exit(10);
 		}
 	}/*/
-	
+	if (t->isalive){
 	if (rotation == 5){ //tourne de 90 degrés vers la gauche la pièce
 		for (int i = 0; i < DIM; i++){
 			temp = t->blocs[i][0];
@@ -96,6 +96,7 @@ void rotation(int rotation, Tetromino *t){ // rotation : 4 si gauche, 5 si droit
 	free(tmp[i]);
 	}
 	free(tmp);*/
+	}
 }
 
 

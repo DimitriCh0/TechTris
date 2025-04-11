@@ -25,6 +25,8 @@ void clear(int tab[LINE][COL]);
 void draw(int tab[LINE][COL], char grille[LINE][COL]);
 int isNotBorderR(Tetromino *t);
 int isNotBorder(Tetromino *t);
+void rotation(int rotation, Tetromino *t);
+char*** pieces();
 
 
 

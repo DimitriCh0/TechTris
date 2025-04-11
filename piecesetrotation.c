@@ -49,12 +49,13 @@ char*** pieces(){
 
 
 
-void rotation(int rotation, char** piece){ // rotation : 4 si gauche, 5 si droite ; 'piece' sera le tableau contenant la pièce actif sur la grille
-	if (piece == NULL){
+void rotation(int rotation, Tetromino *t){ // rotation : 4 si gauche, 5 si droite ; 'piece' sera le tableau contenant la pièce actif sur la grille
+	int temp;
+	if (t == NULL){
 		exit(10);
 	}
-	char **tmp = malloc (DIM*sizeof(char*)); //création d'un tableau temporaire qui stockera la pièce avec la rotation voulue
-	if (tmp == NULL){
+	//char **tmp = malloc (DIM*sizeof(char*)); //création d'un tableau temporaire qui stockera la pièce avec la rotation voulue
+	/*if (tmp == NULL){
 		exit(10);
 	}
 	for (int i = 0; i<DIM;i++){
@@ -62,24 +63,30 @@ void rotation(int rotation, char** piece){ // rotation : 4 si gauche, 5 si droit
 		if (*(tmp+i) == NULL){
 			exit(10);
 		}
-	}
+	}/*/
 	
-	if (rotation == 4){ //tourne de 90 degrés vers la gauche la pièce
+	if (rotation == 5){ //tourne de 90 degrés vers la gauche la pièce
 		for (int i = 0; i < DIM; i++){
-			for (int j = 0; j < DIM; j++){
+			temp = t->blocs[i][0];
+			t->blocs[i][0] = t->blocs[i][1];
+			t->blocs[i][1] = DIM -temp-1;
+			/*for (int j = 0; j < DIM; j++){
 				tmp[i][j] = piece[j][DIM-i-1];
 			}
-			tmp[i][DIM] = '\0';
+			tmp[i][DIM] = '\0';*/
 		}
 	}
-	else if (rotation == 5){ //tourne de 90 degrés vers la droite la pièce
+	else if (rotation == 1){ //tourne de 90 degrés vers la droite la pièce
 		for (int i = 0; i < DIM; i++){
-			for (int j = 0; j < DIM; j++){
+			temp = t->blocs[i][1];
+			t->blocs[i][1] = t->blocs[i][0];
+			t->blocs[i][0] = DIM -temp-1;
+			/*for (int j = 0; j < DIM; j++){
 				tmp[i][j] = piece[DIM-j-1][i];
 			}
-			tmp[i][DIM] = '\0';
+			tmp[i][DIM] = '\0';*/
 		}
-	}
+	}/*
 	for (int i = 0; i < DIM; i++){ //change la pièce active
 		for (int j = 0; j < DIM; j++){
 			piece[i][j]=tmp[i][j];
@@ -88,7 +95,7 @@ void rotation(int rotation, char** piece){ // rotation : 4 si gauche, 5 si droit
 	for (int i = 0; i < DIM; i++) { //libère le tableau tmp et les chaînes de caractères contenues dans le tableau
 	free(tmp[i]);
 	}
-	free(tmp);
+	free(tmp);*/
 }
 
 
@@ -111,7 +118,7 @@ void affichepiece(char **piece){
 	}
 }
 
-
+/*
 int main(){
 	char ***liste = pieces();
 	//afficheliste(liste);
@@ -121,4 +128,4 @@ int main(){
 	rotation(4,piece);
 	affichepiece(piece);
 	return 0;
-}
+}*/

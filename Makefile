@@ -3,7 +3,7 @@ PROG = projet
 
 
 #Sources
-SRC = main.c input.c tetromino.c draw.c
+SRC = main.c input.c tetromino.c draw.c piecesetrotation.c
 
 #Règle par défaut : compile et exécute
 all: $(PROG)

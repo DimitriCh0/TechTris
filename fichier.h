@@ -1,12 +1,10 @@
 #include <errno.h>
 #include "structs.h"
-#include "library.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
 #include <time.h>
-#include <SDL2/SDL.h>
 #include <unistd.h>
 
 #define NOMBRE_PIECES 7

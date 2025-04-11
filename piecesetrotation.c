@@ -1,4 +1,4 @@
-
+#include "fichier.h"
 
 //une pièce est définie comme : '1' = bloc et '0' = vide
 

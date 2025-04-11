@@ -1,4 +1,4 @@
-
+#include <errno.h>
 #include "structs.h"
 #include "library.h"
 #include <stdio.h>

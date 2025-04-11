@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <errno.h>
-#include <string.h>
+
 #define NOMBRE_PIECES 7
 #define DIM 5
 //une pièce est définie comme : '1' = bloc et '0' = vide

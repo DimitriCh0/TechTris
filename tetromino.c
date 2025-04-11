@@ -1,6 +1,6 @@
 #include "fichier.h"
 
-/*Construit une structure Tetromino à partir d'un double tableau de caractère représentant le dessin du tetromino*/
+//Construit une structure Tetromino à partir d'un double tableau de caractère représentant le dessin du tetromino
 Tetromino tetrominoConstructor(char tab[5][5]){
     Tetromino t;
     int n = 1;
@@ -22,7 +22,7 @@ Tetromino tetrominoConstructor(char tab[5][5]){
     return t;
 }
 
-/*Renvoie 1 si le Tetromino touche la bordure gauche*/
+//Renvoie 1 si le Tetromino touche la bordure gauche
 int isNotBorderL(Tetromino *t){
 	for (int i = 0; i<5; i++){
         	if (t->blocs[i][1] == 0){
@@ -32,7 +32,7 @@ int isNotBorderL(Tetromino *t){
     return 1;
 
 }
-/*Renvoie 1 si le Tetromino touche la bordure gauche*/
+//Renvoie 1 si le Tetromino touche la bordure gauche
 int isNotBorderR(Tetromino *t){
 	for (int i = 0; i<5; i++){
         	if (t->blocs[i][1] == 9){
@@ -42,7 +42,7 @@ int isNotBorderR(Tetromino *t){
     return 1;
 
 }
-
+//renvoie 1 si le tetromino est toujours "en vie"
 int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL]){
     if (t == NULL || tab == NULL){
         exit(1);
@@ -58,7 +58,7 @@ int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL]){
 
 
 
-/*Applique un déplacement sur le Tetromino avec un vecteur*/
+//Applique un déplacement sur tous les blocs du Tetromino avec un vecteur
 int move_t(Tetromino *t,Vecteur v){
     for (int i =0; i<5;i++){
         t->blocs[i][0]+= v.x;
@@ -71,7 +71,7 @@ int move_t(Tetromino *t,Vecteur v){
 
 
 
-/*Place le Tetromino dans le tableau principal*/
+//Place le Tetromino dans le tableau principal
 void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v){
     stillAlive(t,v,tab);
     if (((v.y<=0 && isNotBorderL(t)) || (v.y>=0 && isNotBorderR(t))) && t->isalive){

@@ -22,7 +22,7 @@ Tetromino tetrominoConstructor(char tab[5][5]){
     return t;
 }
 
-//Renvoie 1 si le Tetromino touche la bordure gauche
+//Renvoie 1 si le Tetromino ne touche pas la bordure gauche
 int isNotBorderL(Tetromino *t){
 	for (int i = 0; i<5; i++){
         	if (t->blocs[i][1] == 0){
@@ -32,7 +32,7 @@ int isNotBorderL(Tetromino *t){
     return 1;
 
 }
-//Renvoie 1 si le Tetromino touche la bordure gauche
+//Renvoie 1 si le Tetromino ne touche pas la bordure gauche
 int isNotBorderR(Tetromino *t){
 	for (int i = 0; i<5; i++){
         	if (t->blocs[i][1] == 9){

@@ -60,15 +60,15 @@ void rotation(int rotation, Tetromino *t){ // rotation : 4 si gauche, 5 si droit
 	if (rotation == 5){ //tourne de 90 degrés vers la gauche la pièce
 		showCoordonnates(t);
 		for (int i = 1; i < DIM; i++){
-			
+			//distance entre le bloc central et le bloc i
 			r = sqrt((t->blocs[i][0]-t->blocs[0][0])*(t->blocs[i][0]-t->blocs[0][0]) +(t->blocs[i][1]-t->blocs[0][1])*(t->blocs[i][1]-t->blocs[0][1]));
-			
+			//calcul de l'angle
 			if (t->blocs[i][0]!=t->blocs[0][0] && t->blocs[i][1]!=t->blocs[0][1]){
 				alpha = atan((t->blocs[i][1]-t->blocs[0][1])/(t->blocs[i][0]-t->blocs[0][0]));
 			}else{
 				alpha = acos((t->blocs[i][1]-t->blocs[0][1])/r);//Trigo sin(alpha)=opposé(y)/r
 			}
-			
+			//ajout de pi/2
 			alpha += 3.14/2;
 			
 			t->blocs[i][0] = FLOAT_TO_INT(r*cos(alpha))+t->blocs[0][0];

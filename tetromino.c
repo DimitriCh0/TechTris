@@ -32,7 +32,7 @@ int isNotBorderL(Tetromino *t){
     return 1;
 
 }
-//Renvoie 1 si le Tetromino ne touche pas la bordure gauche
+//Renvoie 1 si le Tetromino ne touche pas la bordure droite
 int isNotBorderR(Tetromino *t){
 	for (int i = 0; i<5; i++){
         	if (t->blocs[i][1] == 9){

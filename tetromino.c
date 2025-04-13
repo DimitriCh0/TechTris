@@ -1,7 +1,7 @@
 #include "fichier.h"
 
 //Construit une structure Tetromino à partir d'un double tableau de caractère représentant le dessin du tetromino
-Tetromino tetrominoConstructor(char tab[5][5]){
+Tetromino tetrominoConstructor(char tab[DIM][DIM]){
     Tetromino t;
     int n = 1;
     if (tab[2][2]==' '){
@@ -9,8 +9,8 @@ Tetromino tetrominoConstructor(char tab[5][5]){
     }
     t.blocs[0][0] = 2;
     t.blocs[0][1] = 2;
-    for (int i = 0; i<5; i++){
-        for (int j = 0; j<5; j++){
+    for (int i = 0; i<DIM; i++){
+        for (int j = 0; j<DIM; j++){
             if (tab[i][j]=='#'&&(i!=2 || j!=2)){
                 t.blocs[n][0] = i;
                 t.blocs[n][1] = j;
@@ -24,7 +24,7 @@ Tetromino tetrominoConstructor(char tab[5][5]){
 
 //Renvoie 1 si le Tetromino ne touche pas la bordure gauche
 int isNotBorderL(Tetromino *t){
-	for (int i = 0; i<5; i++){
+	for (int i = 0; i<DIM; i++){
         	if (t->blocs[i][1] == 0){
         		return 0;
         	}
@@ -34,7 +34,7 @@ int isNotBorderL(Tetromino *t){
 }
 //Renvoie 1 si le Tetromino ne touche pas la bordure droite
 int isNotBorderR(Tetromino *t){
-	for (int i = 0; i<5; i++){
+	for (int i = 0; i<DIM; i++){
         	if (t->blocs[i][1] == 9){
         		return 0;
         	}
@@ -47,7 +47,7 @@ int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL]){
     if (t == NULL || tab == NULL){
         exit(1);
     }
-    for (int i=0; i<5; i++){
+    for (int i=0; i<DIM; i++){
         if (t->blocs[i][0]+v.x==10 || tab[t->blocs[i][0]+v.x][t->blocs[i][1]+v.y]==2){
             t->isalive =0;
             return 0;
@@ -60,7 +60,7 @@ int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL]){
 
 //Applique un déplacement sur tous les blocs du Tetromino avec un vecteur
 int move_t(Tetromino *t,Vecteur v){
-    for (int i =0; i<5;i++){
+    for (int i =0; i<DIM;i++){
         t->blocs[i][0]+= v.x;
         t->blocs[i][1]+= v.y;
     }
@@ -79,7 +79,7 @@ void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v){
     }
     
     if (t->isalive){
-        for (int i = 0; i<5; i++){
+        for (int i = 0; i<DIM; i++){
             
             tab[t->blocs[i][0]][t->blocs[i][1]] = 1;
         
@@ -88,7 +88,7 @@ void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v){
         }
 
     }else{
-        for (int j = 0; j<5; j++){
+        for (int j = 0; j<DIM; j++){
             tab[t->blocs[j][0]][t->blocs[j][1]] = 2;
         }
     }

@@ -11,7 +11,7 @@ int main(){
     	char grille[LINE][COL];
     	int n;
         Vecteur v;
-    char truc[5][5] = 
+    char truc[DIM][DIM] = 
    {"     ",
     "  #  ",
     " ### ",
@@ -19,7 +19,7 @@ int main(){
     "     "};
 
     Tetromino test = tetrominoConstructor(truc);
-   /* for (int j = 0; j<5; j++){
+   /* for (int j = 0; j<DIM; j++){
         printf("x=%d y=%d\n",test.blocs[j][0],test.blocs[j][1]);
     }*/
 

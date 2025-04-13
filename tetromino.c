@@ -94,3 +94,12 @@ void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v){
     }
     
 }
+
+//Affiche les coordonnées du Tétromino
+void showCoordonnates(Tetromino *t){
+    for (int i=0; i<DIM; i++)
+    {
+        printf("x = %d, y = %d\n",t->blocs[i][0],t->blocs[i][1]);
+    }
+    printf("\n");
+}

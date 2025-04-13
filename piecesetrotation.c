@@ -51,51 +51,45 @@ char*** pieces(){
 
 void rotation(int rotation, Tetromino *t){ // rotation : 4 si gauche, 5 si droite ; 'piece' sera le tableau contenant la pièce actif sur la grille
 	int temp;
+	float r;
+	float alpha;
 	if (t == NULL){
 		exit(10);
 	}
-	//char **tmp = malloc (DIM*sizeof(char*)); //création d'un tableau temporaire qui stockera la pièce avec la rotation voulue
-	/*if (tmp == NULL){
-		exit(10);
-	}
-	for (int i = 0; i<DIM;i++){
-		*(tmp+i) = malloc((DIM+1)*sizeof(char));
-		if (*(tmp+i) == NULL){
-			exit(10);
-		}
-	}/*/
-	if (t->isalive){
+	if (t->isalive && isNotBorderL(t) && isNotBorderR(t)){
 	if (rotation == 5){ //tourne de 90 degrés vers la gauche la pièce
-		for (int i = 0; i < DIM; i++){
-			temp = t->blocs[i][0];
-			t->blocs[i][0] = t->blocs[i][1];
-			t->blocs[i][1] = DIM -temp-1;
-			/*for (int j = 0; j < DIM; j++){
-				tmp[i][j] = piece[j][DIM-i-1];
+		showCoordonnates(t);
+		for (int i = 1; i < DIM; i++){
+			
+			r = sqrt((t->blocs[i][0]-t->blocs[0][0])*(t->blocs[i][0]-t->blocs[0][0]) +(t->blocs[i][1]-t->blocs[0][1])*(t->blocs[i][1]-t->blocs[0][1]));
+			
+			if (t->blocs[i][0]!=t->blocs[0][0] && t->blocs[i][1]!=t->blocs[0][1]){
+				alpha = atan((t->blocs[i][1]-t->blocs[0][1])/(t->blocs[i][0]-t->blocs[0][0]));
+			}else{
+				alpha = acos((t->blocs[i][1]-t->blocs[0][1])/r);//Trigo sin(alpha)=opposé(y)/r
 			}
-			tmp[i][DIM] = '\0';*/
+			
+			alpha += 3.14/2;
+			
+			t->blocs[i][0] = FLOAT_TO_INT(r*cos(alpha))+t->blocs[0][0];
+	
+			t->blocs[i][1] = FLOAT_TO_INT(r*sin(alpha))+t->blocs[0][1];
+
+			printf("alpha = %.2f  r = %.2f\n",alpha,r);
+			printf("x = %.2f  y = %.2f --->  ",r*cos(alpha),r*sin(alpha));
+			printf("x = %d  y = %d\n",t->blocs[i][0],t->blocs[i][1]);
+			printf("\n");
+			
 		}
+		showCoordonnates(t);
 	}
 	else if (rotation == 1){ //tourne de 90 degrés vers la droite la pièce
 		for (int i = 0; i < DIM; i++){
 			temp = t->blocs[i][1];
 			t->blocs[i][1] = t->blocs[i][0];
-			t->blocs[i][0] = DIM -temp-1;
-			/*for (int j = 0; j < DIM; j++){
-				tmp[i][j] = piece[DIM-j-1][i];
-			}
-			tmp[i][DIM] = '\0';*/
-		}
-	}/*
-	for (int i = 0; i < DIM; i++){ //change la pièce active
-		for (int j = 0; j < DIM; j++){
-			piece[i][j]=tmp[i][j];
+			t->blocs[i][0] = DIM - temp -1;
 		}
 	}
-	for (int i = 0; i < DIM; i++) { //libère le tableau tmp et les chaînes de caractères contenues dans le tableau
-	free(tmp[i]);
-	}
-	free(tmp);*/
 	}
 }
 
@@ -118,15 +112,3 @@ void affichepiece(char **piece){
 		printf("\n");		
 	}
 }
-
-/*
-int main(){
-	char ***liste = pieces();
-	//afficheliste(liste);
-	char** piece = *(liste);
-	affichepiece(piece);
-	printf("\n");
-	rotation(4,piece);
-	affichepiece(piece);
-	return 0;
-}*/

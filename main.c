@@ -32,9 +32,7 @@ int main(){
         printf("*******************\n");
         sleep(0.1);
         clear(tab_principal);
-        if (n!=0){
-        system("clear");
-        }
+       
        
     }
     /*system ("/bin/stty cooked");*/

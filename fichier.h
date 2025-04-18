@@ -6,6 +6,7 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
+#include <termios.h>
 
 //CONSTANTES
 //Le nombre de pièces (Tétrominos)

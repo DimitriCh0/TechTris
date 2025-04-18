@@ -19,9 +19,6 @@ int main(){
     "     "};
 
     Tetromino test = tetrominoConstructor(truc);
-   /* for (int j = 0; j<DIM; j++){
-        printf("x=%d y=%d\n",test.blocs[j][0],test.blocs[j][1]);
-    }*/
 
     printf("*******************\n");
     system("clear");

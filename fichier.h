@@ -24,7 +24,7 @@ int move_t(Tetromino *t,Vecteur v);
 void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v);
 int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL]);
 int isNotBorderR(Tetromino *t);
-int isNotBorder(Tetromino *t);
+int isNotBorderL(Tetromino *t);
 //Inputs
 int key_input();
 Vecteur keyToVect(int r);

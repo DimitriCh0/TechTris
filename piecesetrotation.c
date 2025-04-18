@@ -51,43 +51,48 @@ char*** pieces(){
 
 void rotation(int rotation, Tetromino *t){ // rotation : 4 si gauche, 5 si droite ; 'piece' sera le tableau contenant la pièce actif sur la grille
 	int temp;
-	float r;
-	float alpha;
+	int posx;
+	int posy;
+	int dx,dy;
 	if (t == NULL){
 		exit(10);
 	}
-	if (t->isalive && isNotBorderL(t) && isNotBorderR(t)){
-	if (rotation == 5){ //tourne de 90 degrés vers la gauche la pièce
-		showCoordonnates(t);
-		for (int i = 1; i < DIM; i++){
-			//distance entre le bloc central et le bloc i
-			r = sqrt((t->blocs[i][0]-t->blocs[0][0])*(t->blocs[i][0]-t->blocs[0][0]) +(t->blocs[i][1]-t->blocs[0][1])*(t->blocs[i][1]-t->blocs[0][1]));
-			//calcul de l'angle
-			if (t->blocs[i][0]!=t->blocs[0][0] && t->blocs[i][1]!=t->blocs[0][1]){
-				alpha = atan((t->blocs[i][1]-t->blocs[0][1])/(t->blocs[i][0]-t->blocs[0][0]));
-			}else{
-				alpha = acos((t->blocs[i][1]-t->blocs[0][1])/r);//Trigo sin(alpha)=opposé(y)/r
-			}
-			//ajout de pi/2
-			alpha += 3.14/2;
-			
-			t->blocs[i][0] = FLOAT_TO_INT(r*cos(alpha))+t->blocs[0][0];
 	
-			t->blocs[i][1] = FLOAT_TO_INT(r*sin(alpha))+t->blocs[0][1];
-
-			printf("alpha = %.2f  r = %.2f\n",alpha,r);
-			printf("x = %.2f  y = %.2f --->  ",r*cos(alpha),r*sin(alpha));
-			printf("x = %d  y = %d\n",t->blocs[i][0],t->blocs[i][1]);
-			printf("\n");
-			
+	if (t->isalive && isNotBorderL(t) && isNotBorderR(t)){
+	//On calcule les distances x et y du centre du tetromino pour déplacer tous les blocs en haut à gauche de la grille pour faire comme si il se trouvait dans un tableau de 5 par 5,
+	//ensuite on change les coordonnées pour tourner le tétromino, puis on redéplace tous les blocs à l'endroit initial grâce à dx et dy
+	if (rotation == 5){ //tourne de 90 degrés vers la gauche la pièce
+		for (int i = DIM-1; i >=0; i--){
+			dx = 2-t->blocs[0][0]; //distance entre le centre du tetromino et le point (2,2)
+			dy = 2-t->blocs[0][1]; //distance entre le centre du tetromino et le point (2,2)
+			posx = t->blocs[i][0]+dx;
+			posy = t->blocs[i][1]+dy;
+			temp = posy;
+			posy = posx;
+			posx = DIM - temp -1;
+			if (posx>=0 && posx<LINE && posy>=0 && posy<COL){
+				t->blocs[i][0] = posx-dx;
+				t->blocs[i][1] = posy-dy;
+			}else{
+				return;
+			}
 		}
-		showCoordonnates(t);
 	}
+
 	else if (rotation == 1){ //tourne de 90 degrés vers la droite la pièce
-		for (int i = 0; i < DIM; i++){
-			temp = t->blocs[i][1];
-			t->blocs[i][1] = t->blocs[i][0];
-			t->blocs[i][0] = DIM - temp -1;
+		//Même chose mais dans l'autre sens
+		for (int i = DIM-1; i >=0; i--){
+			dx = 2-t->blocs[0][0];
+			dy = 2-t->blocs[0][1];
+			posx = t->blocs[i][0]+dx;
+			posy = t->blocs[i][1]+dy;
+			temp = posx;
+			posx = posy;
+			posy = DIM - temp -1;
+			if (posx>=0 && posx<LINE && posy>=0 && posy<COL){
+				t->blocs[i][0] = posx-dx;
+				t->blocs[i][1] = posy-dy;
+			}
 		}
 	}
 	}

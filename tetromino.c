@@ -1,17 +1,20 @@
 #include "fichier.h"
 
 //Construit une structure Tetromino à partir d'un double tableau de caractère représentant le dessin du tetromino
+//Elle remplit le tableau "blocs" avec les coordonnées de chaque bloc (représenté par un 1)
+//Le premier élément du tableau blocs contient toujours les coordonnées du bloc central (2,2)
+//Si le programme détecte que la pièce dessinée ne contient pas de bloc central (si la case (2,2) est un 0), celui-ci renvoie une erreur et s'arrête 
 Tetromino tetrominoConstructor(char tab[DIM][DIM]){
     Tetromino t;
     int n = 1;
-    if (tab[2][2]==' '){
+    if (tab[2][2]=='0'){
         exit(1);
     }
     t.blocs[0][0] = 2;
     t.blocs[0][1] = 2;
     for (int i = 0; i<DIM; i++){
         for (int j = 0; j<DIM; j++){
-            if (tab[i][j]=='#'&&(i!=2 || j!=2)){
+            if (tab[i][j]=='1'&&(i!=2 || j!=2)){
                 t.blocs[n][0] = i;
                 t.blocs[n][1] = j;
                 n++;
@@ -42,7 +45,9 @@ int isNotBorderR(Tetromino *t){
     return 1;
 
 }
-//renvoie 1 si le tetromino est toujours "en vie"
+//Renvoie 1 si le tetromino est toujours "en vie"
+//Cette fonction, contrairement aux deux précédentes ne va pas vérifier directement les coordonnées du Tétromino mais vérifie si celui-ci, avec le déplacement du vecteur, ne touche pas le sol ou
+//s'il ne touche pas un tétromino déjà "mort" représenté par des 2 dans le tableau principal 
 int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL]){
     if (t == NULL || tab == NULL){
         exit(1);
@@ -71,7 +76,7 @@ int move_t(Tetromino *t,Vecteur v){
 
 
 
-//Place le Tetromino dans le tableau principal
+//Place le Tetromino dans le tableau principal à l'aide des coordonnées contenues dans le double tableau "blocs"
 void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v){
     stillAlive(t,v,tab);
     if (((v.y<=0 && isNotBorderL(t)) || (v.y>=0 && isNotBorderR(t))) && t->isalive){
@@ -80,11 +85,7 @@ void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v){
     
     if (t->isalive){
         for (int i = 0; i<DIM; i++){
-            
-            tab[t->blocs[i][0]][t->blocs[i][1]] = 1;
-        
-                
-            
+            tab[t->blocs[i][0]][t->blocs[i][1]] = 1;  
         }
 
     }else{
@@ -95,7 +96,7 @@ void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v){
     
 }
 
-//Affiche les coordonnées du Tétromino
+//Affiche les coordonnées des blocs du Tétromino pour les tests
 void showCoordonnates(Tetromino *t){
     for (int i=0; i<DIM; i++)
     {

@@ -12,7 +12,7 @@ all: $(PROG)
 #Compilation du programme
 $(PROG): $(SRC) fichier.h
 	
-	gcc -Wall -o $(PROG) $(SRC) -lm -lSDL2main -lSDL2
+	gcc -Wall -o $(PROG) $(SRC) -lm
 
 #Nettoyage
 clean:

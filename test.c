@@ -1,20 +1,18 @@
+#include <errno.h>
+#include "structs.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+#include <string.h>
 #include <time.h>
-
+#include <unistd.h>
+//Les dimensions de la grille principale
 #define COL 10
 #define LINE 10
-
-typedef struct{
-    int x;
-    int y;
-}Vecteur;
-
-typedef struct{
-    int blocs[5][2];
-    int isalive;
-
-}Tetromino;
+//Le nombre de pièces
+#define NOMBRE_PIECES 7
+//Le nombre de blocs composant chaque pièce
+#define DIM 5
 
 
 Tetromino tetrominoConstructor(char tab[5][5]){

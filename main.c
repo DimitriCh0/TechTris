@@ -28,6 +28,7 @@ int main(){
     while(1){
     	n = key_input();
         v = keyToVect(n);
+        rotation(n,&test);
         place_t(&test,tab_principal,v);
         draw(tab_principal,grille);
         display(grille);

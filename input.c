@@ -1,6 +1,10 @@
 #include "fichier.h"
+//CONTROLES : A pour tourner vers la gauche la pièce, E pour la tourner vers la droite, S pour la faire descendre de 1, Q et D pour la déplacer respectivement vers la gauche ou vers la droite de 1
+
 
 //Détecte quand on appuie sur une touche du clavier et renvoie un entier en fonction de la touche sur laquelle on appuie
+//Il faut pour l'instant appuyer sur la touche Entrée pour que ça marche
+//Cela marche avec les majuscules et les minuscules
 int key_input()
 {
     char c;
@@ -42,7 +46,8 @@ int key_input()
     return 0;
 }
 
-//Renvoie un vecteur différent en fonction de l'entier pris en argument : 2: <-  3: ->  4: \/
+//Renvoie un vecteur différent en fonction de l'entier pris en argument : 2: vers la gauche (0,-1) 3: vers la droite (0,1)  4: vers le bas (1,0)
+//Elle ne sert qu'à traduire ce que renvoie la fonction "key_input" en vecteur on peut le faire en une seule fonction mais ce serait un peu long avec les majuscules
 Vecteur keyToVect(int r)
 {
     Vecteur v;

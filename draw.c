@@ -1,6 +1,6 @@
 #include "fichier.h"
 
-//dessine dans le terminal la grille avec les tetrominos
+//Affiche dans le terminal la grille avec les tetrominos
 void display(char tab[LINE][COL]){
     for (int i = 0; i<LINE; i++){
         for (int j = 0; j<COL; j++){
@@ -9,7 +9,7 @@ void display(char tab[LINE][COL]){
         printf("\n");
     }
 }
-//dessine un double tableau d'entiers
+//Affiche dans le terminal un double tableau d'entiers
 void display_int(int tab[LINE][COL]){
     for (int i = 0; i<LINE; i++){
         for (int j = 0; j<COL; j++){
@@ -18,7 +18,7 @@ void display_int(int tab[LINE][COL]){
         printf("\n");
     }
 }
-//remet à 0 tous les entiers de la grille d'entiers
+//Remet à 0 tous les entiers de la grille d'entiers afin de pouvoir le modifier avec la fonction "place_t"
 void clear(int tab[LINE][COL]){
     for (int i = 0; i<LINE; i++){
         for (int j = 0; j<COL; j++){
@@ -30,7 +30,8 @@ void clear(int tab[LINE][COL]){
     }
 }
 
-//modifie la grille de caractère en fonction du tableau d'entiers
+//Modifie la grille de caractère en fonction du tableau d'entiers (un # si on a un 1, un espace sinon) 
+//*pourra être changée si on veut des pièces d'apparence différente
 void draw(int tab[LINE][COL], char grille[LINE][COL]){
     for (int i = 0; i<LINE; i++){
         for (int j = 0; j<COL; j++){

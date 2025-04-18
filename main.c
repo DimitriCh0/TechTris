@@ -12,11 +12,11 @@ int main(){
     	int n;
         Vecteur v;
     char truc[DIM][DIM] = 
-   {"     ",
-    "  #  ",
-    " ### ",
-    "  #  ",
-    "     "};
+   {"00000",
+    "00100",
+    "01110",
+    "00100",
+    "00000"};
 
     Tetromino test = tetrominoConstructor(truc);
 

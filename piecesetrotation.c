@@ -59,7 +59,7 @@ void rotation(int rotation, Tetromino *t){ // rotation : 4 si gauche, 5 si droit
 	}
 	
 	if (t->isalive && isNotBorderL(t) && isNotBorderR(t)){
-	//On calcule les distances x et y du centre du tetromino pour déplacer tous les blocs en haut à gauche de la grille pour faire comme si il se trouvait dans un tableau de 5 par 5,
+	//On calcule les distances x et y du centre du tetromino pour déplacer tous les blocs en haut à gauche de la grille pour faire comme s'il se trouvait dans un tableau de 5 par 5,
 	//ensuite on change les coordonnées pour tourner le tétromino, puis on redéplace tous les blocs à l'endroit initial grâce à dx et dy
 	if (rotation == 5){ //tourne de 90 degrés vers la gauche la pièce
 		for (int i = DIM-1; i >=0; i--){

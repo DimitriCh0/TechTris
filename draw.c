@@ -8,6 +8,7 @@ void display(char tab[LINE][COL]){
         }
         printf("\n");
     }
+    printf("*******************\n");
 }
 //Affiche dans le terminal un double tableau d'entiers
 void display_int(int tab[LINE][COL]){
@@ -42,4 +43,11 @@ void draw(int tab[LINE][COL], char grille[LINE][COL]){
             }
         }
     }
+}
+
+//Permet de rassembler toutes les fonctions qui modifie le terminal en une seule
+void refresh(char grille[LINE][COL], int tab[LINE][COL]){
+    system("clear");
+    clear(tab);
+    display(grille);
 }

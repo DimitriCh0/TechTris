@@ -7,6 +7,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <termios.h>
+#include <fcntl.h>
 
 //CONSTANTES
 //Le nombre de pièces (Tétrominos)
@@ -33,6 +34,7 @@ void display(char tab[LINE][COL]);
 void display_int(int tab[LINE][COL]);
 void clear(int tab[LINE][COL]);
 void draw(int tab[LINE][COL], char grille[LINE][COL]);
+void refresh(char grille[LINE][COL], int tab[LINE][COL]);
 //Rotation et pièces
 void rotation(int rotation, Tetromino *t);
 char*** pieces();

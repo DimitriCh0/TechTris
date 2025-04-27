@@ -1,6 +1,6 @@
 #include "fichier.h"
 
-
+//Procédure qui crée les tétrominos à partir du fichier pieces.txt
 void creation_tetrominos(Tetromino *t){
     printf("Construction des Tétrominos...\n");
     if (t == NULL){
@@ -10,9 +10,10 @@ void creation_tetrominos(Tetromino *t){
     for (int i = 0; i<NOMBRE_PIECES; i++){
         tetrominoConstructor(*(liste+i),t+i);
     }
+    free(liste);
    
 }
-
+//Fonction qui a le rôle de vérifier si une ligne est pleine
 int scoreGrille(int *tab){
     int cpt=0;
     for(int i=0;i<COL;i++){
@@ -26,6 +27,7 @@ int scoreGrille(int *tab){
     return 0;
 }
 
+//Exécution du code principal du jeu
 void jeu_tetris(){
     int tab_principal[LINE][COL] = {0};
     char grille[LINE][COL];
@@ -91,6 +93,7 @@ void jeu_tetris(){
         
         sleep(1);
     }
+    free(liste_t);
     system("clear");
     printf("\nGAME OVER\n");
     wait_for_enter();

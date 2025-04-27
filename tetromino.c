@@ -11,12 +11,12 @@ void tetrominoConstructor(char **tab, Tetromino *t){
         exit(1);
     }
     t->blocs[0][0] = 2;
-    t->blocs[0][1] = 2+COL/2-1;
+    t->blocs[0][1] = 2+COL/2-2;
     for (int i = 0; i<DIM; i++){
         for (int j = 0; j<DIM; j++){
             if (tab[i][j]=='1'&&(i!=2 || j!=2)){
                 t->blocs[n][0] = i;
-                t->blocs[n][1] = j+COL/2-1;
+                t->blocs[n][1] = j+COL/2-2;
                 n++;
             }
         }
@@ -104,10 +104,11 @@ void reset_piece(Tetromino *t){
 	int dy = 2-t->blocs[0][1]; //distance entre le centre du tetromino et le point (2,2)
     for (int i=0; i<DIM; i++){
         t->blocs[i][0]+=dx;
-        t->blocs[i][1]+=dy+COL/2-1;
+        t->blocs[i][1]+=dy+COL/2-2;
     }
 }
 
+//Cette procédure supprime une ligne en mettant toutes les valeurs à 0
 void clear_line(int tab[LINE][COL], int nb){
         for (int j = 0; j<COL; j++){
             tab[nb][j] = 0;

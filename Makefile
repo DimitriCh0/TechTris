@@ -3,7 +3,7 @@ PROG = projet
 
 
 #Sources
-SRC = main.c input.c tetromino.c draw.c
+SRC = menu.c piecesetrotation.c atelier.c
 
 #Règle par défaut : compile et exécute
 all: $(PROG)
@@ -12,7 +12,7 @@ all: $(PROG)
 #Compilation du programme
 $(PROG): $(SRC) fichier.h
 	
-	gcc -Wall -o $(PROG) $(SRC) -lSDL2main -lSDL2
+	gcc -Wall -o $(PROG) $(SRC) -lm
 
 #Nettoyage
 clean:

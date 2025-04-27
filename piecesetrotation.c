@@ -24,8 +24,12 @@ char*** pieces(){
 			}
 		}
 	}
+	return liste_pieces;
+}
+
+char*** lecture(char ***liste_pieces){
 	FILE* fichier = NULL;
-	fichier = fopen("pieces.txt","r+");
+	fichier = fopen("piecesdefault.txt","r+");
 	if (fichier == NULL){
 		printf("Ouverture du fichier impossible \n");
 		printf("Code erreur = %d \n", errno);
@@ -115,14 +119,3 @@ void affichepiece(char **piece){
 	}
 }
 
-
-int main(){
-	char ***liste = pieces();
-	//afficheliste(liste);
-	char** piece = *(liste);
-	affichepiece(piece);
-	printf("\n");
-	rotation(4,piece);
-	affichepiece(piece);
-	return 0;
-}

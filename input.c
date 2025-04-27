@@ -4,6 +4,21 @@
 
 //Détecte quand on appuie sur une touche du clavier et renvoie un entier en fonction de la touche sur laquelle on appuie
 
+int get_input() {
+	struct termios oldt, newt;
+	int ch;
+
+	tcgetattr(STDIN_FILENO, &oldt);           // Sauvegarder config actuelle
+	newt = oldt;
+	newt.c_lflag &= ~(ICANON | ECHO);         // Mode non canonique + pas d'écho
+	tcsetattr(STDIN_FILENO, TCSANOW, &newt);  // Appliquer
+
+	ch = getchar();                           // Lire une touche
+
+	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);  // Restaurer config
+	return ch;
+}
+
 //Cela marche avec les majuscules et les minuscules
 int key_input()
 {
@@ -13,11 +28,12 @@ int key_input()
     fcntl(STDIN_FILENO, F_SETFL, flags | O_NONBLOCK); //O_NONBLOCK dit à getchar() de ne pas attendre si rien n'est dispo.
 
     char c;
-    c = getchar();
+    c = get_input();
+    fcntl(STDIN_FILENO, F_SETFL, flags); // On remet stdin en mode bloquant (stdin étant la variable associée au terminal)
     if (c==EOF){
         return 0; //On return 0 si getchar ne détecte rien
     }
-    fcntl(STDIN_FILENO, F_SETFL, flags); // On remet stdin en mode bloquant (stdin étant la variable associée au terminal)
+   
 
     switch(c){
         case 'a':

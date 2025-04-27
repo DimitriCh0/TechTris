@@ -4,25 +4,26 @@
 //Elle remplit le tableau "blocs" avec les coordonnées de chaque bloc (représenté par un 1)
 //Le premier élément du tableau blocs contient toujours les coordonnées du bloc central (2,2)
 //Si le programme détecte que la pièce dessinée ne contient pas de bloc central (si la case (2,2) est un 0), celui-ci renvoie une erreur et s'arrête 
-Tetromino tetrominoConstructor(char **tab){
-    Tetromino t;
+void tetrominoConstructor(char **tab, Tetromino *t){
+   
     int n = 1;
     if (tab[2][2]=='0'){
         exit(1);
     }
-    t.blocs[0][0] = 2;
-    t.blocs[0][1] = 2;
+    t->blocs[0][0] = 2;
+    t->blocs[0][1] = 2+COL/2-1;
     for (int i = 0; i<DIM; i++){
         for (int j = 0; j<DIM; j++){
             if (tab[i][j]=='1'&&(i!=2 || j!=2)){
-                t.blocs[n][0] = i;
-                t.blocs[n][1] = j;
+                t->blocs[n][0] = i;
+                t->blocs[n][1] = j+COL/2-1;
                 n++;
             }
         }
     }
-    t.isalive = 1;
-    return t;
+    t->isalive = 1;
+    
+    
 }
 
 //Renvoie 1 si le Tetromino ne touche pas la bordure gauche
@@ -94,6 +95,48 @@ void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v){
         }
     }
     
+}
+
+//Permet de remmettre les paramètres de base d'une pièce dans le cadre d'un jeu continu
+void reset_piece(Tetromino *t){
+    t->isalive = 1;
+    int dx = 2-t->blocs[0][0]; //distance entre le centre du tetromino et le point (2,2)
+	int dy = 2-t->blocs[0][1]; //distance entre le centre du tetromino et le point (2,2)
+    for (int i=0; i<DIM; i++){
+        t->blocs[i][0]+=dx;
+        t->blocs[i][1]+=dy+COL/2-1;
+    }
+}
+
+void clear_line(int tab[LINE][COL], int nb){
+        for (int j = 0; j<COL; j++){
+            tab[nb][j] = 0;
+    }
+    
+}
+
+//Fait descendre tous les blocs de tétrominos "mort" d'un nombre correspondant au nombre de lignes que l'on a supprimées
+void gravitation(int tab[LINE][COL], int d, int start){
+    if(d!=0){
+    for (int i=start; i>=0; i--){
+        for (int j=0; j<COL; j++){
+            if (tab[i][j]==2){
+                tab[i][j] = 0;
+                tab[i+d][j] = 2;
+            }
+        }
+    }
+   
+    }
+}
+//Arrête le jeux si les blocs ont atteint le haut de la grille 
+int game_over(int tab[LINE][COL], Tetromino *t){
+    for (int i = 0; i<DIM;i++){
+       if (tab[t->blocs[i][0]][t->blocs[i][1]] == 2){
+            return 1;
+       }
+    }
+    return 0;
 }
 
 //Affiche les coordonnées des blocs du Tétromino pour les tests

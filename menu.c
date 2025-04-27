@@ -33,27 +33,27 @@ void print_colored(const char *text, int highlight) {
 
 
 void wait_for_enter() {
-	printf("\nAppuie sur Entrée pour continuer...");
+	printf("\nAppuie sur Entrée pour continuer..."); 
 	getchar();
 }
 
-void tetris() {
+void tetris() { //Implémenter le tetris
 	system("clear");
 	printf("Tetris");
 	wait_for_enter();
 }
 
-void scoreboard() {
+void scoreboard() { //Afficher le scoreboard
 	system("clear");
 	printf("Scoreboard");
 	wait_for_enter();
 }
 
-void dessin() {
+void dessin() { //Lance la procédure permettant de dessiner les pièces
 	atelier();
 }
 
-void avantdessin() {
+void avantdessin() { //Affiche le règlement pour dessiner les pièces (à finir)
 	system("clear");
 	printf("Bienvenue dans le menu pour dessiner tes pieces ! \n");
 	printf("Quelques regles avant de commencer : \n");
@@ -64,7 +64,7 @@ void avantdessin() {
 
 
 int main() {
-	int selected = 0;
+	int selected = 0; //Savoir où se trouve le "curseur"
 	int input;
 
 	while (1) {
@@ -73,7 +73,7 @@ int main() {
 		print_colored("===== MENU =====", 0);
 		printf("\n");
 
-		for (int i = 0; i < NUM_OPTIONS; i++) {
+		for (int i = 0; i < NUM_OPTIONS; i++) { //Affiche les options du menu
 		    print_colored(options[i], i == selected);
 		}
 
@@ -81,13 +81,14 @@ int main() {
 
 		input = get_input();
 
-		if (input == 'z' || input == 'Z') {
+		// Se déplacer
+		if (input == 'z' || input == 'Z') { 
 			selected = (selected - 1 + NUM_OPTIONS) % NUM_OPTIONS;
 		} 
 		else if (input == 's' || input == 'S') {
 			selected = (selected + 1) % NUM_OPTIONS;
 		} 
-		else if (input == 'e' || input == 'E') {
+		else if (input == 'e' || input == 'E') { //Selectionner
 			switch (selected) {
 		        	case 0:
 		            		tetris();

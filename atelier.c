@@ -4,7 +4,7 @@
 const char *options2[] = {"Piece precedente","Quitter l'Atelier","Defaut","Enregistrer","Piece suivante"};
 #define NUM_OPTIONS2 (sizeof(options2) / sizeof(char*))
 
-void print_tab(char ligne, int highlight) {
+void print_tab(char ligne, int highlight) { //Naviguer dans la grille du dessin de la piece
 	if (highlight) {
         	printf("  \033[1;32m%c\033[0m", ligne); // Texte vert si sélectionné
 	} 
@@ -13,7 +13,7 @@ void print_tab(char ligne, int highlight) {
 	}
 }
 
-void print_colored2(const char *text, int highlight) {
+void print_colored2(const char *text, int highlight) { //Naviguer dans les options sous la grille
 	if (highlight) {
         	printf("> \033[1;32m%s\033[0m < ", text); // Texte vert si sélectionné
 	} 
@@ -27,7 +27,7 @@ void enregistrement(){
 }
 
 void atelier(){
-	char*** piecesedited = NULL;
+	char*** piecesedited = NULL; //Créer un tableau de tableau à 2 dimensions rempli de '\0' qui contiendra les dessins
 	piecesedited = calloc(NOMBRE_PIECES,sizeof(char**)); 		//Créer le tableau qui contiendra chaque pièce (une pièce étant un tableau a 2 dimensions)
 	if (piecesedited == NULL){
 		exit(10);
@@ -50,12 +50,12 @@ void atelier(){
 				piecesedited[p][i][j] = '0';
 			}
 		}
-		piecesedited[p][DIM/2][DIM/2] = '1';
+		piecesedited[p][DIM/2][DIM/2] = '1'; //Règle de dessin : le bloc au centre est forcément fixe
 	}
 
 	int selected = 0;
 	int input;
-	int piece = 0;
+	int piece = 0; //Savoir quelle pièce on dessine parmi les 7
 	int t = 1;
 	while (t) {
 		system("clear");
@@ -78,7 +78,8 @@ void atelier(){
 		printf("\nUtilise Z (haut), S (bas), D (droite), Q (gauche), E (valider)\n");
 
 		input = get_input();
-
+		
+		//Se déplacer
 		if (input == 'z' || input == 'Z') {
 			if ((selected - DIM) >= 0){
 				selected = selected - DIM;
@@ -98,14 +99,14 @@ void atelier(){
 		else if (input == 'e' || input == 'E') {
 			switch (selected) {
 				case((NUM_CASE-1) / 2):
-					break;
+					break; //Bloquer la modification du bloc au milieu
 		        	case (NUM_CASE):
 		            		if (piece - 1 >= 0){
-		            			piece --;
+		            			piece --; //Changer de pièce à modifier
 		            		}
 		            		break;
 		        	case (NUM_CASE+1):
-		            		t = 0;
+		            		t = 0; //Quitter l'Atelier
 		            		break;
 		        	case (NUM_CASE+2):
 		            		
@@ -115,7 +116,7 @@ void atelier(){
 					break;
 				case (NUM_CASE+4):
 					if (piece + 1 < 7){
-		            			piece ++;
+		            			piece ++; //Changer de pièce à modifier
 		            		}
 					break;
 				default:

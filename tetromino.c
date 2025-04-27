@@ -4,7 +4,7 @@
 //Elle remplit le tableau "blocs" avec les coordonnées de chaque bloc (représenté par un 1)
 //Le premier élément du tableau blocs contient toujours les coordonnées du bloc central (2,2)
 //Si le programme détecte que la pièce dessinée ne contient pas de bloc central (si la case (2,2) est un 0), celui-ci renvoie une erreur et s'arrête 
-Tetromino tetrominoConstructor(char tab[DIM][DIM]){
+Tetromino tetrominoConstructor(char **tab){
     Tetromino t;
     int n = 1;
     if (tab[2][2]=='0'){

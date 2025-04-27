@@ -28,7 +28,7 @@ char*** pieces(){ //procedure qui crée un tableau utilisé pour la lecture des 
 	return liste_pieces;
 }
 
-char*** lecture(char*** liste_pieces,int var){
+void lecture(char*** liste_pieces,int var){
 	FILE* fichier = NULL;
 	if (var){
 		fichier = fopen("piecesedited.txt","r+");
@@ -69,7 +69,7 @@ char*** lecture(char*** liste_pieces,int var){
 		}
 	}
 	fclose(fichier);
-	return liste_pieces;
+	
 }
 
 void liberer_pieces(char*** liste_pieces){
@@ -315,7 +315,7 @@ int menu_defaut(char *** pieces_dessinees){
 					statut = 1;
 					break;
 		        	case 1:
-		            		pieces_dessinees=lecture(pieces_dessinees,0);
+		            		lecture(pieces_dessinees,0);
 		            		enregistrement(pieces_dessinees);
 		            		liberer_pieces(pieces_dessinees);
 		            		t=0;

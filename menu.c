@@ -39,13 +39,25 @@ void wait_for_enter() {
 
 void tetris() { //Implémenter le tetris
 	system("clear");
-	printf("Tetris");
+	Joueur J = constru();
 	wait_for_enter();
+	//jeu_tetris();
 }
 
 void scoreboard() { //Afficher le scoreboard
 	system("clear");
-	printf("Scoreboard");
+	printf(" Scoreboard\n\n");
+	printf(" Pseudo  Score  Difficulte \n");
+	FILE* fichier = NULL;
+	fichier = fopen("scoreboard.txt","r+");
+	if (fichier == NULL){
+		printf("Ouverture du fichier impossible \n");
+		printf("Code erreur = %d \n", errno);
+		printf("Message erreur = %s \n", strerror(errno));
+		exit (1);
+	}
+	lire_scoreboard(fichier);
+	fclose(fichier);
 	wait_for_enter();
 }
 
@@ -79,14 +91,15 @@ void affichagepieces(){
 	wait_for_enter();
 }
 
-int main() {
+void display_menu() {
 	int selected = 0; //Savoir où se trouve le "curseur"
 	int input;
+	int t = 1;
 	char*** pieces_dessinees = pieces();
-	pieces_dessinees=lecture(pieces_dessinees,0);
+	lecture(pieces_dessinees,0);
 	enregistrement(pieces_dessinees);
 	liberer_pieces(pieces_dessinees);
-	while (1) {
+	while (t) {
 		system("clear");
 		printf("\n\n\n");
 		printf(" _____ _____ _____ _____ _ ______  \n");
@@ -130,11 +143,11 @@ int main() {
 				case 4:
 					system("clear");;
 					print_colored("À bientôt !", 0);
-					return 0;
+					t = 0;
+					break;
 		    }
 		}
 	}
 
-    return 0;
 }
 

@@ -93,9 +93,10 @@ void jeu_tetris(){
         
         sleep(1);
     }
-    free(liste_t);
+    
     system("clear");
     printf("\nGAME OVER\n");
     wait_for_enter();
+    free(liste_t);
 	
 }

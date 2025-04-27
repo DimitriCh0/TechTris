@@ -101,12 +101,12 @@ void afficheliste(char ***liste_pieces){
 }
 
 
-/*void affichepiece(char **piece){
+void affichepiece(char **piece){
 	for (int j = 0; j<DIM;j++){
 		printf("%s",piece[j]);
 		printf("\n");		
 	}
-}*/
+}
 
 
 void print_tab(char ligne, int highlight) { //Naviguer dans la grille du dessin de la piece

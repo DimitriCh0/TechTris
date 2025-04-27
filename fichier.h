@@ -62,6 +62,7 @@ char*** pieces(); // Création de tableau
 void lecture(char*** liste_pieces, int var); // Remplissage de tableau
 void liberer_pieces(char*** liste_pieces); // Libération de mémoire
 void afficheliste(char ***liste_pieces); 
+void affichepiece(char **piece);
 //int scoreGrille(int *tab);
 
 //Scoreboard

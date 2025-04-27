@@ -3,7 +3,7 @@ PROG = projet
 
 
 #Sources
-SRC = menu.c piecesetrotation.c atelier.c
+SRC = menu.c atelier.c
 
 #Règle par défaut : compile et exécute
 all: $(PROG)

@@ -2,7 +2,7 @@
 
 
 
-const char *options[] = {"Jouer","Scoreboard","Atelier","Quitter"};
+const char *options[] = {"Jouer","Scoreboard","Atelier","Pieces","Quitter"};
 #define NUM_OPTIONS (sizeof(options) / sizeof(char*))
 
 // Lecture d'une touche sans attendre Enter
@@ -16,7 +16,7 @@ int get_input() {
 	tcsetattr(STDIN_FILENO, TCSANOW, &newt);  // Appliquer
 
 	ch = getchar();                           // Lire une touche
-
+	
 	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);  // Restaurer config
 	return ch;
 }
@@ -33,7 +33,7 @@ void print_colored(const char *text, int highlight) {
 
 
 void wait_for_enter() {
-	printf("\nAppuie sur Entrée pour continuer..."); 
+	printf("\n\nAppuie sur Entrée pour continuer..."); 
 	getchar();
 }
 
@@ -56,20 +56,45 @@ void dessin() { //Lance la procédure permettant de dessiner les pièces
 void avantdessin() { //Affiche le règlement pour dessiner les pièces (à finir)
 	system("clear");
 	printf("Bienvenue dans le menu pour dessiner tes pieces ! \n");
-	printf("Quelques regles avant de commencer : \n");
+	printf("Quelques regles avant de commencer : \n\n");
+	printf(" - Vous avez 7 pieces a dessiner. \n\n");
+	printf(" - Il y a un bloc placé par défaut, celui du centre. \n\n");
+	printf(" - Vous disposez de 4 blocs à placer pour créer votre propre piece. \n\n");
+	printf(" - Il n'est pas obligatoire d'utiliser les 4 blocs. \n\n");
+	printf(" - A partir du bloc que vous placez, vous devez pouvoir acceder au centre de la piece. \n\n");
+	printf(" - 'Defaut' permet de jouer avec les pieces de base de Tetris. \n\n");
+	printf(" - 'Enregistrer' permet de sauvegarder vos pieces apres les avoir dessiner. \n\n");
+	printf(" - ATTENTION une fois sauvegardée, vous ne pourrez pas remodifier les pieces si vous quittez l'Atelier. \n\n");
 	wait_for_enter();
 	dessin();
 }
 
-
+void affichagepieces(){
+	system("clear");
+	printf("Voici les pieces avec lesquelles vous allez jouer !\n\n");
+	char *** piecesactives=pieces();
+	lecture(piecesactives,1);
+	afficheliste(piecesactives);
+	liberer_pieces(piecesactives);
+	wait_for_enter();
+}
 
 int main() {
 	int selected = 0; //Savoir où se trouve le "curseur"
 	int input;
-
+	char*** pieces_dessinees = pieces();
+	pieces_dessinees=lecture(pieces_dessinees,0);
+	enregistrement(pieces_dessinees);
+	liberer_pieces(pieces_dessinees);
 	while (1) {
 		system("clear");
 		printf("\n\n\n");
+		printf(" _____ _____ _____ _____ _ ______  \n");
+    		printf("|_   _|  ___|_   _|  _  | |      | \n");
+    		printf("  | | | |___  | | | |_| | |  ____| \n");
+    		printf("  | | |  ___| | | |    _| |____  | \n");
+    		printf("  | | | |___  | | | || || |      | \n");
+    		printf("  |_| |_____| |_| |_| |_|_|______| \n\n\n");
 		print_colored("===== MENU =====", 0);
 		printf("\n");
 
@@ -99,7 +124,10 @@ int main() {
 		        	case 2:
 		            		avantdessin();
 		            		break;
-				case 3:
+		            	case 3:
+		            		affichagepieces();
+		            		break;
+				case 4:
 					system("clear");;
 					print_colored("À bientôt !", 0);
 					return 0;

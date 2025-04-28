@@ -14,7 +14,7 @@ int get_input() {
 	tcsetattr(STDIN_FILENO, TCSANOW, &newt);  // Appliquer
 
 	ch = getchar();                           // Lire une touche
-
+	
 	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);  // Restaurer config
 	return ch;
 }
@@ -34,7 +34,7 @@ int key_input()
         return 0; //On return 0 si getchar ne détecte rien
     }
    
-
+    
     switch(c){
         case 'a':
             return 5;

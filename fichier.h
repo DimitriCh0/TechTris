@@ -16,21 +16,21 @@
 #define DIM 5
 //Les dimensions de la grille principale
 #define COL 10
-#define LINE 10
+#define LINE 20
 
 //Fonctions et procédures
 //Tétrominos
 void tetrominoConstructor(char **tab, Tetromino *t);
-int move_t(Tetromino *t,Vecteur v);
-void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v);
-int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL]);
-int isNotBorderR(Tetromino *t);
-int isNotBorderL(Tetromino *t);
-void reset_piece(Tetromino *t);
+int move_t(Tetromino *t,Vecteur v,int n);
+void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v, int n);
+int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL], int n);
+int isNotBorderR(Tetromino *t, int n);
+int isNotBorderL(Tetromino *t, int n);
+void reset_piece(Tetromino *t, int n);
 //Fonctions du jeu
 void clear_line(int tab[LINE][COL], int nb);
 void gravitation(int tab[LINE][COL], int d, int start);
-int game_over(int tab[LINE][COL], Tetromino *t);
+int game_over(int tab[LINE][COL], Tetromino *t, int n);
 //Inputs
 int get_input();
 int key_input();
@@ -42,7 +42,7 @@ void clear(int tab[LINE][COL]);
 void draw(int tab[LINE][COL], char grille[LINE][COL]);
 void refresh(char grille[LINE][COL], int tab[LINE][COL]);
 //Rotation et pièces
-void rotation(int rotation, Tetromino *t);
+void rotation(int rotation, Tetromino *t,int n);
 void affichepiece(char **piece);
 //Création des pièces
 char*** pieces();

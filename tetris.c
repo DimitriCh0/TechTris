@@ -10,7 +10,7 @@ void creation_tetrominos(Tetromino *t){
     for (int i = 0; i<NOMBRE_PIECES; i++){
         tetrominoConstructor(*(liste+i),t+i);
     }
-    free(liste);
+    //free(liste);
    
 }
 //Fonction qui a le rôle de vérifier si une ligne est pleine
@@ -54,26 +54,26 @@ void jeu_tetris(){
         
         
         if (!(liste_t[tour].isalive)){
-            reset_piece(liste_t+tour);
+            reset_piece(liste_t+tour,liste_t[tour].nb_blocs);
             do{
                 tour = rand()%NOMBRE_PIECES;
             }while(tour==tour_pre);
             tour_pre = tour;
         }
-        if (game_over(tab_principal,liste_t+tour)){
+        if (game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs)){
             
             break;
         }
         
     	n = key_input(); //On appelle key_input()
-        
+        //while(getchar()!='\n');
         if (n!=0){
             v = keyToVect(n);
-            rotation(n,liste_t+tour);
-            place_t(liste_t+tour,tab_principal,v);
+            rotation(n,liste_t+tour,liste_t[tour].nb_blocs);
+            place_t(liste_t+tour,tab_principal,v,liste_t[tour].nb_blocs);
             n=0;
         }else{
-            place_t(liste_t+tour,tab_principal,d);
+            place_t(liste_t+tour,tab_principal,d,liste_t[tour].nb_blocs);
         }
         
         draw(tab_principal,grille);

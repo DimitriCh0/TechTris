@@ -1,5 +1,5 @@
 #include <errno.h>
-//#include "structs.h"
+#include "structs.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -23,26 +23,21 @@
 #define BLOC_MAX 5
 #define NUM_CASE DIM*DIM
 
-typedef struct{
-    char pseudo[50];
-    int score;
-    int difficulte;
-}Joueur;
 
 
 //Fonctions et procédures
-/*/Tétrominos
+//Tétrominos
 void tetrominoConstructor(char **tab, Tetromino *t);
-int move_t(Tetromino *t,Vecteur v);
-void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v);
-int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL]);
-int isNotBorderR(Tetromino *t);
-int isNotBorderL(Tetromino *t);
-void reset_piece(Tetromino *t);
+int move_t(Tetromino *t,Vecteur v,int n);
+void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v, int n);
+int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL], int n);
+int isNotBorderR(Tetromino *t, int n);
+int isNotBorderL(Tetromino *t, int n);
+void reset_piece(Tetromino *t, int n);
 //Fonctions du jeu
 void clear_line(int tab[LINE][COL], int nb);
 void gravitation(int tab[LINE][COL], int d, int start);
-int game_over(int tab[LINE][COL], Tetromino *t);
+int game_over(int tab[LINE][COL], Tetromino *t, int n);
 //Inputs
 int get_input();
 int key_input();
@@ -54,9 +49,9 @@ void clear(int tab[LINE][COL]);
 void draw(int tab[LINE][COL], char grille[LINE][COL]);
 void refresh(char grille[LINE][COL], int tab[LINE][COL]);
 //Rotation et pièces
-void rotation(int rotation, Tetromino *t);
+void rotation(int rotation, Tetromino *t,int n);
 void affichepiece(char **piece);
-/*/ //Création des pièces
+//Création des pièces
 char*** pieces(); // Création de tableau
 
 void lecture(char*** liste_pieces, int var); // Remplissage de tableau
@@ -68,7 +63,7 @@ void affichepiece(char **piece);
 //Scoreboard
 Joueur constru();
 void lire_scoreboard(FILE *f);
-
+void enregistrement_score(Joueur J);
 
 //Atelier
 void atelier();

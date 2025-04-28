@@ -3,7 +3,7 @@ PROG = projet
 
 
 #Sources
-SRC = menu.c atelier.c scoreboard.c main.c
+SRC = menu.c atelier.c scoreboard.c main.c input.c tetromino.c draw.c piecesetrotation.c tetris.c
 
 #Règle par défaut : compile et exécute
 all: $(PROG)

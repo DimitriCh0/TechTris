@@ -58,6 +58,10 @@ Joueur constru(){
 	    }
     } while (retour != 1 || J.difficulte < 1 || J.difficulte > 4);
     while (getchar() != '\n');
+    return J;
+}
+   
+void enregistrement_score(Joueur J){    
     FILE *f;
     f=fopen("scoreboard.txt","a+");
     if (f == NULL){
@@ -71,7 +75,6 @@ Joueur constru(){
     fprintf(f,"Difficulte :/%d\n",J.difficulte);
     fclose(f);
     system("clear");
-    return J;
 
 }
 

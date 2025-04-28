@@ -5,22 +5,6 @@
 const char *options[] = {"Jouer","Scoreboard","Atelier","Pieces","Quitter"};
 #define NUM_OPTIONS (sizeof(options) / sizeof(char*))
 
-// Lecture d'une touche sans attendre Enter
-int get_input() {
-	struct termios oldt, newt;
-	int ch;
-
-	tcgetattr(STDIN_FILENO, &oldt);           // Sauvegarder config actuelle
-	newt = oldt;
-	newt.c_lflag &= ~(ICANON | ECHO);         // Mode non canonique + pas d'écho
-	tcsetattr(STDIN_FILENO, TCSANOW, &newt);  // Appliquer
-
-	ch = getchar();                           // Lire une touche
-	
-	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);  // Restaurer config
-	return ch;
-}
-
 //surlignage
 void print_colored(const char *text, int highlight) {
 	if (highlight) {
@@ -37,11 +21,11 @@ void wait_for_enter() {
 	getchar();
 }
 
-void tetris() { //Implémenter le tetris
+void tetris() { 
 	system("clear");
 	Joueur J = constru();
-	wait_for_enter();
-	//jeu_tetris();
+	jeu_tetris(&J);
+	enregistrement_score(J);
 }
 
 void scoreboard() { //Afficher le scoreboard

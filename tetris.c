@@ -10,7 +10,7 @@ void creation_tetrominos(Tetromino *t){
     for (int i = 0; i<NOMBRE_PIECES; i++){
         tetrominoConstructor(*(liste+i),t+i);
     }
-    //free(liste);
+   
    
 }
 //Fonction qui a le rôle de vérifier si une ligne est pleine
@@ -66,8 +66,9 @@ void jeu_tetris(){
         }
         
     	n = key_input(); //On appelle key_input()
-        //while(getchar()!='\n');
+        
         if (n!=0){
+	    while(getchar()!=EOF);
             v = keyToVect(n);
             rotation(n,liste_t+tour,liste_t[tour].nb_blocs);
             place_t(liste_t+tour,tab_principal,v,liste_t[tour].nb_blocs);

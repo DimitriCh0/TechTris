@@ -29,8 +29,9 @@ int key_input()
 
     char c;
     c = get_input();
-    fcntl(STDIN_FILENO, F_SETFL, flags); // On remet stdin en mode bloquant (stdin étant la variable associée au terminal)
+    
     if (c==EOF){
+	fcntl(STDIN_FILENO, F_SETFL, flags); // On remet stdin en mode bloquant (stdin étant la variable associée au terminal)
         return 0; //On return 0 si getchar ne détecte rien
     }
    

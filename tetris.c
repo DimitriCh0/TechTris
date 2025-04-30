@@ -1,5 +1,11 @@
 #include "fichier.h"
 
+
+void sleep_ms(float milliseconds)
+{
+    //Convertit les millisecondes en microsecondes
+    usleep(milliseconds * 1000);
+}
 //Procédure qui crée les tétrominos à partir du fichier pieces.txt
 void creation_tetrominos(Tetromino *t){
     printf("Construction des Tétrominos...\n");
@@ -38,6 +44,7 @@ void jeu_tetris(Joueur* J){
     int nombre_lignes = 0;
     int p_ligne = LINE-1;
     int temp;
+    float vitesse = 1;
     Vecteur v;
     Vecteur d;
     d.x = 1;
@@ -69,11 +76,15 @@ void jeu_tetris(Joueur* J){
     	n = key_input(); //On appelle key_input()
         //while(getchar()!='\n');
         if (n!=0){
+	   if (n==4){
+                vitesse = 1/2;
+            }
             v = keyToVect(n);
             rotation(n,liste_t+tour,liste_t[tour].nb_blocs);
             place_t(liste_t+tour,tab_principal,v,liste_t[tour].nb_blocs);
             n=0;
         }else{
+	    vitesse = 1;
             place_t(liste_t+tour,tab_principal,d,liste_t[tour].nb_blocs);
         }
         
@@ -93,7 +104,7 @@ void jeu_tetris(Joueur* J){
         nombre_lignes = 0;
         refresh(grille, tab_principal);
         printf("\n\n Pseudo : %s   |   Score : %d \n",J->pseudo, J->score);
-        sleep(1);
+        sleep_ms(1000*vitesse);
     }
     
     system("clear");

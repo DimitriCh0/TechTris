@@ -61,46 +61,43 @@ void jeu_tetris(Joueur* J){
     while(1){
         
         
-        if (!(liste_t[tour].isalive)){
+        if (!(liste_t[tour].isalive)){ //Quand la pièce actuelle est arrivée en bas, on change de pièce aléatoirement dans la liste_t en veillant à ce qu'elle ne soit pas identique à la précédente
             reset_piece(liste_t+tour,liste_t[tour].nb_blocs);
             do{
                 tour = rand()%NOMBRE_PIECES;
             }while(tour==tour_pre);
             tour_pre = tour;
         }
-        if (game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs)){
-            
+        if (game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs)){ //On vérifie si le jeu n'est pas terminé (quand les pièces atteignent le heut de la grille)
             break;
         }
         
-    	n = key_input(); //On appelle key_input()
-        //while(getchar()!='\n');
+    	n = key_input(); //On appelle key_input() pour savoir si le joueur a appuyé sur une touche
         if (n!=0){
-	   if (n==4){
+	        if (n==4){
                 vitesse = 1/2;
             }
             v = keyToVect(n);
-            rotation(n,liste_t+tour,liste_t[tour].nb_blocs);
+            rotation(n,liste_t+tour,liste_t[tour].nb_blocs,tab_principal);
             place_t(liste_t+tour,tab_principal,v,liste_t[tour].nb_blocs);
             n=0;
         }else{
-	    vitesse = 1;
+	        vitesse = 1;
             place_t(liste_t+tour,tab_principal,d,liste_t[tour].nb_blocs);
         }
         
         draw(tab_principal,grille);
         for(int i = 0; i<LINE; i++){
-            temp = scoreGrille(tab_principal[i]);
-            
+            temp = scoreGrille(tab_principal[i]); //On vérifie si une ligne est pleine
             if (temp){
-                clear_line(tab_principal,i);
+                clear_line(tab_principal,i); //Si c'est le cas, on supprime la ligne en question
                 p_ligne = i;
                 J->score ++;
             }
-            nombre_lignes+=temp;
+            nombre_lignes+=temp; //On additionne temp afin de savoir le nombre de lignes supprimées
             
         }
-        gravitation(tab_principal,nombre_lignes,p_ligne);
+        gravitation(tab_principal,nombre_lignes,p_ligne); //On fait descendre toutes les lignes qui n'ont pas été suprimées
         nombre_lignes = 0;
         refresh(grille, tab_principal);
         printf("\n\n Pseudo : %s   |   Score : %d \n",J->pseudo, J->score);
@@ -109,7 +106,9 @@ void jeu_tetris(Joueur* J){
     
     system("clear");
     printf("\nGAME OVER\n");
+    free(liste_t);
     wait_for_enter();
+    
    
 	
 }

@@ -49,7 +49,7 @@ void clear(int tab[LINE][COL]);
 void draw(int tab[LINE][COL], char grille[LINE][COL]);
 void refresh(char grille[LINE][COL], int tab[LINE][COL]);
 //Rotation et pièces
-void rotation(int rotation, Tetromino *t,int n);
+void rotation(int rotation, Tetromino *t, int n, int tab[LINE][COL]);
 void affichepiece(char **piece);
 //Création des pièces
 char*** pieces(); // Création de tableau

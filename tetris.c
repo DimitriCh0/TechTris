@@ -1,6 +1,8 @@
 #include "fichier.h"
+
 const char *options4[] = {"Quitter","Continuer"};
 #define NUM_OPTIONS4 (sizeof(options4) / sizeof(char*))
+
 void sleep_ms(float milliseconds)
 {
     //Convertit les millisecondes en microsecondes
@@ -137,6 +139,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
     int temp;
     float vitesse = 1;
     int quitter;
+  
     Vecteur v;
     Vecteur d;
     d.x = 1;
@@ -208,6 +211,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
             
         }
         gravitation(tab_principal,nombre_lignes,p_ligne); //On fait descendre toutes les lignes qui n'ont pas été suprimées
+
         refresh(grille, tab_principal,J);
         for (int k = 0;k<nombre_lignes;k++){
         	J->score ++;	
@@ -216,10 +220,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
         enregistrement_partie(tab_principal,J);
         sleep_ms(500*vitesse);
     }
-    
     free(liste_t);
     wait_for_enter();
     
-   
-	
 }

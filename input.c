@@ -67,6 +67,9 @@ int key_input()
         case 'S':
             return 4;
             break;
+        case 27 :
+            return 8;
+            break;
         default:
             break;
     }

@@ -1,9 +1,3 @@
 Pseudo :#Dimitri
-Score :&3
-Difficulte :/1
-Pseudo :#Damatrious
-Score :&0
-Difficulte :/1
-Pseudo :#Damatrious
 Score :&1
 Difficulte :/1

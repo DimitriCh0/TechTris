@@ -61,7 +61,7 @@ Joueur constru(){
     return J;
 }
    
-void enregistrement_score(Joueur J){    
+void enregistrement_score(Joueur* J){    
     FILE *f;
     f=fopen("scoreboard.txt","a+");
     if (f == NULL){
@@ -70,9 +70,9 @@ void enregistrement_score(Joueur J){
 		printf("Message erreur = %s \n", strerror(errno));
 		exit (1);
     }
-    fprintf(f,"Pseudo :#%s\n",J.pseudo);
-    fprintf(f,"Score :&%d\n",J.score);
-    fprintf(f,"Difficulte :/%d\n",J.difficulte);
+    fprintf(f,"Pseudo :#%s\n",J->pseudo);
+    fprintf(f,"Score :&%d\n",J->score);
+    fprintf(f,"Difficulte :/%d\n",J->difficulte);
     fclose(f);
     system("clear");
 

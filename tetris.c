@@ -141,7 +141,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
     	int temp;
     	float vitesse = 1000;
     	int quitter;
-	
+	int gv = 0;
   
     	Vecteur v;
     	Vecteur d;
@@ -171,7 +171,10 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
             		}while(tour==tour_pre);
             		tour_pre = tour;
         		}
-       
+       			if (game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs)){
+				gv = 1;
+				break;
+			}
         
     			n = key_input(); //On appelle key_input() pour savoir si le joueur a appuyé sur une touche	
     			if (n==8){
@@ -210,21 +213,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
     			periode = seconds * 1000 + nanoseconds / 1000000;
 			sleep_ms(50);
 		}
-		if (game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs)){ //On vérifie si le jeu n'est pas terminé (quand les pièces atteignent le heut de la grille)
-		enregistrement_score(J);
-		FILE *f;
-		f=fopen("sauvegarde.txt","w+"); //'w+' écrase la dernière sauvegarde
-		if (f == NULL){
-			printf("Ouverture du fichier impossible \n");
-			printf("Code erreur = %d \n", errno);
-			printf("Message erreur = %s \n", strerror(errno));
-			exit (1);
-		}
-		fclose(f);
-		system("clear");
-		printf("\nGAME OVER\n");
-		break;
-		}
+		
 		if (n==8){
 			if (quitter){
 				break;
@@ -249,6 +238,21 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 		}
 		nombre_lignes = 0;
 		enregistrement_partie(tab_principal,J);
+		if (gv || game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs)){ //On vérifie si le jeu n'est pas terminé (quand les pièces atteignent le heut de la grille)
+		enregistrement_score(J);
+		FILE *f;
+		f=fopen("sauvegarde.txt","w+"); //'w+' écrase la dernière sauvegarde
+		if (f == NULL){
+			printf("Ouverture du fichier impossible \n");
+			printf("Code erreur = %d \n", errno);
+			printf("Message erreur = %s \n", strerror(errno));
+			exit (1);
+		}
+		fclose(f);
+		system("clear");
+		printf("\nGAME OVER\n");
+		break;
+		}
 	}
 	free(liste_t);
 	wait_for_enter();

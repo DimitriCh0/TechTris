@@ -36,6 +36,7 @@ int scoreGrille(int *tab){
     return 0;
 }
 
+
 int pause(){
 	int selected = 0;
 	int input;
@@ -130,6 +131,7 @@ void enregistrement_partie(int tab[LINE][COL], Joueur* J){
 
 //Exécution du code principal du jeu
 void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
+	struct timespec start, end;
     char grille[LINE][COL];
     int n;
     int tour = rand()%NOMBRE_PIECES;
@@ -137,8 +139,9 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
     int nombre_lignes = 0;
     int p_ligne = LINE-1;
     int temp;
-    float vitesse = 1;
+    float vitesse = 1000;
     int quitter;
+	
   
     Vecteur v;
     Vecteur d;
@@ -155,71 +158,105 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
     creation_tetrominos(liste_t);
     while(1){
         
+        clock_gettime(CLOCK_MONOTONIC, &start);
+		clock_gettime(CLOCK_MONOTONIC, &end);
+		long seconds = end.tv_sec - start.tv_sec;
+    	long nanoseconds = end.tv_nsec - start.tv_nsec;
+    	long periode = seconds * 1000 + nanoseconds / 1000000;
+		while(periode<vitesse/J->difficulte){
+        	if (!(liste_t[tour].isalive)){ //Quand la pièce actuelle est arrivée en bas, on change de pièce aléatoirement dans la liste_t en veillant à ce qu'elle ne soit pas identique à la précédente
+            	reset_piece(liste_t+tour,liste_t[tour].nb_blocs);
+            	do{
+                	tour = rand()%NOMBRE_PIECES;
+            	}while(tour==tour_pre);
+            		tour_pre = tour;
+        	}
+       
         
-        if (!(liste_t[tour].isalive)){ //Quand la pièce actuelle est arrivée en bas, on change de pièce aléatoirement dans la liste_t en veillant à ce qu'elle ne soit pas identique à la précédente
-            reset_piece(liste_t+tour,liste_t[tour].nb_blocs);
-            do{
-                tour = rand()%NOMBRE_PIECES;
-            }while(tour==tour_pre);
-            tour_pre = tour;
-        }
-        if (game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs)){ //On vérifie si le jeu n'est pas terminé (quand les pièces atteignent le heut de la grille)
-            enregistrement_score(J);
-            FILE *f;
-	    f=fopen("sauvegarde.txt","w+"); //'w+' écrase la dernière sauvegarde
-	    if (f == NULL){
-		printf("Ouverture du fichier impossible \n");
-		printf("Code erreur = %d \n", errno);
-		printf("Message erreur = %s \n", strerror(errno));
-		exit (1);
-	    }
-	    fclose(f);
-            system("clear");
-            printf("\nGAME OVER\n");
-            break;
-        }
-        
-    	n = key_input(); //On appelle key_input() pour savoir si le joueur a appuyé sur une touche	
-    	if (n==8){
-    		quitter = pause();
-    		if (quitter){
-    			break;
+    		n = key_input(); //On appelle key_input() pour savoir si le joueur a appuyé sur une touche	
+    		if (n==8){
+    			quitter = pause();
+    			if (quitter){
+    				break;
+    			}
     		}
-    	}
-        else if (n!=0){
-	        if (n==4){
-                vitesse = 1/10;
-            }
-            v = keyToVect(n);
-            rotation(n,liste_t+tour,liste_t[tour].nb_blocs,tab_principal);
-            place_t(liste_t+tour,tab_principal,v,liste_t[tour].nb_blocs);
-            n=0;
-        }else{
-	        vitesse = 1;
-            place_t(liste_t+tour,tab_principal,d,liste_t[tour].nb_blocs);
-        }
-        
-        draw(tab_principal,grille);
-        for(int i = 0; i<LINE; i++){
-            temp = scoreGrille(tab_principal[i]); //On vérifie si une ligne est pleine
-            if (temp){
-                clear_line(tab_principal,i); //Si c'est le cas, on supprime la ligne en question
-                p_ligne = i;
+        	else if (n!=0){
+            	v = keyToVect(n);
+            	rotation(n,liste_t+tour,liste_t[tour].nb_blocs,tab_principal);
+            	place_t(liste_t+tour,tab_principal,v,liste_t[tour].nb_blocs);
+            	n=0;
+				
+        	for(int i = 0; i<LINE; i++){
+            	temp = scoreGrille(tab_principal[i]); //On vérifie si une ligne est pleine
+            	if (temp){
+                	clear_line(tab_principal,i); //Si c'est le cas, on supprime la ligne en question
+					p_ligne = i;
+					gravitation(tab_principal,1,p_ligne); //On fait descendre toutes les lignes qui n'ont pas été suprimées
+                	
                 
-            }
-            nombre_lignes+=temp; //On additionne temp afin de savoir le nombre de lignes supprimées
+            	}
+            	nombre_lignes+=temp; //On additionne temp afin de savoir le nombre de lignes supprimées
             
-        }
-        gravitation(tab_principal,nombre_lignes,p_ligne); //On fait descendre toutes les lignes qui n'ont pas été suprimées
+        	}
+        	draw(tab_principal,grille);
 
-        refresh(grille, tab_principal,J);
-        for (int k = 0;k<nombre_lignes;k++){
-        	J->score ++;	
-        }
-        nombre_lignes = 0;
-        enregistrement_partie(tab_principal,J);
-        sleep_ms(500*vitesse);
-    }
+        	refresh(grille, tab_principal,J);
+        	for (int k = 0;k<nombre_lignes;k++){
+        		J->score ++;	
+        	}
+        	nombre_lignes = 0;
+        	enregistrement_partie(tab_principal,J);
+        	}
+        	clock_gettime(CLOCK_MONOTONIC, &end);
+			seconds = end.tv_sec - start.tv_sec;
+    		nanoseconds = end.tv_nsec - start.tv_nsec;
+    		periode = seconds * 1000 + nanoseconds / 1000000;
+			sleep_ms(50);
+	}
+	if (game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs)){ //On vérifie si le jeu n'est pas terminé (quand les pièces atteignent le heut de la grille)
+		enregistrement_score(J);
+		FILE *f;
+		f=fopen("sauvegarde.txt","w+"); //'w+' écrase la dernière sauvegarde
+		if (f == NULL){
+			printf("Ouverture du fichier impossible \n");
+			printf("Code erreur = %d \n", errno);
+			printf("Message erreur = %s \n", strerror(errno));
+			exit (1);
+		}
+		fclose(f);
+		system("clear");
+		printf("\nGAME OVER\n");
+		break;
+	}
+	if (n==8){
+		if (quitter){
+			break;
+		}
+	}
+		
+	place_t(liste_t+tour,tab_principal,d,liste_t[tour].nb_blocs);
+	
+	for(int i = 0; i<LINE; i++){
+		temp = scoreGrille(tab_principal[i]); //On vérifie si une ligne est pleine
+		if (temp){
+			clear_line(tab_principal,i); //Si c'est le cas, on supprime la ligne en question
+			p_ligne = i;
+			gravitation(tab_principal,1,p_ligne); //On fait descendre toutes les lignes qui n'ont pas été suprimées
+			
+		}
+		nombre_lignes+=temp; //On additionne temp afin de savoir le nombre de lignes supprimées
+		
+	}
+	draw(tab_principal,grille);
+
+	refresh(grille, tab_principal,J);
+	for (int k = 0;k<nombre_lignes;k++){
+		J->score ++;	
+	}
+	nombre_lignes = 0;
+	enregistrement_partie(tab_principal,J);
+	}
+    
     free(liste_t);
     wait_for_enter();
     

@@ -1,17 +1,62 @@
 #include "fichier.h"
 
+void display_tetromino(Tetromino *t, int line){
+    if (t==NULL){
+        printf("ERREUR de pointeur dans Draw !!!\n");
+        exit(70);
+    }
+    int bloc_placed = 0;
+    int dx = 2 - t->blocs[0][0]; //Distance x entre le centre du tetromino et la case (2,2), qui est le centre d'un tableau 5*5
+    int dy = 2 - t->blocs[0][1]; //Distance y...
+    printf("|      | ");
+    for (int i = 0; i<DIM; i++){
+        for (int j=0; j<t->nb_blocs;j++){
+            if(t->blocs[j][0]+dx == line && t->blocs[j][1]+dy == i){
+                bloc_placed = 1;
+            }
+        }
+        if(bloc_placed){
+            printf("# ");
+        }else{
+            printf("  ");
+        }
+        bloc_placed = 0;
+    }
+    printf("|\n");
+}
+
 //Affiche dans le terminal la grille avec les tetrominos
-void display(char tab[LINE][COL], Joueur* J){
+void display(char tab[LINE][COL], Joueur* J, Tetromino *t, int s){
+    if (t==NULL || J==NULL){
+        printf("ERREUR de pointeur dans Draw !!!\n");
+        exit(71);
+    }
     for (int i = 0; i<LINE; i++){
-        printf("| ");
+        printf("      | ");
         for (int j = 0; j<COL; j++){
             printf("%c ",tab[i][j]);
         }
-        printf("|\n");
+        
+        if (i == 2){
+            printf("|      Pseudo : %s\n",J->pseudo);
+        }else if(i==3){
+            printf("|      Difficulté : %d\n",J->difficulte);
+        }else if(i==4){
+            printf("|      Score : %d\n",J->score);
+        }else if (LINE >12 && i>5 && i<=12 && s){
+            if (i==6){
+                printf("|      *************\n");
+            }else if(i>6 && i<=11){
+                display_tetromino(t,i-7);
+            }else if(i==12){
+                printf("|      *************\n");
+            }
+        }else {
+            printf("|\n");
+        }
     }
-    printf("***********************\n");
+    printf("      ***********************\n");
     
-    printf("\n\n Pseudo : %s   |   Score : %d \n",J->pseudo, J->score);
 }
 //Affiche dans le terminal un double tableau d'entiers
 void display_int(int tab[LINE][COL]){
@@ -50,8 +95,12 @@ void draw(int tab[LINE][COL], char grille[LINE][COL]){
 }
 
 //Permet de rassembler toutes les fonctions qui modifie le terminal en une seule
-void refresh(char grille[LINE][COL], int tab[LINE][COL], Joueur* J){
+void refresh(char grille[LINE][COL], int tab[LINE][COL], Joueur* J,Tetromino *t, int s){
+    if (t==NULL || J==NULL){
+        printf("ERREUR de pointeur dans Draw !!!\n");
+        exit(72);
+    }
     system("clear");
     clear(tab);
-    display(grille,J);
+    display(grille,J,t,s);
 }

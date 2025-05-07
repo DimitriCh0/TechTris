@@ -52,6 +52,9 @@ int key_input()
         case 's':
             return 4;
             break;
+        case 'h':
+            return 9;
+            break;
         case 'A':
             return 5;
             break;
@@ -66,6 +69,9 @@ int key_input()
             break;
         case 'S':
             return 4;
+            break;
+        case 'H':
+            return 9;
             break;
         case 27 :
             return 8;

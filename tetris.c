@@ -253,7 +253,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 	}
 	nombre_lignes = 0;
 	enregistrement_partie(tab_principal,J);
-	if (gv || game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs)){ //On vérifie si le jeu n'est pas terminé (quand les pièces atteignent le heut de la grille)
+	if (gv || game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs)){ //On vérifie si le jeu n'est pas terminé (quand les pièces atteignent le haut de la grille)
 		enregistrement_score(J);
 		FILE *f;
 		f=fopen("sauvegarde.txt","w+"); //'w+' écrase la dernière sauvegarde

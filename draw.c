@@ -82,16 +82,46 @@ void clear(int tab[LINE][COL]){
 
 //Modifie la grille de caractère en fonction du tableau d'entiers (un # si on a un 1, un espace sinon) 
 //*pourra être changée si on veut des pièces d'apparence différente
-void draw(int tab[LINE][COL], char grille[LINE][COL]){
+//Modifie la grille de caractère en fonction du tableau d'entiers (un # si on a un 1, un espace sinon) 
+//*pourra être changée si on veut des pièces d'apparence différente
+void draw(int tab[LINE][COL], char grille[LINE][COL],){
     for (int i = 0; i<LINE; i++){
         for (int j = 0; j<COL; j++){
-            if (tab[i][j] == 1 || tab[i][j]==2){
-                    grille[i][j] = '#';
-            }else{
-                grille[i][j] = ' ';
+                if(tab[i][j]==0){
+                grille[i][j]=" ";
+            }
+            else{
+                if (tab[i][j] <0 || tab[i][j]>14 || tab==NULL){
+                    printf("Erreur de saisie.\n");
+                    exit(10); 
+                } 
+                switch(tab[i][j]%7+1){
+                    case 1:
+                        grille[i][j]="🟥";
+                        break;
+                    case 2:
+                        grille[i][j]="🟧";
+                        break;
+                    case 3:
+                        grille[i][j]="🟨";
+                        break;
+                    case 4:
+                        grille[i][j]="🟩";
+                        break;
+                    case 5:
+                        grille[i][j]="🟫";
+                        break;
+                    case 6:
+                        grille[i][j]="🟪";
+                        break;
+                    case 7:
+                        tab[i][j]="🟦";
+                        break;
+                }
             }
         }
     }
+
 }
 
 //Permet de rassembler toutes les fonctions qui modifie le terminal en une seule

@@ -86,7 +86,7 @@ void draw(int tab[LINE][COL], char grille[LINE][COL]){
     for (int i = 0; i<LINE; i++){
         for (int j = 0; j<COL; j++){
                 if(tab[i][j]==0){
-                grille[i][j]=" ";
+                grille[i][j]=' ';
             }
             else{
                 if (tab[i][j] <0 || tab[i][j]>14 || tab==NULL){
@@ -95,25 +95,25 @@ void draw(int tab[LINE][COL], char grille[LINE][COL]){
                 } 
                 switch(tab[i][j]%7+1){
                     case 1:
-                        grille[i][j]="🟥";
+                        grille[i][j]='🟥';
                         break;
                     case 2:
-                        grille[i][j]="🟧";
+                        grille[i][j]='🟧';
                         break;
                     case 3:
-                        grille[i][j]="🟨";
+                        grille[i][j]='🟨';
                         break;
                     case 4:
-                        grille[i][j]="🟩";
+                        grille[i][j]='🟩';
                         break;
                     case 5:
-                        grille[i][j]="🟫";
+                        grille[i][j]='🟫';
                         break;
                     case 6:
-                        grille[i][j]="🟪";
+                        grille[i][j]='🟪';
                         break;
                     case 7:
-                        grille[i][j]="🟦";
+                        grille[i][j]='🟦';
                         break;
                 }
             }

@@ -1,5 +1,5 @@
 #include "fichier.h"
-
+//Affiche une ligne line du tetromino t
 void display_tetromino(Tetromino *t, int line){
     if (t==NULL){
         printf("ERREUR de pointeur dans Draw !!!\n");

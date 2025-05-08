@@ -32,7 +32,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde);
 void creation_tetrominos(Tetromino *t);
 void tetrominoConstructor(char **tab, Tetromino *t);
 int move_t(Tetromino *t,Vecteur v,int n);
-void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v, int n);
+void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v, int n, int color);
 int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL], int n);
 int isNotBorderR(Tetromino *t, int n);
 int isNotBorderL(Tetromino *t, int n);

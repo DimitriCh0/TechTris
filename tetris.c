@@ -26,7 +26,7 @@ void creation_tetrominos(Tetromino *t){
 int scoreGrille(int *tab){
     int cpt=0;
     for(int i=0;i<COL;i++){
-        if(tab[i]==2){ 
+        if(tab[i]>=8 && tab[i]<15){ 
             cpt++;
         }
             if(cpt==COL){

@@ -79,9 +79,6 @@ void clear(int tab[LINE][COL]){
         
     }
 }
-
-//Modifie la grille de caractère en fonction du tableau d'entiers (un # si on a un 1, un espace sinon) 
-//*pourra être changée si on veut des pièces d'apparence différente
 //Modifie la grille de caractère en fonction du tableau d'entiers (un # si on a un 1, un espace sinon) 
 //*pourra être changée si on veut des pièces d'apparence différente
 void draw(int tab[LINE][COL], char grille[LINE][COL],){

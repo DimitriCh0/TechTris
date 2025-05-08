@@ -201,7 +201,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
         	else if (n!=0){
             	v = keyToVect(n);
             	rotation(n,liste_t+tour,liste_t[tour].nb_blocs,tab_principal);
-            	place_t(liste_t+tour,tab_principal,v,liste_t[tour].nb_blocs);
+            	place_t(liste_t+tour,tab_principal,v,liste_t[tour].nb_blocs, tour+1);
             	n=0;
 				
         	for(int i = 0; i<LINE; i++){
@@ -238,7 +238,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 		}
 	}
 		
-	place_t(liste_t+tour,tab_principal,d,liste_t[tour].nb_blocs);
+	place_t(liste_t+tour,tab_principal,d,liste_t[tour].nb_blocs, tour+1);
 	
 	for(int i = 0; i<LINE; i++){
 		temp = scoreGrille(tab_principal[i]); //On vérifie si une ligne est pleine

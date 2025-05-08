@@ -55,7 +55,7 @@ void display(char grille[LINE][COL][UTF], Joueur* J, Tetromino *t, int s){
             printf("▦\n");
         }
     }
-    printf("      ***********************\n");
+    printf("      **********************\n");
     
 }
 //Affiche dans le terminal un double tableau d'entiers

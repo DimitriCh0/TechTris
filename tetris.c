@@ -132,7 +132,7 @@ void enregistrement_partie(int tab[LINE][COL], Joueur* J){
 //Exécution du code principal du jeu
 void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 	struct timespec start, end;
-    char grille[LINE][COL];
+    char grille[LINE][COL][UTF];
     int n; //Sortie de key_input()
     int tour = rand()%NOMBRE_PIECES; //Valeur permettant de choisir la pièce à jouer
 	int next_tour; //Valeur désignant la prochaine pièce à jouer

@@ -113,7 +113,7 @@ void draw(int tab[LINE][COL], char grille[LINE][COL]){
                         grille[i][j]="🟪";
                         break;
                     case 7:
-                        tab[i][j]="🟦";
+                        grille[i][j]="🟦";
                         break;
                 }
             }

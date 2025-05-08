@@ -8,7 +8,7 @@ void sleep_ms(float milliseconds)
     //Convertit les millisecondes en microsecondes
     usleep(milliseconds * 1000);
 }
-//Procédure qui crée les tétrominos à partir du fichier pieces.txt
+//Procédure qui crée les tétrominos à partir du fichier pieces.txt ou piecedited
 void creation_tetrominos(Tetromino *t){
     printf("Construction des Tétrominos...\n");
     if (t == NULL){
@@ -133,16 +133,16 @@ void enregistrement_partie(int tab[LINE][COL], Joueur* J){
 void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 	struct timespec start, end;
     char grille[LINE][COL];
-    int n;
-    int tour = rand()%NOMBRE_PIECES;
-	int next_tour;
-    int nombre_lignes = 0;
-    int p_ligne = LINE-1;
-    int temp;
-    float vitesse = 1000;
+    int n; //Sortie de key_input()
+    int tour = rand()%NOMBRE_PIECES; //Valeur permettant de choisir la pièce à jouer
+	int next_tour; //Valeur désignant la prochaine pièce à jouer
+    int nombre_lignes = 0; //Variable utilisée pour compter les lignes pleines
+    int p_ligne = LINE-1; //Première ligne pleine par défaut
+    int temp; //Variable temporaire
+    float vitesse = 1000; //Vitesse d'exécution du jeu
     int quitter;
 	int gv = 0;
-	int show_next_t = 1;
+	int show_next_t = 0;
     Vecteur v;
     Vecteur d;
     d.x = 1;
@@ -155,7 +155,9 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
     if (liste_t == NULL){
         exit(15);
     }
+	//Création des Tetrominos
     creation_tetrominos(liste_t);
+	//On choisit le prochain tetromino qui ne doit pas être le même que le précédent
 	do{
         next_tour = rand()%NOMBRE_PIECES;
     }while(next_tour==tour);
@@ -166,10 +168,13 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 		long seconds = end.tv_sec - start.tv_sec;
     	long nanoseconds = end.tv_nsec - start.tv_nsec;
     	long periode = seconds * 1000 + nanoseconds / 1000000;
+		//Fonctionnement du jeu : à chaque niveau de difficulté est associé une période de temps en millisecondes
+		//Pendant cette période, le joueur peut faire ce qu'il veut (bouger la pièce, la tourner, etc), mais à la fin de chaque période le tétromino descendra forcément de 1 case
 		while(periode<vitesse/J->difficulte){
         	if (!(liste_t[tour].isalive)){ //Quand la pièce actuelle est arrivée en bas, on change de pièce aléatoirement dans la liste_t en veillant à ce qu'elle ne soit pas identique à la précédente
             	reset_piece(liste_t+tour,liste_t[tour].nb_blocs);
 				tour = next_tour;
+				//On choisit le prochain tetromino qui ne doit pas être le même que le précédent
             	do{
                 	next_tour = rand()%NOMBRE_PIECES;
             	}while(next_tour==tour);
@@ -178,7 +183,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
        
         
     		n = key_input(); //On appelle key_input() pour savoir si le joueur a appuyé sur une touche	
-			if (game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs)){
+			if (game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs)){ //On appelle la fonction qui vérifie si le jeu est toujours valide
 				gv = 1;
 				break;
 			}
@@ -188,6 +193,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
     				break;
     			}
     		}
+			//Condition changeant la valeur de show_next_t de 0 à 1 ou vice-versa
 			else if(n==9){
 				show_next_t = (show_next_t+1)%2;
 				n=0;
@@ -246,7 +252,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 		
 	}
 	draw(tab_principal,grille);
-
+	
 	refresh(grille, tab_principal,J,liste_t+next_tour,show_next_t);
 	for (int k = 0;k<nombre_lignes;k++){
 		J->score ++;	
@@ -272,5 +278,5 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
     
     free(liste_t);
     wait_for_enter();
-    
+    while(getchar()!='\n');
 }

@@ -71,7 +71,7 @@ void display_int(int tab[LINE][COL]){
 void clear(int tab[LINE][COL]){
     for (int i = 0; i<LINE; i++){
         for (int j = 0; j<COL; j++){
-            	if (tab[i][j] !=2){
+            	if (tab[i][j] <8){
                        tab[i][j] = 0;
                        }
             

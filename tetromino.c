@@ -69,7 +69,7 @@ int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL],int n){
     }
     if (v.x == 0){
     	for (int i=0; i<n; i++){
-    		if (tab[t->blocs[i][0]][t->blocs[i][1]+v.y]==2){
+    		if (tab[t->blocs[i][0]][t->blocs[i][1]+v.y]>=8){
     			return 0;
     		}
     	}
@@ -77,7 +77,7 @@ int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL],int n){
     }
     	else {
     		for (int i=0; i<n; i++){
-    			if(t->blocs[i][0]+v.x==LINE || tab[t->blocs[i][0]+v.x][t->blocs[i][1]]==2){
+    			if(t->blocs[i][0]+v.x==LINE || tab[t->blocs[i][0]+v.x][t->blocs[i][1]]>=8){
     				t->isalive = 0;
     				return 0;
     			}	
@@ -111,7 +111,7 @@ int move_t(Tetromino *t,Vecteur v, int n){
 
 
 //Place le Tetromino dans le tableau principal à l'aide des coordonnées contenues dans le double tableau "blocs"
-void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v, int n){
+void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v, int n, int color){
     if (t==NULL){
         printf("Erreur de pointeur dans tetromino !\n");
         exit(55);
@@ -123,12 +123,12 @@ void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v, int n){
     
     if (t->isalive){
         for (int i = 0; i<n; i++){
-            tab[t->blocs[i][0]][t->blocs[i][1]] = 1;  
+            tab[t->blocs[i][0]][t->blocs[i][1]] =color;  
         }
 
     }else{
         for (int j = 0; j<n; j++){
-            tab[t->blocs[j][0]][t->blocs[j][1]] = 2;
+            tab[t->blocs[j][0]][t->blocs[j][1]] = color+7;
         }
     }
     
@@ -163,6 +163,7 @@ void clear_line(int tab[LINE][COL], int nb){
 
 //Fait descendre tous les blocs de tétrominos "mort" d'un nombre correspondant au nombre de lignes que l'on a supprimées
 void gravitation(int tab[LINE][COL], int d, int start){
+    int temp;
     if (tab==NULL){
         printf("Erreur de pointeur dans tetromino !\n");
         exit(58);
@@ -171,9 +172,10 @@ void gravitation(int tab[LINE][COL], int d, int start){
     
     for (int i=start; i>=0; i--){
         for (int j=0; j<COL; j++){
-            if (tab[i][j]==2){
+            temp = tab[i][j];
+            if (temp>=8){
                 tab[i][j] = 0;
-                tab[i+d][j] = 2;
+                tab[i+d][j] = temp;
             }
         }
     }
@@ -187,7 +189,7 @@ int game_over(int tab[LINE][COL], Tetromino *t, int n){
         exit(59);
    }
     for (int i = 0; i<n;i++){
-       if (tab[t->blocs[i][0]][t->blocs[i][1]] == 2 && t->blocs[i][0]<4){
+       if (tab[t->blocs[i][0]][t->blocs[i][1]] >=8 2 && t->blocs[i][0]<4){
             return 1;
        }
     }

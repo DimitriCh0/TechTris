@@ -203,25 +203,8 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
             	rotation(n,liste_t+tour,liste_t[tour].nb_blocs,tab_principal);
             	place_t(liste_t+tour,tab_principal,v,liste_t[tour].nb_blocs, tour+1);
             	n=0;
-				
-        	for(int i = 0; i<LINE; i++){
-            	temp = scoreGrille(tab_principal[i]); //On vérifie si une ligne est pleine
-            	if (temp){
-                	clear_line(tab_principal,i); //Si c'est le cas, on supprime la ligne en question
-					p_ligne = i;
-					gravitation(tab_principal,1,p_ligne); //On fait descendre toutes les lignes qui n'ont pas été suprimées
-                	
-                
-            	}
-            	nombre_lignes+=temp; //On additionne temp afin de savoir le nombre de lignes supprimées
-            
-        	}
         	draw(tab_principal,grille);
-
         	refresh(grille, tab_principal,J,liste_t+next_tour, show_next_t);
-        	for (int k = 0;k<nombre_lignes;k++){
-        		J->score ++;	
-        	}
         	nombre_lignes = 0;
         	enregistrement_partie(tab_principal,J);
         	}

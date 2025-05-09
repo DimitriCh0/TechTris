@@ -8,7 +8,7 @@ void display_tetromino(Tetromino *t, int line){
     int bloc_placed = 0;
     int dx = 2 - t->blocs[0][0]; //Distance x entre le centre du tetromino et la case (2,2), qui est le centre d'un tableau 5*5
     int dy = 2 - t->blocs[0][1]; //Distance y...
-    printf("|      | ");
+    printf("▦      ▐ ");
     for (int i = 0; i<DIM; i++){
         for (int j=0; j<t->nb_blocs;j++){
             if(t->blocs[j][0]+dx == line && t->blocs[j][1]+dy == i){
@@ -16,46 +16,46 @@ void display_tetromino(Tetromino *t, int line){
             }
         }
         if(bloc_placed){
-            printf("# ");
+            printf("%s","⬛");
         }else{
             printf("  ");
         }
         bloc_placed = 0;
     }
-    printf("|\n");
+    printf("▐\n");
 }
 
 //Affiche dans le terminal la grille avec les tetrominos
-void display(char tab[LINE][COL], Joueur* J, Tetromino *t, int s){
+void display(char grille[LINE][COL][UTF], Joueur* J, Tetromino *t, int s){
     if (t==NULL || J==NULL){
         printf("ERREUR de pointeur dans Draw !!!\n");
         exit(71);
     }
     for (int i = 0; i<LINE; i++){
-        printf("      | ");
+        printf("      ▦");
         for (int j = 0; j<COL; j++){
-            printf("%c ",tab[i][j]);
+            printf("%s",grille[i][j]);
         }
         
         if (i == 2){
-            printf("|      Pseudo : %s\n",J->pseudo);
+            printf("▦      Pseudo : %s\n",J->pseudo);
         }else if(i==3){
-            printf("|      Difficulté : %d\n",J->difficulte);
+            printf("▦      Difficulté : %d\n",J->difficulte);
         }else if(i==4){
-            printf("|      Score : %d\n",J->score);
+            printf("▦      Score : %d\n",J->score);
         }else if (LINE >12 && i>5 && i<=12 && s){
             if (i==6){
-                printf("|      *************\n");
+                printf("▦       ************\n");
             }else if(i>6 && i<=11){
                 display_tetromino(t,i-7);
             }else if(i==12){
-                printf("|      *************\n");
+                printf("▦       ************\n");
             }
         }else {
-            printf("|\n");
+            printf("▦\n");
         }
     }
-    printf("      ***********************\n");
+    printf("      **********************\n");
     
 }
 //Affiche dans le terminal un double tableau d'entiers
@@ -71,7 +71,7 @@ void display_int(int tab[LINE][COL]){
 void clear(int tab[LINE][COL]){
     for (int i = 0; i<LINE; i++){
         for (int j = 0; j<COL; j++){
-            	if (tab[i][j] !=2){
+            	if (tab[i][j] <8){
                        tab[i][j] = 0;
                        }
             
@@ -82,20 +82,48 @@ void clear(int tab[LINE][COL]){
 
 //Modifie la grille de caractère en fonction du tableau d'entiers (un # si on a un 1, un espace sinon) 
 //*pourra être changée si on veut des pièces d'apparence différente
-void draw(int tab[LINE][COL], char grille[LINE][COL]){
+void draw(int tab[LINE][COL], char grille[LINE][COL][UTF]){
     for (int i = 0; i<LINE; i++){
         for (int j = 0; j<COL; j++){
-            if (tab[i][j] == 1 || tab[i][j]==2){
-                    grille[i][j] = '#';
-            }else{
-                grille[i][j] = ' ';
+                if(tab[i][j]==0){
+                strcpy(grille[i][j],"  ");
+            }
+            else{
+                if (tab[i][j] <0 || tab[i][j]>14 || tab==NULL){
+                    printf("Erreur de saisie. %d\n", tab[i][j]);
+                    exit(10); 
+                } 
+                switch(tab[i][j]%7+1){
+                    case 1:
+                        strcpy(grille[i][j],"🟥");
+                        break;
+                    case 2:
+                        strcpy(grille[i][j],"🟧");
+                        break;
+                    case 3:
+                        strcpy(grille[i][j],"🟨");
+                        break;
+                    case 4:
+                        strcpy(grille[i][j],"🟩");
+                        break;
+                    case 5:
+                        strcpy(grille[i][j],"🟫");
+                        break;
+                    case 6:
+                        strcpy(grille[i][j],"🟪");
+                        break;
+                    case 7:
+                        strcpy(grille[i][j],"🟦");
+                        break;
+                }
             }
         }
     }
+
 }
 
 //Permet de rassembler toutes les fonctions qui modifie le terminal en une seule
-void refresh(char grille[LINE][COL], int tab[LINE][COL], Joueur* J,Tetromino *t, int s){
+void refresh(char grille[LINE][COL][UTF], int tab[LINE][COL], Joueur* J,Tetromino *t, int s){
     if (t==NULL || J==NULL){
         printf("ERREUR de pointeur dans Draw !!!\n");
         exit(72);

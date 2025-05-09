@@ -189,7 +189,7 @@ int game_over(int tab[LINE][COL], Tetromino *t, int n){
         exit(59);
    }
     for (int i = 0; i<n;i++){
-       if (tab[t->blocs[i][0]][t->blocs[i][1]] >=8 2 && t->blocs[i][0]<4){
+       if (tab[t->blocs[i][0]][t->blocs[i][1]] >=8 && tab[t->blocs[i][0]][t->blocs[i][1]] <15 && t->blocs[i][0]<4){
             return 1;
        }
     }

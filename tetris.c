@@ -26,7 +26,7 @@ void creation_tetrominos(Tetromino *t){
 int scoreGrille(int *tab){
     int cpt=0;
     for(int i=0;i<COL;i++){
-        if(tab[i]==2){ 
+        if(tab[i]>=8 && tab[i]<15){ 
             cpt++;
         }
             if(cpt==COL){
@@ -132,7 +132,7 @@ void enregistrement_partie(int tab[LINE][COL], Joueur* J){
 //Exécution du code principal du jeu
 void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 	struct timespec start, end;
-    char grille[LINE][COL];
+    char grille[LINE][COL][UTF];
     int n; //Sortie de key_input()
     int tour = rand()%NOMBRE_PIECES; //Valeur permettant de choisir la pièce à jouer
 	int next_tour; //Valeur désignant la prochaine pièce à jouer
@@ -201,27 +201,10 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
         	else if (n!=0){
             	v = keyToVect(n);
             	rotation(n,liste_t+tour,liste_t[tour].nb_blocs,tab_principal);
-            	place_t(liste_t+tour,tab_principal,v,liste_t[tour].nb_blocs);
+            	place_t(liste_t+tour,tab_principal,v,liste_t[tour].nb_blocs, tour+1);
             	n=0;
-				
-        	for(int i = 0; i<LINE; i++){
-            	temp = scoreGrille(tab_principal[i]); //On vérifie si une ligne est pleine
-            	if (temp){
-                	clear_line(tab_principal,i); //Si c'est le cas, on supprime la ligne en question
-					p_ligne = i;
-					gravitation(tab_principal,1,p_ligne); //On fait descendre toutes les lignes qui n'ont pas été suprimées
-                	
-                
-            	}
-            	nombre_lignes+=temp; //On additionne temp afin de savoir le nombre de lignes supprimées
-            
-        	}
         	draw(tab_principal,grille);
-
         	refresh(grille, tab_principal,J,liste_t+next_tour, show_next_t);
-        	for (int k = 0;k<nombre_lignes;k++){
-        		J->score ++;	
-        	}
         	nombre_lignes = 0;
         	enregistrement_partie(tab_principal,J);
         	}
@@ -229,7 +212,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 			seconds = end.tv_sec - start.tv_sec;
     		nanoseconds = end.tv_nsec - start.tv_nsec;
     		periode = seconds * 1000 + nanoseconds / 1000000;
-			sleep_ms(50);
+			sleep_ms(30);
 	}
 	
 	if (n==8){
@@ -238,7 +221,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 		}
 	}
 		
-	place_t(liste_t+tour,tab_principal,d,liste_t[tour].nb_blocs);
+	place_t(liste_t+tour,tab_principal,d,liste_t[tour].nb_blocs, tour+1);
 	
 	for(int i = 0; i<LINE; i++){
 		temp = scoreGrille(tab_principal[i]); //On vérifie si une ligne est pleine
@@ -278,5 +261,5 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
     
     free(liste_t);
     wait_for_enter();
-    while(getchar()!='\n');
+    
 }

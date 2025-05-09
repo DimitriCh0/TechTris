@@ -19,6 +19,7 @@
 //Les dimensions de la grille principale
 #define COL 10
 #define LINE 20
+#define UTF 8
 
 #define BLOC_MAX 5
 #define NUM_CASE DIM*DIM
@@ -47,11 +48,11 @@ int get_input();
 int key_input();
 Vecteur keyToVect(int r);
 //Draw
-void display(char tab[LINE][COL], Joueur* J, Tetromino *t, int s);
+void display(char grille[LINE][COL][UTF], Joueur* J, Tetromino *t, int s);
 void display_int(int tab[LINE][COL]);
 void clear(int tab[LINE][COL]);
-void draw(int tab[LINE][COL], char grille[LINE][COL]);
-void refresh(char grille[LINE][COL], int tab[LINE][COL], Joueur* J, Tetromino *t, int s);
+void draw(int tab[LINE][COL], char grille[LINE][COL][UTF]);
+void refresh(char grille[LINE][COL][UTF], int tab[LINE][COL], Joueur* J, Tetromino *t, int s);
 //Rotation et pièces
 void rotation(int rotation, Tetromino *t, int n, int tab[LINE][COL]);
 void affichepiece(char **piece);

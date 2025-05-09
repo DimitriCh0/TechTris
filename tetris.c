@@ -212,7 +212,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 			seconds = end.tv_sec - start.tv_sec;
     		nanoseconds = end.tv_nsec - start.tv_nsec;
     		periode = seconds * 1000 + nanoseconds / 1000000;
-			sleep_ms(50);
+			sleep_ms(30);
 	}
 	
 	if (n==8){

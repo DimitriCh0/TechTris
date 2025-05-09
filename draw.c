@@ -8,7 +8,7 @@ void display_tetromino(Tetromino *t, int line){
     int bloc_placed = 0;
     int dx = 2 - t->blocs[0][0]; //Distance x entre le centre du tetromino et la case (2,2), qui est le centre d'un tableau 5*5
     int dy = 2 - t->blocs[0][1]; //Distance y...
-    printf("▦      ▦ ");
+    printf("▦      ▐ ");
     for (int i = 0; i<DIM; i++){
         for (int j=0; j<t->nb_blocs;j++){
             if(t->blocs[j][0]+dx == line && t->blocs[j][1]+dy == i){
@@ -16,13 +16,13 @@ void display_tetromino(Tetromino *t, int line){
             }
         }
         if(bloc_placed){
-            printf("▣ ");
+            printf("%s","⬛");
         }else{
             printf("  ");
         }
         bloc_placed = 0;
     }
-    printf("|\n");
+    printf("▐\n");
 }
 
 //Affiche dans le terminal la grille avec les tetrominos
@@ -45,11 +45,11 @@ void display(char grille[LINE][COL][UTF], Joueur* J, Tetromino *t, int s){
             printf("▦      Score : %d\n",J->score);
         }else if (LINE >12 && i>5 && i<=12 && s){
             if (i==6){
-                printf("▦      *************\n");
+                printf("▦       ************\n");
             }else if(i>6 && i<=11){
                 display_tetromino(t,i-7);
             }else if(i==12){
-                printf("▦      *************\n");
+                printf("▦       ************\n");
             }
         }else {
             printf("▦\n");

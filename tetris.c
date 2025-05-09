@@ -261,5 +261,5 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
     
     free(liste_t);
     wait_for_enter();
-    while(getchar()!='\n');
+    
 }

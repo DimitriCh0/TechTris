@@ -147,6 +147,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
     	int n; //Sortie de key_input()
     	int tour = rand()%NOMBRE_PIECES; //Valeur permettant de choisir la pièce à jouer
 	int next_tour; //Valeur désignant la prochaine pièce à jouer
+	int pre_tour;
     	int nombre_lignes = 0; //Variable utilisée pour compter les lignes pleines
     	int p_ligne = LINE-1; //Première ligne pleine par défaut
     	int temp; //Variable temporaire
@@ -184,11 +185,12 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 		while(periode<vitesse/J->difficulte){
 			if (!(liste_t[tour].isalive)){ //Quand la pièce actuelle est arrivée en bas, on change de pièce aléatoirement dans la liste_t en veillant à ce qu'elle ne soit pas identique à la précédente
 		    		reset_piece(liste_t+tour,liste_t[tour].nb_blocs);
+				pre_tour = tour;
 				tour = next_tour;
 				//On choisit le prochain tetromino qui ne doit pas être le même que le précédent
 			    	do{
 					next_tour = rand()%NOMBRE_PIECES;
-			    	}while(next_tour==tour);
+			    	}while(next_tour==tour || next_tour == pre_tour);
 		    		
 			}
 

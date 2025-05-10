@@ -28,6 +28,7 @@ Voici le resultat attendu :
 ![image](https://github.com/user-attachments/assets/f573d0f7-e3be-4be7-aecc-4181dbcba482)
 
 -Utilisation :
+
 Lancez une partie en entrant votre pseudo et la difficulté, puis utilisez les touches Q (pour aller à gauche)  S (pour aller plus vite) D (Pour aller à droite) E (pour tourner la pièce à gauche) A (pour tourner la pièce à droite) et Espace (Pour faire descendre la piece directement).
 Afin de déplacer le tetromino.
 

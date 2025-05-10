@@ -77,7 +77,7 @@ Voici ci dessous la représentation des fichiers texte dans notre code :
      ![image](https://github.com/user-attachments/assets/48f2772b-e286-48ff-880c-689b1189be75)
 
 
-En cas de souci avec le jeu vous pouvez formater les fichiers textes sauf le fichier contenant les pièces par defaut du jeu.
+**En cas de souci avec le jeu vous pouvez formater les fichiers textes sauf le fichier contenant les pièces par defaut du jeu.**
   
 
 

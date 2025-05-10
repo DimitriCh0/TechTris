@@ -19,6 +19,7 @@
 //Les dimensions de la grille principale
 #define COL 10
 #define LINE 20
+#define UTF 8
 
 #define BLOC_MAX 5
 #define NUM_CASE DIM*DIM
@@ -32,7 +33,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde);
 void creation_tetrominos(Tetromino *t);
 void tetrominoConstructor(char **tab, Tetromino *t);
 int move_t(Tetromino *t,Vecteur v,int n);
-void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v, int n);
+void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v, int n, int color);
 int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL], int n);
 int isNotBorderR(Tetromino *t, int n);
 int isNotBorderL(Tetromino *t, int n);
@@ -47,11 +48,11 @@ int get_input();
 int key_input();
 Vecteur keyToVect(int r);
 //Draw
-void display(char tab[LINE][COL], Joueur* J);
+void display(char grille[LINE][COL][UTF], Joueur* J, Tetromino *t, int s);
 void display_int(int tab[LINE][COL]);
 void clear(int tab[LINE][COL]);
-void draw(int tab[LINE][COL], char grille[LINE][COL]);
-void refresh(char grille[LINE][COL], int tab[LINE][COL], Joueur* J);
+void draw(int tab[LINE][COL], char grille[LINE][COL][UTF]);
+void refresh(char grille[LINE][COL][UTF], int tab[LINE][COL], Joueur* J, Tetromino *t, int s);
 //Rotation et pièces
 void rotation(int rotation, Tetromino *t, int n, int tab[LINE][COL]);
 void affichepiece(char **piece);
@@ -74,6 +75,7 @@ int pause();
 Joueur constru();
 void lire_scoreboard(FILE *f);
 void enregistrement_score(Joueur* J);
+void triInsertion(Joueur* tab, int taille);
 
 //Atelier
 void atelier();

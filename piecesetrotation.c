@@ -85,8 +85,8 @@ void liberer_pieces(char*** liste_pieces){
 }
 
 void afficheliste(char ***liste_pieces){
-	for (int i = 0;i<DIM;i++){
-		for (int j = 0; j<NOMBRE_PIECES;j++){
+	for (int i = 0; i<DIM;i++){
+		for (int j = 0;j<NOMBRE_PIECES;j++){
 			printf("%s",liste_pieces[j][i]);
 			printf("    ");
 			
@@ -121,7 +121,7 @@ int rotation_valide(int n, int test_rotation[NUM_CASE][2], int tab[LINE][COL]) {
 		exit(22);
 	}
     for (int i = 0; i < n; i++) {
-        if (test_rotation[i][0] < 0 || test_rotation[i][0] >= LINE || test_rotation[i][1] < 0 || test_rotation[i][1] >= COL || tab[test_rotation[i][0]][test_rotation[i][1]] == 2)
+        if (test_rotation[i][0] < 0 || test_rotation[i][0] >= LINE || test_rotation[i][1] < 0 || test_rotation[i][1] >= COL || tab[test_rotation[i][0]][test_rotation[i][1]] >= 8)
             return 0;
     }
     return 1;

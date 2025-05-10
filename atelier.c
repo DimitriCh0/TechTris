@@ -66,15 +66,7 @@ void menu_enregistrement(char*** pieces_dessinees){
 		printf("\nD (droite), Q (gauche), E (valider)\n");
 
 		input = get_input();
-		if (input == 27){ //Probleme : quand la fleche gauche est appuyé, cela déplace le curseur car dans le terminal, flèche gauche = ^[[D, donc cette partie empêche les conflits de touches
-			input = get_input();
-			if (input == '['){
-				input = get_input();
-				if (input == 'D'){
-					//fait rien
-				}
-			}
-		}
+		
 		//Se déplacer
 		if (input == 'd' || input == 'D') { //Probleme : quand fleche gauche appuyé
 			selected = (selected + 1)%NUM_OPTIONS3;

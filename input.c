@@ -14,7 +14,18 @@ int get_input() {
 	tcsetattr(STDIN_FILENO, TCSANOW, &newt);  // Appliquer
 
 	ch = getchar();                           // Lire une touche
-	
+	if (ch == 27) { // ESC
+		ch = getchar();
+		if (ch == '[') {
+			ch = getchar(); // A, B, C ou D
+				if (ch=='A' ||ch == 'B' || ch == 'C' || ch == 'D'){// Flèche détectée, on ignore
+					ch = 0;
+				}
+		}
+		else {
+					ch = 27;
+		}
+	}
 	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);  // Restaurer config
 	return ch;
 }
@@ -52,6 +63,9 @@ int key_input()
         case 's':
             return 4;
             break;
+        case 'h':
+            return 9;
+            break;
         case 'A':
             return 5;
             break;
@@ -67,8 +81,14 @@ int key_input()
         case 'S':
             return 4;
             break;
+        case 'H':
+            return 9;
+            break;
         case 27 :
             return 8;
+            break;
+        case 32 :
+            return 10;
             break;
         default:
             break;

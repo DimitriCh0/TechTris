@@ -19,13 +19,18 @@ Voila le resultat attendue :
 
 ![image](https://github.com/user-attachments/assets/f573d0f7-e3be-4be7-aecc-4181dbcba482)
 
+Utilisation :
+Vous pouvez lancer une partie en y renseignant votre pseudo et la difficulté et utiliser les touches Q (pour aller à gauche)  S (pour aller plus vite) D (Pour aller à droite) et Espace (Pour faire descendre la piece directement).
+Afin de pouvoir bouger le tetromino.
+
+![image](https://github.com/user-attachments/assets/75db5799-a2ab-4b31-af40-f1c6b4f69cb5)
 
 Fonctionnalité : 
+
 Nous avons ajouté un Atelier permettant de modifier les pièces jouées
 Un Atelier :
      ![image](https://github.com/user-attachments/assets/754c8adb-9a95-4f0d-a3df-91c7c6b6c5c8)
 
-Comment faire pour jouer ? Et bien rien de plus simple commencer par appuyer sur jouer. 
 
 ![image](https://github.com/user-attachments/assets/75db5799-a2ab-4b31-af40-f1c6b4f69cb5)
 
@@ -41,7 +46,7 @@ Maintenant place au jeux Techtris :
 ![image](https://github.com/user-attachments/assets/9764974e-20fb-4f98-833e-32a3823f5b9d)
 
 
-Vous pouvez vous deplacer a l'aide de Z (pour avancer) Q (pour aller à gauche)  S (pour aller plus vite) D (Pour aller à droite) et Espace (Pour faire descendre la piece directement).
+Vous pouvez vous deplacer a l'aide de Z (pour avancer) 
 
 Marre de jouer mais vous voulez garder votre partie appuyer sur Echap et Quitter.
 

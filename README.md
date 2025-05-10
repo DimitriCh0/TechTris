@@ -8,7 +8,8 @@ Bienvenue sur TechTris :
 Notre projet est un jeu vidéo inspirer par le jeux Tetris  pouvant etre afficher dans le terminale.
 
 
-Comment installer le jeu. 
+ Markdown :
+ - Comment installer le jeu. 
 
 ![image](https://github.com/user-attachments/assets/62f5252b-39ab-4c17-a433-022d05f0f08f)
 
@@ -19,11 +20,10 @@ Voila le resultat attendue :
 ![image](https://github.com/user-attachments/assets/f573d0f7-e3be-4be7-aecc-4181dbcba482)
 
 
-
+Fonctionnalité : 
+Nous avons ajouté un Atelier permettant de modifier les pièces jouées
 Un Atelier :
      ![image](https://github.com/user-attachments/assets/754c8adb-9a95-4f0d-a3df-91c7c6b6c5c8)
-
-Un endroit parfait pour modifier les pieces avec lesquelles vous allez jouer.
 
 Comment faire pour jouer ? Et bien rien de plus simple commencer par appuyer sur jouer. 
 

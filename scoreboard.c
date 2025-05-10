@@ -17,6 +17,7 @@ void triInsertion(Joueur* tab, int taille) {
 
 void lire_scoreboard(FILE *f){
     int variable;
+    char ligne[100];
     Joueur J;
     rewind(f);
     while((variable=fgetc(f))!=EOF){
@@ -33,17 +34,18 @@ void lire_scoreboard(FILE *f){
             			}
             		}
             	}
-           	printf("\n %s  ",J.pseudo);
             }
         }
         else if (variable=='&'){
             fscanf(f,"%d ",&J.score);
-            printf("%d  ",J.score);
         }
         else if (variable=='/'){
             fscanf(f,"%d ",&J.difficulte);
-            printf("  %d\n",J.difficulte);
+            snprintf(ligne, sizeof(ligne), "%-10s  |  %6d pts  |       %d", J.pseudo, J.score, J.difficulte);
+            printf("%s\n", ligne);
         }
+	
+        
     }
 }
 

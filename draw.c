@@ -46,7 +46,6 @@ void display(char grille[LINE][COL][UTF], Joueur* J, Tetromino *t, int s){
             		J->score = 999999;
             	}
             	printf("▦      Score : %d\n",J->score);
-
         }else if (LINE >12 && i>5 && i<=12 && s){
             if (i==6){
                 printf("▦       ************\n");

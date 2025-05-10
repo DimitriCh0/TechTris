@@ -147,6 +147,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
     	int n; //Sortie de key_input()
     	int tour = rand()%NOMBRE_PIECES; //Valeur permettant de choisir la pièce à jouer
 	int next_tour; //Valeur désignant la prochaine pièce à jouer
+	int pre_tour;
     	int nombre_lignes = 0; //Variable utilisée pour compter les lignes pleines
     	int p_ligne = LINE-1; //Première ligne pleine par défaut
     	int temp; //Variable temporaire
@@ -184,16 +185,17 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 		while(periode<vitesse/J->difficulte){
 			if (!(liste_t[tour].isalive)){ //Quand la pièce actuelle est arrivée en bas, on change de pièce aléatoirement dans la liste_t en veillant à ce qu'elle ne soit pas identique à la précédente
 		    		reset_piece(liste_t+tour,liste_t[tour].nb_blocs);
+		    		pre_tour = tour;
 				tour = next_tour;
 				//On choisit le prochain tetromino qui ne doit pas être le même que le précédent
 			    	do{
 					next_tour = rand()%NOMBRE_PIECES;
-			    	}while(next_tour==tour);
+			    	}while(next_tour==tour || next_tour == pre_tour);
 		    		
 			}
-
+	       
+			
 	   		n = key_input(); //On appelle key_input() pour savoir si le joueur a appuyé sur une touche	
-
 			if (game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs)){ //On appelle la fonction qui vérifie si le jeu est toujours valide
 				gv = 1;
 				break;
@@ -204,13 +206,11 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 		    			break;
 		    		}
 		    	}
-
 			//Condition changeant la valeur de show_next_t de 0 à 1 ou vice-versa
 			else if(n==9){
 				show_next_t = (show_next_t+1)%2;
 				n=0;
 			}
-
 			else if (n == 10){ //Touche espace appuyé, descente direct
 				v.x = 1;
 				v.y = 0;

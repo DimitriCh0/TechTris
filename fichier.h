@@ -62,6 +62,7 @@ char*** pieces(); // Création de tableau
 void lecture(char*** liste_pieces, int var); // Remplissage de tableau
 void liberer_pieces(char*** liste_pieces); // Libération de mémoire
 void afficheliste(char ***liste_pieces); 
+void choix_couleur(char ***liste_pieces,int i,int j,int k, const char *Couleur);
 void affichepiece(char **piece);
 int scoreGrille(int *tab);
 
@@ -92,10 +93,10 @@ int correction(char *** pieces_dessinees, int piece);
 
 
 //Selection colorée
-void print_tab(char ligne, int highlight);
+void print_tab(char valeur, int highlight, int piece); 
 void print_colored(const char *text, int highlight);
 void print_colored2(const char *text, int highlight);
-
+void choix_couleur2(char valeur, const char *Couleur, int highlight);
 int get_input();
 
 

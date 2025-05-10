@@ -5,16 +5,33 @@ const char *options3[] = {"Retour en arrière","Continuer"};
 #define NUM_OPTIONS2 (sizeof(options2) / sizeof(char*))
 #define NUM_OPTIONS3 (sizeof(options3) / sizeof(char*))
 
-
-
-
-void print_tab(char ligne, int highlight) { //Naviguer dans la grille du dessin de la piece
-	if (highlight) {
-        	printf("  \033[1;32m%c\033[0m", ligne); // Texte vert si sélectionné
-	} 
-	else {
-        	printf("  %c", ligne);
+void choix_couleur2(char valeur, const char *Couleur, int highlight){
+	if (highlight){	
+		switch(valeur){
+			case '0':
+				printf("⬛ ");
+				break;
+			case '1':
+				printf("\033[47m%s \033[0m",Couleur);
+				break;
+		}
 	}
+	else{
+		switch(valeur){
+			case '0':
+				printf("⬜ ");
+				break;
+			case '1':
+				printf("%s ",Couleur);
+				break;
+		}
+	}
+}
+
+
+void print_tab(char valeur, int highlight, int piece) { //Naviguer dans la grille du dessin de la piece
+	const char *couleurs[NOMBRE_PIECES] = {"🟧","🟨","🟩","🟫","🟪","🟦","🟥"};
+        choix_couleur2(valeur,couleurs[piece],highlight);
 }
 
 void print_colored2(const char *text, int highlight) { //Naviguer dans les options sous la grille
@@ -231,15 +248,16 @@ void atelier(){
 		system("clear");
 		printf("\n\n\n");
 		print_colored("===== Atelier =====", 0);
-		printf("\n    Piece #%d \n \n",piece+1);
+		printf("\n                   Piece #%d \n \n",piece+1);
 
 		for (int i = 0; i < DIM; i++) {
+			printf("                ");
 			for (int j = 0; j < DIM; j++) {
-		    		print_tab(pieces_dessinees[piece][i][j], (i*DIM+j) == selected);
+		    		print_tab(pieces_dessinees[piece][i][j], (i*DIM+j) == selected,piece);
 			}
 			printf("\n");
 		}
-		printf("\n  Blocs disponibles : %d \n ",bloc_dispo[piece]);
+		printf("\n             Blocs disponibles : %d \n ",bloc_dispo[piece]);
 		printf("\n");
 		for (int i = NUM_CASE; i < NUM_OPTIONS2+NUM_CASE; i++) {
 		    print_colored2(options2[i-NUM_CASE], i == selected);

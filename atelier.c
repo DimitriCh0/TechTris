@@ -46,7 +46,7 @@ void enregistrement(char*** pieces_dessinees){
 		printf("Ouverture du fichier impossible \n");
 		printf("Code erreur = %d \n", errno);
 		printf("Message erreur = %s \n", strerror(errno));
-		exit (1);
+		exit (30);
 	}
 	
 	//
@@ -107,17 +107,17 @@ char*** pieces_vide(){ //Créer un tableau de tableau à 2 dimensions rempli de 
 	char*** pieces = NULL; 
 	pieces = calloc(NOMBRE_PIECES,sizeof(char**)); 		//Créer le tableau qui contiendra chaque pièce (une pièce étant un tableau a 2 dimensions)
 	if (pieces == NULL){
-		exit(10);
+		exit(31);
 	}
 	for (int i = 0;i<NOMBRE_PIECES;i++){
 		*(pieces+i) = calloc(DIM,sizeof(char*)); 		//Créer les tableaux qui contiendront les chaines de caractères correspondant à chaque ligne qui forme une pièce (5 lignes)
 		if (*(pieces+i) == NULL){
-			exit(10);
+			exit(32);
 		}
 		for (int j = 0; j<DIM;j++){
 			*(*(pieces+i)+j) = calloc((DIM+1),sizeof(char)); 		//Créer les chaines de caractères qui contiendront les pièces ligne par ligne + (DIM+1) pour contenir '\0'
 			if (*(*(pieces+i)+j) == NULL){
-				exit(10);
+				exit(33);
 			}
 		}
 	}

@@ -185,7 +185,9 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 		while(periode<vitesse/J->difficulte){
 			if (!(liste_t[tour].isalive)){ //Quand la pièce actuelle est arrivée en bas, on change de pièce aléatoirement dans la liste_t en veillant à ce qu'elle ne soit pas identique à la précédente
 		    		reset_piece(liste_t+tour,liste_t[tour].nb_blocs);
-		    		pre_tour = tour;
+
+				pre_tour = tour;
+
 				tour = next_tour;
 				//On choisit le prochain tetromino qui ne doit pas être le même que le précédent
 			    	do{

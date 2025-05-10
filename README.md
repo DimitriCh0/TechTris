@@ -55,7 +55,7 @@ Un Menu pause :
 
 Affichage des piece :
  
-Une interface permet de visualiser les prochaines pièces à venir.
+Une interface permet de visualiser les pièces avec lesquelles vous allez jouer.
 
 ![image](https://github.com/user-attachments/assets/a2135203-7368-41b3-a0ba-8fb1c8ae343e)
 

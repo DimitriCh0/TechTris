@@ -5,6 +5,8 @@ Bienvenue sur TechTris :
 
 ![image](https://github.com/user-attachments/assets/1db7f7d0-5507-482e-941f-4968fc3da19f)
 
+Notre projet est un jeu vidéo inspirer par le jeux Tetris  pouvant etre afficher dans le terminale.
+
 Comment installer le jeu. 
 
 ![image](https://github.com/user-attachments/assets/62f5252b-39ab-4c17-a433-022d05f0f08f)

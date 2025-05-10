@@ -3,6 +3,7 @@ Le projet de Préing1 MI1-F : le projet Tech-Tris
 
 Bienvenue sur TechTris :
 
+Comment installer le jeu. 
 
 ![image](https://github.com/user-attachments/assets/1db7f7d0-5507-482e-941f-4968fc3da19f)
 
@@ -36,5 +37,10 @@ Marre de jouer mais vous voulez garder votre partie appuyer sur Echap et Quitter
 
 ![image](https://github.com/user-attachments/assets/aba4002b-42ae-41ba-a8cb-13bafefc46c6)
 
+Vous voulez savoir avec quelle piece vous allez jouer, pas de panique nous avons penser a tout :
+
+![image](https://github.com/user-attachments/assets/a2135203-7368-41b3-a0ba-8fb1c8ae343e)
+
+allez dans le menu 
 
 

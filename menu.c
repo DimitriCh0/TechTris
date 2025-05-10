@@ -35,12 +35,12 @@ void lecture_sauvegarde(FILE *fichier, char tab_char[LINE][COL+1], int tab_int[L
 	for (int i = 0;i<LINE;i++){ 
 		if (fgets(tab_char[i],COL+2,fichier) == NULL){     //COL + 2 permet de consommer le \n et laisse une case pour le \0
 			printf("Erreur dans le fichier texte, la lecture d'une ligne de la grille n'a pas abouti. \n");
-			exit(1);
+			exit(11);
 		}
 		len = strlen(tab_char[i]);
 		if (len < COL || (tab_char[i][COL] != '\n' && tab_char[i][COL] != '\0')) {
         		printf("Erreur dans le fichier texte, la grille n'est pas correctement dessinée \n");
-        		exit(1);
+        		exit(12);
         	}
         	if (tab_char[i][len - 1] == '\n') {
         		tab_char[i][len - 1] = '\0';
@@ -48,7 +48,7 @@ void lecture_sauvegarde(FILE *fichier, char tab_char[LINE][COL+1], int tab_int[L
     		for (int j = 0; j < COL; j++) {
     			if (tab_char[i][j] < '0' || tab_char[i][j] > '7') {
         			printf("Erreur dans la lecture, les valeurs récupérées ne sont pas correctes \n");
-        			exit(1);
+        			exit(13);
     			}
 		}	
 	}
@@ -86,7 +86,7 @@ void lecture_sauvegarde(FILE *fichier, char tab_char[LINE][COL+1], int tab_int[L
 	}
 	if (fgetc(fichier) != '@'){
 		printf("Erreur dans le fichier texte, mauvais séparateur \n");
-		exit(1);
+		exit(14);
 	}
 	while ((variable=fgetc(fichier)) != EOF){
 		if(variable=='#'){
@@ -115,7 +115,7 @@ void sauvegarde(){
 		printf("Ouverture du fichier impossible \n");
 		printf("Code erreur = %d \n", errno);
 		printf("Message erreur = %s \n", strerror(errno));
-		exit (1);
+		exit (15);
 	}
 	if (fgetc(fichier) == EOF){
 		printf("\n\n Aucune sauvegarde detectee ! \n\n");
@@ -137,7 +137,7 @@ void scoreboard() { //Afficher le scoreboard
 		printf("Ouverture du fichier impossible \n");
 		printf("Code erreur = %d \n", errno);
 		printf("Message erreur = %s \n", strerror(errno));
-		exit (157);
+		exit (16);
 	}
 	lire_scoreboard(fichier);
 	fclose(fichier);

@@ -19,7 +19,7 @@ void sleep_ms(float milliseconds)
 void creation_tetrominos(Tetromino *t){
 	printf("Construction des Tétrominos...\n");
 	if (t == NULL){
-		exit(16);
+		exit(60);
 	}
 	char ***liste = pieces();
 	lecture(liste,1);
@@ -130,7 +130,7 @@ int pause(){
 
 void enregistrement_partie(int tab[LINE][COL], Joueur* J){
 	if (tab == NULL || J == NULL){
-		exit(10);
+		exit(61);
 	}
 	char tab_char[LINE][COL+1];
 	for (int i = 0; i <LINE;i++){
@@ -174,7 +174,7 @@ void enregistrement_partie(int tab[LINE][COL], Joueur* J){
 		printf("Ouverture du fichier impossible \n");
 		printf("Code erreur = %d \n", errno);
 		printf("Message erreur = %s \n", strerror(errno));
-		exit (1);
+		exit (62);
 	}
 	for (int i = 0; i<LINE;i++){
 		fputs(tab_char[i],f);
@@ -215,7 +215,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 	Tetromino *liste_t;
     	liste_t = malloc(NOMBRE_PIECES*sizeof(Tetromino));
     	if (liste_t == NULL){
-        	exit(15);
+        	exit(63);
     	}
 	//Création des Tetrominos
     	creation_tetrominos(liste_t);
@@ -331,7 +331,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 				printf("Ouverture du fichier impossible pour la sauvegarde \n");
 				printf("Code erreur = %d \n", errno);
 				printf("Message erreur = %s \n", strerror(errno));
-				exit (1);
+				exit (64);
 			}
 			fclose(f);
 			system("clear");

@@ -41,6 +41,8 @@ Un Atelier :
  
 Un atelier vous permet de modifier les formes des pièces directement dans le jeu, sans avoir à éditer manuellement les fichiers texte.
 
+La modification d’une pièce doit commencer depuis le centre, car celui-ci sert de point de référence pour sa construction.
+
  ![image](https://github.com/user-attachments/assets/754c8adb-9a95-4f0d-a3df-91c7c6b6c5c8)
 
 

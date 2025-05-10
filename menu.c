@@ -1,9 +1,4 @@
 #include "fichier.h"
-
-
-
-
-
 //surlignage
 void print_colored(const char *text, int highlight) {
 	if (highlight) {

@@ -78,7 +78,7 @@ Joueur constru(){
 void enregistrement_score(Joueur* J){
 	if (J == NULL){
 		printf("Pointeur NULL\n");
-		exit (1);
+		exit (40);
 	}
 	FILE *f;
 	int nbr_joueurs,variable;
@@ -88,7 +88,7 @@ void enregistrement_score(Joueur* J){
 		printf("Ouverture du fichier impossible \n");
 		printf("Code erreur = %d \n", errno);
 		printf("Message erreur = %s \n", strerror(errno));
-		exit (93);
+		exit (41);
     	}
 	if ((variable = fgetc(f))==EOF){
 	    	rewind(f);
@@ -102,13 +102,13 @@ void enregistrement_score(Joueur* J){
 		if (fscanf(f, "%d", &nbr_joueurs) != 1 || nbr_joueurs < 0) {
 	    		printf("Format invalide : nombre de joueurs incorrect.\n");
 	    		fclose(f);
-	    		exit(1);
+	    		exit(42);
 		}	
 		Joueur* tab = NULL;
 		tab = malloc(sizeof(Joueur)*(nbr_joueurs+1));
 		if (tab == NULL){
 			printf("Allocation échoué !\n");
-			exit (1);
+			exit (43);
 		}
 	    	while((variable=fgetc(f))!=EOF){
 			if(variable=='#'){
@@ -132,7 +132,7 @@ void enregistrement_score(Joueur* J){
 			printf("Ouverture du fichier impossible \n");
 			printf("Code erreur = %d \n", errno);
 			printf("Message erreur = %s \n", strerror(errno));
-			exit (90);
+			exit (44);
 		}
 		fprintf(f,"%d\n",nbr_joueurs);
 		for (int i = 0; i<nbr_joueurs;i++){

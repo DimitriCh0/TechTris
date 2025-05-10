@@ -12,8 +12,6 @@ Bienvenue sur TechTris :
 ![image](https://github.com/user-attachments/assets/1db7f7d0-5507-482e-941f-4968fc3da19f)
 
 Notre projet est un jeu vidéo inspiré du jeux Tetris  pouvant être affiché dans le terminal.
-
-...................................................................................................................
  
  - Installation
    Téléchargez le projet au format `.zip`.
@@ -62,6 +60,26 @@ Une interface permet de visualiser les pièces avec lesquelles vous allez jouer.
 
 
 ![image](https://github.com/user-attachments/assets/6bfce215-61d4-4d38-a7ed-7bb40d4ed81f)
+
+Voici ci dessous la représentation des fichiers texte dans notre code :
+
+- Le Scoreboard :
+
+     ![image](https://github.com/user-attachments/assets/e269eb6a-0496-41e0-8798-72c7b600c093)
+  
+- Les pièces modifier :
+
+     ![image](https://github.com/user-attachments/assets/da1e8df5-1c9e-410f-9a2c-7f42dc43d658)
+
+- Les pièces par defaut :
+
+     ![image](https://github.com/user-attachments/assets/59d313e4-b1e0-403f-aaa7-8b484723b10a)
+
+- La sauvegarde :
+  
+     ![image](https://github.com/user-attachments/assets/48f2772b-e286-48ff-880c-689b1189be75)
+  
+
 
 
 

@@ -24,4 +24,16 @@ Ensuite entrez votre Pseudo et la difficulté à laquelle vous voulez jouer.
 
 ![image](https://github.com/user-attachments/assets/3e85d9fe-fe1f-4807-83ec-5a385aa766b8)
 
+Maintenant place au jeux Techtris :
+
+![image](https://github.com/user-attachments/assets/bc516d1d-ac31-47af-ac08-5cb5b79635e0)
+
+Vous pouvez vous deplacer a l'aide de Z (pour avancer) Q (pour aller à gauche)  S (pour aller plus vite) D (Pour aller à droite) et Espace (Pour faire descendre la piece directement).
+
+Marre de jouer mais vous voulez garder votre partie appuyer sur Echap et Quitter.
+
+
+![image](https://github.com/user-attachments/assets/aba4002b-42ae-41ba-a8cb-13bafefc46c6)
+
+
 

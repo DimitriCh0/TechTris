@@ -39,7 +39,7 @@ Fonctionnalité :
 
 Un Atelier :
  
- Nous avons ajouté un Atelier permettant de modifier les pièces jouées.
+ Un atelier vous permet de modifier les formes des pièces avant de jouer.
 
  ![image](https://github.com/user-attachments/assets/754c8adb-9a95-4f0d-a3df-91c7c6b6c5c8)
 
@@ -47,13 +47,13 @@ Un Atelier :
 
 Un Menu pause :
 
- Nous avons rajouter un menu pauses pour sauvegarder la partie et la reprendre plus tard.
-
+ Un menu pause a été ajouté pour permettre de sauvegarder la partie et la reprendre plus tard.
+ 
 ![image](https://github.com/user-attachments/assets/aba4002b-42ae-41ba-a8cb-13bafefc46c6)
 
 Affichage des piece :
  
- On peut également consulté les pièces qui seront jouée dans la partie.
+Une interface permet de visualiser les prochaines pièces à venir.
 
 ![image](https://github.com/user-attachments/assets/a2135203-7368-41b3-a0ba-8fb1c8ae343e)
 

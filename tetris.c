@@ -1,7 +1,5 @@
 #include "fichier.h"
 
-const char *options4[] = {"Quitter","Continuer"};
-#define NUM_OPTIONS4 (sizeof(options4) / sizeof(char*))
 
 void print_colored3(const char *text, int highlight) { //Naviguer dans les options sous la grille
 	if (highlight) {
@@ -93,12 +91,14 @@ int pause(){
 	int input;
 	int t = 1;
 	int quit;
+	const char *options4[] = {"Quitter","Continuer"};
+	int num_options4 = (sizeof(options4) / sizeof(char*));
 	while (t) {
 		system("clear");
 		printf("\n\n\n");
 		print_colored("===== Pause =====", 0);
 		printf("\n");
-		for (int i = 0; i < NUM_OPTIONS4; i++) {
+		for (int i = 0; i < num_options4; i++) {
 		    print_colored3(options4[i], i == selected);
 		}
 		
@@ -107,10 +107,10 @@ int pause(){
 		input = get_input();
 		
 		if (input == 'd' || input == 'D') { //Probleme : quand fleche gauche appuyé
-			selected = (selected + 1)%NUM_OPTIONS4;
+			selected = (selected + 1)%num_options4;
 		} 
 		else if (input == 'q' || input == 'Q') {
-			selected = (selected - 1 + NUM_OPTIONS4)%NUM_OPTIONS4;
+			selected = (selected - 1 + num_options4)%num_options4;
 		}  
 		else if (input == 'e' || input == 'E') {
 			switch (selected) {

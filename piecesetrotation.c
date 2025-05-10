@@ -115,7 +115,7 @@ const int wall_kicks[6][2] = {
 	{-2, 0}
 };
 //Fontion qui teste la rotation en vérifiant si la pièce est bien dans la grille et pas en collision avec des pièces "mortes"
-int rotation_valide(int n, int test_rotation[NUM_CASE][2], int tab[LINE][COL]) {
+int rotation_valide(int n, int test_rotation[BLOC_MAX][2], int tab[LINE][COL]) {
 	if (test_rotation == NULL){
 		printf("Erreur de pointeur dans rotation !\n");
 		exit(22);
@@ -128,7 +128,7 @@ int rotation_valide(int n, int test_rotation[NUM_CASE][2], int tab[LINE][COL]) {
 }
 
 //Procédure qui applique simplement la rotation en copiant les coordonnées du tableau test dans le tetromino
-void appliquer_rotation(Tetromino *t, int test_rotation[NUM_CASE][2], int n) {
+void appliquer_rotation(Tetromino *t, int test_rotation[BLOC_MAX][2], int n) {
 	if (test_rotation == NULL || t == NULL){
 		printf("Erreur de pointeur dans rotation !\n");
 		exit(23);
@@ -151,7 +151,7 @@ void rotation(int rotation, Tetromino *t, int n, int tab[LINE][COL]) {
     int dx = 2 - t->blocs[0][0]; //Distance x entre le centre du tetromino et la case (2,2), qui est le centre d'un tableau 5*5
     int dy = 2 - t->blocs[0][1]; //Distance y...
     int temp, posx, posy;
-    int test_rotation[NUM_CASE][2]; //Tableau test très important car tous les changements et toutes les vérifications se font avec lui, afin de ne pas modifier le tetromino
+    int test_rotation[BLOC_MAX][2]; //Tableau test très important car tous les changements et toutes les vérifications se font avec lui, afin de ne pas modifier le tetromino
 							  //tant que l'on est pas sûr que la rotation est valide
 	if( rotation == 5 || rotation == 1){
     for (int i = 0; i < n; i++) {
@@ -185,7 +185,7 @@ void rotation(int rotation, Tetromino *t, int n, int tab[LINE][COL]) {
     for (int k = 0; k < 6; k++) {
         int kick_x = wall_kicks[k][0];
         int kick_y = wall_kicks[k][1];
-        int test_kick[NUM_CASE][2]; 
+        int test_kick[BLOC_MAX][2]; 
 		
         for (int i = 0; i < n; i++) {
             test_kick[i][0] = test_rotation[i][0] + kick_x;

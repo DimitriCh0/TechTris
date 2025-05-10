@@ -101,7 +101,7 @@ void draw(int tab[LINE][COL], char grille[LINE][COL][UTF]){
 	            	else{
 			        if (tab[i][j] <0 || tab[i][j]>14 || tab==NULL){
 			            printf("Erreur de saisie. %d\n", tab[i][j]);
-			            exit(10); 
+			            exit(72); 
 	                	} 
 			        switch(tab[i][j]%7+1){
 			            case 1:
@@ -136,7 +136,7 @@ void draw(int tab[LINE][COL], char grille[LINE][COL][UTF]){
 void refresh(char grille[LINE][COL][UTF], int tab[LINE][COL], Joueur* J,Tetromino *t, int s){
 	if (t==NULL || J==NULL){
         	printf("ERREUR de pointeur dans Draw !!!\n");
-        	exit(72);
+        	exit(73);
     	}
     	system("clear");
     	clear(tab);

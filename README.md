@@ -17,3 +17,11 @@ Comment faire pour jouer ? Et bien rien de plus simple commencer par appuyer sur
 
 ![image](https://github.com/user-attachments/assets/75db5799-a2ab-4b31-af40-f1c6b4f69cb5)
 
+Ensuite entrez votre Pseudo et la difficulté à laquelle vous voulez jouer.
+
+![image](https://github.com/user-attachments/assets/c0ea35bc-bcb5-40d3-a428-7e8128e500b0)
+
+
+![image](https://github.com/user-attachments/assets/3e85d9fe-fe1f-4807-83ec-5a385aa766b8)
+
+

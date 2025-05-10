@@ -14,5 +14,6 @@ Un Atelier :
 Un endroit propice pour modifier les pieces avec lesquelles vous allez jouer.
 
 Comment faire pour jouer ? Et bien rien de plus simple commencer par appuyer sur jouer. 
+
 ![image](https://github.com/user-attachments/assets/75db5799-a2ab-4b31-af40-f1c6b4f69cb5)
 

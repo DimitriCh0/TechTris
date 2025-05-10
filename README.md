@@ -35,26 +35,13 @@ Un Atelier :
 
 ![image](https://github.com/user-attachments/assets/75db5799-a2ab-4b31-af40-f1c6b4f69cb5)
 
-Ensuite entrez votre Pseudo et la difficulté à laquelle vous voulez jouer.
-
-![image](https://github.com/user-attachments/assets/c0ea35bc-bcb5-40d3-a428-7e8128e500b0)
-
-
-![image](https://github.com/user-attachments/assets/3e85d9fe-fe1f-4807-83ec-5a385aa766b8)
-
-Maintenant place au jeux Techtris :
-
-![image](https://github.com/user-attachments/assets/9764974e-20fb-4f98-833e-32a3823f5b9d)
-
-
-Vous pouvez vous deplacer a l'aide de Z (pour avancer) 
-
-Marre de jouer mais vous voulez garder votre partie appuyer sur Echap et Quitter.
-
+Un Menu pause :
+Nous avons rajouter un menu pauses pour sauvegarder la partie et la reprendre plus tard.
 
 ![image](https://github.com/user-attachments/assets/aba4002b-42ae-41ba-a8cb-13bafefc46c6)
 
-Vous voulez savoir avec quelle piece vous allez jouer, pas de panique nous avons penser a tout :
+Affichage des piece :
+On peut également consulté les pièces qui seront jouée dans la partie.
 
 ![image](https://github.com/user-attachments/assets/a2135203-7368-41b3-a0ba-8fb1c8ae343e)
 

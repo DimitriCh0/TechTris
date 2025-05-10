@@ -198,7 +198,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 	       
 			
 	   		n = key_input(); //On appelle key_input() pour savoir si le joueur a appuyé sur une touche	
-			if (game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs)){ //On appelle la fonction qui vérifie si le jeu est toujours valide
+			if (game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs,tour+1)){ //On appelle la fonction qui vérifie si le jeu est toujours valide
 				gv = 1;
 				break;
 			}
@@ -210,7 +210,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 		    	}
 			//Condition changeant la valeur de show_next_t de 0 à 1 ou vice-versa
 			else if(n==9){
-				show_next_t = (show_next_t+1)%2;
+				show_next_t = !show_next_t;
 				n=0;
 			}
 			else if (n == 10){ //Touche espace appuyé, descente direct
@@ -286,7 +286,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 		refresh(grille, tab_principal,J,liste_t+next_tour,show_next_t);
 		nb_lines = 0;
 		enregistrement_partie(tab_principal,J);
-		if (gv || game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs)){ //On vérifie si le jeu n'est pas terminé (quand les pièces atteignent le haut de la grille)
+		if (gv || game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs,tour+1)){ //On vérifie si le jeu n'est pas terminé (quand les pièces atteignent le haut de la grille)
 			enregistrement_score(J);
 			FILE *f;
 			f=fopen("sauvegarde.txt","w+"); //'w+' écrase la dernière sauvegarde

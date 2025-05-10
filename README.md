@@ -11,7 +11,11 @@ Comment installer le jeu.
 
 installer le format ZIP. Appuyer sur Extraire le fichier, puis dans l'invité de commande écriver l'instruction "make".
 
-Un jeux inspiré de Tetris mais revisité par nos soin. Voici queleques nouveautés :
+Voila le resultat attendue :
+
+![image](https://github.com/user-attachments/assets/f573d0f7-e3be-4be7-aecc-4181dbcba482)
+
+
 
 Un Atelier :
      ![image](https://github.com/user-attachments/assets/754c8adb-9a95-4f0d-a3df-91c7c6b6c5c8)

@@ -33,16 +33,30 @@ void tetris() {
 
 void lecture_sauvegarde(FILE *fichier, char tab_char[LINE][COL+1], int tab_int[LINE][COL], Joueur* Joueur){
 	char variable;
+	int len;
 	if (fichier == NULL || tab_char == NULL || Joueur == NULL){
 		exit(10);
 	}
 	rewind(fichier);
 	for (int i = 0;i<LINE;i++){ 
-		if (fgets(tab_char[i],COL+1,fichier) == NULL){
+		if (fgets(tab_char[i],COL+2,fichier) == NULL){     //COL + 2 permet de consommer le \n et laisse une case pour le \0
 			printf("Erreur dans le fichier texte, la lecture d'une ligne de la grille n'a pas abouti. \n");
 			exit(1);
 		}
-		fgetc(fichier); 					//passer le '\n' après chaque ligne 
+		len = strlen(tab_char[i]);
+		if (len < COL || (tab_char[i][COL] != '\n' && tab_char[i][COL] != '\0')) {
+        		printf("Erreur dans le fichier texte, la grille n'est pas correctement dessinée \n");
+        		exit(1);
+        	}
+        	if (tab_char[i][len - 1] == '\n') {
+        		tab_char[i][len - 1] = '\0';
+    		}
+    		for (int j = 0; j < COL; j++) {
+    			if (tab_char[i][j] < '0' || tab_char[i][j] > '7') {
+        			printf("Erreur dans la lecture, les valeurs récupérées ne sont pas correctes \n");
+        			exit(1);
+    			}
+		}	
 	}
 	for (int i = 0; i <LINE;i++){
 		for (int j = 0; j<COL;j++){
@@ -190,7 +204,7 @@ void display_menu() {
 		    print_colored(options[i], i == selected);
 		}
 
-		printf("\nUtilise Z (haut), S (bas), E (valider)\n");
+		printf("\n\n\nUtilise Z (haut), S (bas), E (valider)\n");
 
 		input = get_input();
 

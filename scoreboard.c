@@ -51,6 +51,7 @@ void lire_scoreboard(FILE *f){
 
 
 Joueur constru(){
+    int retour;
     Joueur J;
     do{
 	    system("clear");
@@ -61,9 +62,8 @@ Joueur constru(){
 	    	sleep(1);
 	    }
 	    while (getchar() != '\n');
-    } while (strlen(J.pseudo) > 48);
+    } while (strlen(J.pseudo) > 48 || strlen(J.pseudo)==0);
     J.score=0;
-    int retour;
     do {
 	    system("clear");
 	    printf("Entrez la difficulte (1, 2, 3 ou 4) :\n");

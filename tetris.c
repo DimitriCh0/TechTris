@@ -3,6 +3,15 @@
 const char *options4[] = {"Quitter","Continuer"};
 #define NUM_OPTIONS4 (sizeof(options4) / sizeof(char*))
 
+void print_colored3(const char *text, int highlight) { //Naviguer dans les options sous la grille
+	if (highlight) {
+        	printf("         > \033[1;32m%s\033[0m < ", text); // Texte vert si sélectionné
+	} 
+	else {
+        	printf("         %s ", text);
+	}
+}
+
 void sleep_ms(float milliseconds)
 {
     //Convertit les millisecondes en microsecondes
@@ -36,23 +45,64 @@ int scoreGrille(int *tab){
     return 0;
 }
 
+void score(Joueur* J,int tab_principal[LINE][COL],int nb_lines){
+	int clear = 1;
+	for (int i = 0; i<LINE; i++){
+		for (int j = 0; j<COL; j++){
+			if (tab_principal[i][j] != 0){
+				clear = 0;
+			}
+		}
+	}
+	switch(nb_lines){
+			case 1 :
+				if (clear == 1){
+					J->score +=800*J->difficulte;
+				}
+				J->score +=100*J->difficulte;
+				break;
+			case 2 :
+				if (clear == 1){
+					J->score +=1200*J->difficulte;
+				}
+				J->score +=300*J->difficulte;	
+				break;
+			case 3 :
+				if (clear == 1){
+					J->score +=1800*J->difficulte;
+				}
+				J->score +=500*J->difficulte;	
+				break;
+			case 4 :
+				if (clear == 1){
+					J->score +=2000*J->difficulte;
+				}
+				J->score +=800*J->difficulte;	
+				break;
+			case 5 :
+				if (clear == 1){
+					J->score +=2500*J->difficulte;
+				}
+				J->score +=1000*J->difficulte;	
+				break;
+	}
+}
 
 int pause(){
 	int selected = 0;
 	int input;
 	int t = 1;
-	int quitter;
+	int quit;
 	while (t) {
 		system("clear");
 		printf("\n\n\n");
 		print_colored("===== Pause =====", 0);
 		printf("\n");
 		for (int i = 0; i < NUM_OPTIONS4; i++) {
-		    print_colored2(options4[i], i == selected);
+		    print_colored3(options4[i], i == selected);
 		}
 		
-		printf("\n");
-		printf("\nD (droite), Q (gauche), E (valider)\n");
+		printf("\n\n\nD (droite), Q (gauche), E (valider)\n");
 
 		input = get_input();
 		
@@ -66,16 +116,16 @@ int pause(){
 			switch (selected) {
 				case 0:
 					t=0;
-					quitter = 1;
+					quit = 1;
 					break;
 		        	case 1:
 		            		t=0;
-		            		quitter = 0;
+		            		quit = 0;
 		            		break;
 		        }
 		}
 	}
-	return quitter;
+	return quit;
 }
 
 void enregistrement_partie(int tab[LINE][COL], Joueur* J){
@@ -148,11 +198,11 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
     	int tour = rand()%NOMBRE_PIECES; //Valeur permettant de choisir la pièce à jouer
 	int next_tour; //Valeur désignant la prochaine pièce à jouer
 	int pre_tour;
-    	int nombre_lignes = 0; //Variable utilisée pour compter les lignes pleines
+    	int nb_lines = 0; //Variable utilisée pour compter les lignes pleines
     	int p_ligne = LINE-1; //Première ligne pleine par défaut
     	int temp; //Variable temporaire
-    	float vitesse = 1000; //Vitesse d'exécution du jeu
-    	int quitter;
+    	float speed = 1000; //Vitesse d'exécution du jeu
+    	int quit;
 	int gv = 0;
 	int show_next_t = 0;
     	Vecteur v;
@@ -179,10 +229,10 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 		clock_gettime(CLOCK_MONOTONIC, &end);
 		long seconds = end.tv_sec - start.tv_sec;
 	    	long nanoseconds = end.tv_nsec - start.tv_nsec;
-	    	long periode = seconds * 1000 + nanoseconds / 1000000;
+	    	long period = seconds * 1000 + nanoseconds / 1000000;
 		//Fonctionnement du jeu : à chaque niveau de difficulté est associé une période de temps en millisecondes
 		//Pendant cette période, le joueur peut faire ce qu'il veut (bouger la pièce, la tourner, etc), mais à la fin de chaque période le tétromino descendra forcément de 1 case
-		while(periode<vitesse/J->difficulte){
+		while(period<speed/J->difficulte){
 			if (!(liste_t[tour].isalive)){ //Quand la pièce actuelle est arrivée en bas, on change de pièce aléatoirement dans la liste_t en veillant à ce qu'elle ne soit pas identique à la précédente
 		    		reset_piece(liste_t+tour,liste_t[tour].nb_blocs);
 
@@ -203,8 +253,8 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 				break;
 			}
 		    	if (n==8){
-		    		quitter = pause();
-		    		if (quitter){
+		    		quit = pause();
+		    		if (quit){
 		    			break;
 		    		}
 		    	}
@@ -221,7 +271,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 					J->score +=2;
 					draw(tab_principal,grille);
 					refresh(grille, tab_principal,J,liste_t+next_tour, show_next_t);
-					nombre_lignes = 0;
+					nb_lines = 0;
 					enregistrement_partie(tab_principal,J);
 				}
 				n=0;
@@ -236,18 +286,18 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 				n=0;
 				draw(tab_principal,grille);
 				refresh(grille, tab_principal,J,liste_t+next_tour, show_next_t);
-				nombre_lignes = 0;
+				nb_lines = 0;
 				enregistrement_partie(tab_principal,J);
 			}
 			clock_gettime(CLOCK_MONOTONIC, &end);
 			seconds = end.tv_sec - start.tv_sec;
 		    	nanoseconds = end.tv_nsec - start.tv_nsec;
-		    	periode = seconds * 1000 + nanoseconds / 1000000;
+		    	period = seconds * 1000 + nanoseconds / 1000000;
 			sleep_ms(30);
 		}
 		
 		if (n==8){
-			if (quitter){
+			if (quit){
 				break;
 			}
 		}
@@ -262,31 +312,20 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 				p_ligne = i;
 				gravitation(tab_principal,1,p_ligne); //On fait descendre toutes les lignes qui n'ont pas été suprimées
 			}
-			nombre_lignes+=temp; //On additionne temp afin de savoir le nombre de lignes supprimées
+			nb_lines+=temp; //On additionne temp afin de savoir le nombre de lignes supprimées
 			
 		}
-		switch(nombre_lignes){
-			case 1 :
-				J->score +=100*J->difficulte;
-				break;
-			case 2 :
-				J->score +=300*J->difficulte;	
-				break;
-			case 3 :
-				J->score +=500*J->difficulte;	
-				break;
-			case 4 :
-				J->score +=800*J->difficulte;	
-				break;
-			case 5 :
-				J->score +=1000*J->difficulte;	
-				break;
-		}
+		
+		
 		draw(tab_principal,grille);
 		refresh(grille, tab_principal,J,liste_t+next_tour,show_next_t);
-		nombre_lignes = 0;
+		score(J,tab_principal,nb_lines);
+		nb_lines = 0;
 		enregistrement_partie(tab_principal,J);
-		if (gv || game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs)){ //On vérifie si le jeu n'est pas terminé (quand les pièces atteignent le haut de la grille)
+		if (gv || game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs,tour+1)){ //On vérifie si le jeu n'est pas terminé (quand les pièces atteignent le haut de la grille)
+			draw(tab_principal,grille);
+			refresh(grille, tab_principal,J,liste_t+next_tour,show_next_t);
+			sleep_ms(100);
 			enregistrement_score(J);
 			FILE *f;
 			f=fopen("sauvegarde.txt","w+"); //'w+' écrase la dernière sauvegarde

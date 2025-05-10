@@ -32,7 +32,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde);
 //Tétrominos
 void creation_tetrominos(Tetromino *t);
 void tetrominoConstructor(char **tab, Tetromino *t);
-int move_t(Tetromino *t,Vecteur v,int n);
+void move_t(Tetromino *t,Vecteur v,int n);
 void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v, int n, int color);
 int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL], int n);
 int isNotBorderR(Tetromino *t, int n);
@@ -42,7 +42,8 @@ void reset_piece(Tetromino *t, int n);
 void sleep_ms(float milliseconds);
 void clear_line(int tab[LINE][COL], int nb);
 void gravitation(int tab[LINE][COL], int d, int start);
-int game_over(int tab[LINE][COL], Tetromino *t, int n);
+int game_over(int tab[LINE][COL], Tetromino *t, int n,int color);
+void score(Joueur* J,int tab_principal[LINE][COL],int nb_lines);
 //Inputs
 int get_input();
 int key_input();
@@ -96,6 +97,7 @@ int correction(char *** pieces_dessinees, int piece);
 void print_tab(char valeur, int highlight, int piece); 
 void print_colored(const char *text, int highlight);
 void print_colored2(const char *text, int highlight);
+void print_colored3(const char *text, int highlight);
 void choix_couleur2(char valeur, const char *Couleur, int highlight);
 int get_input();
 

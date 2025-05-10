@@ -3,6 +3,15 @@
 const char *options4[] = {"Quitter","Continuer"};
 #define NUM_OPTIONS4 (sizeof(options4) / sizeof(char*))
 
+void print_colored3(const char *text, int highlight) { //Naviguer dans les options sous la grille
+	if (highlight) {
+        	printf("         > \033[1;32m%s\033[0m < ", text); // Texte vert si sélectionné
+	} 
+	else {
+        	printf("         %s ", text);
+	}
+}
+
 void sleep_ms(float milliseconds)
 {
     //Convertit les millisecondes en microsecondes
@@ -36,6 +45,48 @@ int scoreGrille(int *tab){
     return 0;
 }
 
+void score(Joueur* J,int tab_principal[LINE][COL],int nb_lines){
+	int clear = 1;
+	for (int i = 0; i<LINE; i++){
+		for (int j = 0; j<COL; j++){
+			if (tab_principal[i][j] != 0){
+				clear = 0;
+			}
+		}
+	}
+	switch(nb_lines){
+			case 1 :
+				if (clear == 1){
+					J->score +=800*J->difficulte;
+				}
+				J->score +=100*J->difficulte;
+				break;
+			case 2 :
+				if (clear == 1){
+					J->score +=1200*J->difficulte;
+				}
+				J->score +=300*J->difficulte;	
+				break;
+			case 3 :
+				if (clear == 1){
+					J->score +=1800*J->difficulte;
+				}
+				J->score +=500*J->difficulte;	
+				break;
+			case 4 :
+				if (clear == 1){
+					J->score +=2000*J->difficulte;
+				}
+				J->score +=800*J->difficulte;	
+				break;
+			case 5 :
+				if (clear == 1){
+					J->score +=2500*J->difficulte;
+				}
+				J->score +=1000*J->difficulte;	
+				break;
+	}
+}
 
 int pause(){
 	int selected = 0;
@@ -48,11 +99,10 @@ int pause(){
 		print_colored("===== Pause =====", 0);
 		printf("\n");
 		for (int i = 0; i < NUM_OPTIONS4; i++) {
-		    print_colored2(options4[i], i == selected);
+		    print_colored3(options4[i], i == selected);
 		}
 		
-		printf("\n");
-		printf("\nD (droite), Q (gauche), E (valider)\n");
+		printf("\n\n\nD (droite), Q (gauche), E (valider)\n");
 
 		input = get_input();
 		
@@ -265,25 +315,10 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 			nb_lines+=temp; //On additionne temp afin de savoir le nombre de lignes supprimées
 			
 		}
-		switch(nb_lines){
-			case 1 :
-				J->score +=100*J->difficulte;
-				break;
-			case 2 :
-				J->score +=300*J->difficulte;	
-				break;
-			case 3 :
-				J->score +=500*J->difficulte;	
-				break;
-			case 4 :
-				J->score +=800*J->difficulte;	
-				break;
-			case 5 :
-				J->score +=1000*J->difficulte;	
-				break;
-		}
 		draw(tab_principal,grille);
 		refresh(grille, tab_principal,J,liste_t+next_tour,show_next_t);
+		score(J,tab_principal,nb_lines);
+
 		nb_lines = 0;
 		enregistrement_partie(tab_principal,J);
 		if (gv || game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs,tour+1)){ //On vérifie si le jeu n'est pas terminé (quand les pièces atteignent le haut de la grille)

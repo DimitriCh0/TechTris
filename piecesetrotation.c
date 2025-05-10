@@ -26,10 +26,10 @@ char*** pieces(){ //procedure qui crée un tableau utilisé pour la lecture des 
 void lecture(char*** liste_pieces,int var){
 	FILE* fichier = NULL;
 	if (var){
-		fichier = fopen("piecesedited.txt","r+");
+		fichier = fopen("piecesmodifiees.txt","r+");
 	}
 	else{
-		fichier = fopen("piecesdefault.txt","r+");
+		fichier = fopen("piecesdefauts.txt","r+");
 	}
 	if (fichier == NULL){
 		printf("Ouverture du fichier impossible \n");

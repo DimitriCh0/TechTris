@@ -1,7 +1,7 @@
 #include "fichier.h"
 
 const char *options2[] = {"Piece precedente","Quitter l'Atelier","Defaut","Enregistrer","Piece suivante"};
-const char *options3[] = {"Retour en arrière","Continuer"};
+const char *options3[] = {"Retour","Continuer"};
 #define NUM_OPTIONS2 (sizeof(options2) / sizeof(char*))
 #define NUM_OPTIONS3 (sizeof(options3) / sizeof(char*))
 
@@ -45,7 +45,7 @@ void print_colored2(const char *text, int highlight) { //Naviguer dans les optio
 
 void enregistrement(char*** pieces_dessinees){
 	FILE* fichier = NULL;
-	fichier = fopen("piecesedited.txt","r+");
+	fichier = fopen("piecesmodifiees.txt","r+");
 	if (fichier == NULL){
 		printf("Ouverture du fichier impossible \n");
 		printf("Code erreur = %d \n", errno);
@@ -72,15 +72,15 @@ void menu_enregistrement(char*** pieces_dessinees){
 	while (t) {
 		system("clear");
 		printf("\n\n\n");
-		print_colored("===== Enresgistrement =====", 0);
-		printf("\n  Sauvegarder les modifications ? \n \n");
-
+		print_colored("===== Enregistrement =====", 0);
+		printf("\n            Sauvegarder les modifications ? \n \n");
+		printf("    ");
 		for (int i = 0; i < NUM_OPTIONS3; i++) {
-		    print_colored2(options3[i], i == selected);
+		    print_colored3(options3[i], i == selected);
 		}
 		
-		printf("\n");
-		printf("\nD (droite), Q (gauche), E (valider)\n");
+		
+		printf("\n\n\nD (droite), Q (gauche), E (valider)\n");
 
 		input = get_input();
 		
@@ -190,14 +190,13 @@ int menu_defaut(char *** pieces_dessinees){
 		system("clear");
 		printf("\n\n\n");
 		print_colored("===== Defaut =====", 0);
-		printf("\n  Jouer avec les pièces de TETRIS par défaut ? \n \n");
+		printf("\n   Jouer avec les pièces de TETRIS par défaut ? \n \n");
 
 		for (int i = 0; i < NUM_OPTIONS3; i++) {
-		    print_colored2(options3[i], i == selected);
+		    print_colored3(options3[i], i == selected);
 		}
 		
-		printf("\n");
-		printf("\nD (droite), Q (gauche), E (valider)\n");
+		printf("\n\n\nD (droite), Q (gauche), E (valider)\n");
 
 		input = get_input();
 		if (input == 27){ //Probleme : quand la fleche gauche est appuyé, cela déplace le curseur car dans le terminal, flèche gauche = ^[[D, donc cette partie empêche les conflits de touches
@@ -263,8 +262,7 @@ void atelier(){
 		    print_colored2(options2[i-NUM_CASE], i == selected);
 		}
 		
-		printf("\n");
-		printf("\nUtilise Z (haut), S (bas), D (droite), Q (gauche), E (valider)\n");
+		printf("\n\n\nUtilise Z (haut), S (bas), D (droite), Q (gauche), E (valider)\n");
 
 		input = get_input();
 		

@@ -53,3 +53,9 @@ Affichage des piece :
 ![image](https://github.com/user-attachments/assets/a2135203-7368-41b3-a0ba-8fb1c8ae343e)
 
 
+
+![image](https://github.com/user-attachments/assets/6bfce215-61d4-4d38-a7ed-7bb40d4ed81f)
+
+
+
+

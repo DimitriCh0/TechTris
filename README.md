@@ -1,8 +1,8 @@
 # TechTris
-Le projet de Préing1 MI1-F : le projet Tech-Tris
+Projet Tech-Tris – Préing1 MI1-F
 
 
-Technologie utilisé :
+Technologie utilisée :
    -Langage C.
    -Utilisation du terminale.
    -Makefile pour la compilation du jeu.
@@ -11,7 +11,7 @@ Bienvenue sur TechTris :
 
 ![image](https://github.com/user-attachments/assets/1db7f7d0-5507-482e-941f-4968fc3da19f)
 
-Notre projet est un jeu vidéo inspirer par le jeux Tetris  pouvant etre afficher dans le terminale.
+Notre projet est un jeu vidéo inspiré du jeux Tetris  pouvant être affiché dans le terminal.
 
 
  Markdown :
@@ -24,13 +24,13 @@ Notre projet est un jeu vidéo inspirer par le jeux Tetris  pouvant etre affiche
    ```bash
    make 
 
-Voila le resultat attendue :
+Voici le resultat attendu :
 
 ![image](https://github.com/user-attachments/assets/f573d0f7-e3be-4be7-aecc-4181dbcba482)
 
 -Utilisation :
-Vous pouvez lancer une partie en y renseignant votre pseudo et la difficulté et utiliser les touches Q (pour aller à gauche)  S (pour aller plus vite) D (Pour aller à droite) et Espace (Pour faire descendre la piece directement).
-Afin de pouvoir bouger le tetromino.
+Lancez une partie en entrant votre pseudo et la difficulté, puis utilisez les touches Q (pour aller à gauche)  S (pour aller plus vite) D (Pour aller à droite) et Espace (Pour faire descendre la piece directement).
+Afin de déplacer le tetromino.
 
 ![image](https://github.com/user-attachments/assets/066fe468-3a04-48f4-ae94-41eb9353066b)
 

@@ -4,6 +4,8 @@ Le projet de Préing1 MI1-F : le projet Tech-Tris
 
 Technologie utilisé :
    -Langage C.
+   -Utilisation du terminale.
+   -Makefile pour la compilation du jeu.
 
 Bienvenue sur TechTris :
 
@@ -13,11 +15,14 @@ Notre projet est un jeu vidéo inspirer par le jeux Tetris  pouvant etre affiche
 
 
  Markdown :
- - Comment installer le jeu. 
-
-![image](https://github.com/user-attachments/assets/62f5252b-39ab-4c17-a433-022d05f0f08f)
-
-installer le format ZIP. Appuyer sur Extraire le fichier, puis dans l'invité de commande écriver l'instruction "make".
+ 
+ - Installation
+   Téléchargez le projet au format `.zip`.
+    Extrayez les fichiers.
+    Ouvrez un terminal dans le dossier extrait.
+    Exécutez la commande suivante pour compiler :
+   ```bash
+   make 
 
 Voila le resultat attendue :
 

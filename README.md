@@ -3,16 +3,20 @@ Le projet de Préing1 MI1-F : le projet Tech-Tris
 
 Bienvenue sur TechTris :
 
+![image](https://github.com/user-attachments/assets/1db7f7d0-5507-482e-941f-4968fc3da19f)
+
 Comment installer le jeu. 
 
-![image](https://github.com/user-attachments/assets/1db7f7d0-5507-482e-941f-4968fc3da19f)
+![image](https://github.com/user-attachments/assets/62f5252b-39ab-4c17-a433-022d05f0f08f)
+
+installer le format ZIP. Appuyer sur Extraire le fichier, puis dans l'invité de commande écriver l'instruction "make".
 
 Un jeux inspiré de Tetris mais revisité par nos soin. Voici queleques nouveautés :
 
 Un Atelier :
      ![image](https://github.com/user-attachments/assets/754c8adb-9a95-4f0d-a3df-91c7c6b6c5c8)
 
-Un endroit propice pour modifier les pieces avec lesquelles vous allez jouer.
+Un endroit parfait pour modifier les pieces avec lesquelles vous allez jouer.
 
 Comment faire pour jouer ? Et bien rien de plus simple commencer par appuyer sur jouer. 
 

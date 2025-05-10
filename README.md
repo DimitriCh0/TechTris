@@ -12,3 +12,7 @@ Un Atelier :
      ![image](https://github.com/user-attachments/assets/754c8adb-9a95-4f0d-a3df-91c7c6b6c5c8)
 
 Un endroit propice pour modifier les pieces avec lesquelles vous allez jouer.
+
+Comment faire pour jouer ? Et bien rien de plus simple commencer par appuyer sur jouer. 
+![image](https://github.com/user-attachments/assets/75db5799-a2ab-4b31-af40-f1c6b4f69cb5)
+

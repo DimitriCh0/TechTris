@@ -44,6 +44,7 @@ void clear_line(int tab[LINE][COL], int nb);
 void gravitation(int tab[LINE][COL], int d, int start);
 int game_over(int tab[LINE][COL], Tetromino *t, int n,int color);
 void score(Joueur* J,int tab_principal[LINE][COL],int nb_lines);
+
 //Inputs
 int get_input();
 int key_input();

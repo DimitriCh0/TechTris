@@ -180,7 +180,7 @@ int game_over(int tab[LINE][COL], Tetromino *t, int n, int color){
    	}
     	for (int i = 0; i<n;i++){
        		if (tab[t->blocs[i][0]][t->blocs[i][1]] >=8 && t->blocs[i][0]<4){
-       			Vecteur d;
+       			    Vecteur d;
             		d.x=0;
             		d.y=0;
             		place_t(t,tab,d,t->nb_blocs,color);

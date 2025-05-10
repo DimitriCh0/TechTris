@@ -29,7 +29,7 @@ Voici le resultat attendu :
 ![image](https://github.com/user-attachments/assets/f573d0f7-e3be-4be7-aecc-4181dbcba482)
 
 -Utilisation :
-Lancez une partie en entrant votre pseudo et la difficulté, puis utilisez les touches Q (pour aller à gauche)  S (pour aller plus vite) D (Pour aller à droite) et Espace (Pour faire descendre la piece directement).
+Lancez une partie en entrant votre pseudo et la difficulté, puis utilisez les touches Q (pour aller à gauche)  S (pour aller plus vite) D (Pour aller à droite) E (pour tourner la pièce à gauche) A (pour tourner la pièce à droite) et Espace (Pour faire descendre la piece directement).
 Afin de déplacer le tetromino.
 
 ![image](https://github.com/user-attachments/assets/066fe468-3a04-48f4-ae94-41eb9353066b)
@@ -39,7 +39,7 @@ Fonctionnalité :
 
 Un Atelier :
  
- Un atelier vous permet de modifier les formes des pièces avant de jouer.
+Un atelier vous permet de modifier les formes des pièces directement dans le jeu, sans avoir à éditer manuellement les fichiers texte.
 
  ![image](https://github.com/user-attachments/assets/754c8adb-9a95-4f0d-a3df-91c7c6b6c5c8)
 

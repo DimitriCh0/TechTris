@@ -121,8 +121,8 @@ void sauvegarde(){
 
 void scoreboard() { //Afficher le scoreboard
 	system("clear");
-	printf(" Scoreboard\n\n");
-	printf(" Pseudo  Score  Difficulte \n");
+	printf("         ===== Scoreboard =====\n\n");
+	printf("  Pseudo    |     Score    |  Difficulte \n");
 	FILE* fichier = NULL;
 	fichier = fopen("scoreboard.txt","r+");
 	if (fichier == NULL){

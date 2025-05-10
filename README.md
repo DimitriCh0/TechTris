@@ -1,6 +1,10 @@
 # TechTris
 Le projet de Préing1 MI1-F : le projet Tech-Tris
 
+
+Technologie utilisé :
+   -Langage C.
+
 Bienvenue sur TechTris :
 
 ![image](https://github.com/user-attachments/assets/1db7f7d0-5507-482e-941f-4968fc3da19f)
@@ -47,7 +51,5 @@ Affichage des piece :
  On peut également consulté les pièces qui seront jouée dans la partie.
 
 ![image](https://github.com/user-attachments/assets/a2135203-7368-41b3-a0ba-8fb1c8ae343e)
-
-allez dans le menu 
 
 

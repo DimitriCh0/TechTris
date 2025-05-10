@@ -5,30 +5,28 @@
 //Le premier élément du tableau blocs contient toujours les coordonnées du bloc central (2,2)
 //Si le programme détecte que la pièce dessinée ne contient pas de bloc central (si la case (2,2) est un 0), celui-ci renvoie une erreur et s'arrête 
 void tetrominoConstructor(char **tab, Tetromino *t){
-   if (t==NULL){
-        printf("Erreur de pointeur dans tetromino !\n");
-        exit(50);
-   }
-    int n = 1;
-    if (tab[2][2]=='0'){
-    	printf("Pas de Bloc central dans la pièce !!!\n");
-        exit(50);
-    }
-    t->blocs[0][0] = 2;
-    t->blocs[0][1] = 2+COL/2-2;
-    for (int i = 0; i<DIM; i++){
-        for (int j = 0; j<DIM; j++){
-            if (tab[i][j]=='1'&&(i!=2 || j!=2)){
-                t->blocs[n][0] = i;
-                t->blocs[n][1] = j+COL/2-2;
-                n++;
-            }
-        }
-    }
-    t->nb_blocs = n;
-    t->isalive = 1;
-    
-    
+	if (t==NULL){
+		printf("Erreur de pointeur dans tetromino !\n");
+        	exit(50);
+   	}
+    	int n = 1;
+    	if (tab[2][2]=='0'){
+    		printf("Pas de Bloc central dans la pièce !!!\n");
+        	exit(50);
+    	}
+	t->blocs[0][0] = 2;
+	t->blocs[0][1] = 2+COL/2-2;
+	for (int i = 0; i<DIM; i++){
+       	 	for (int j = 0; j<DIM; j++){
+            		if (tab[i][j]=='1'&&(i!=2 || j!=2)){
+                		t->blocs[n][0] = i;
+                		t->blocs[n][1] = j+COL/2-2;
+                		n++;
+            		}
+        	}
+    	}
+	t->nb_blocs = n;
+	t->isalive = 1;
 }
 
 //Renvoie 1 si le Tetromino ne touche pas la bordure gauche
@@ -90,14 +88,14 @@ int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL],int n){
 
 //Applique un déplacement sur tous les blocs du Tetromino avec un vecteur
 void move_t(Tetromino *t,Vecteur v, int n){
-    if (t==NULL){
-        printf("Erreur de pointeur dans tetromino !\n");
-        exit(54);
-   }
-    for (int i =0; i<n;i++){
-        t->blocs[i][0]+= v.x;
-        t->blocs[i][1]+= v.y;
-    }
+	if (t==NULL){
+		printf("Erreur de pointeur dans tetromino !\n");
+        	exit(54);
+   	}
+    	for (int i =0; i<n;i++){
+        	t->blocs[i][0]+= v.x;
+        	t->blocs[i][1]+= v.y;
+    	}
 }
 
 
@@ -151,7 +149,7 @@ void clear_line(int tab[LINE][COL], int nb){
             	tab[nb][j] = 0;
     	}
     
-	}
+}
 
 //Fait descendre tous les blocs de tétrominos "mort" d'un nombre correspondant au nombre de lignes que l'on a supprimées
 void gravitation(int tab[LINE][COL], int d, int start){

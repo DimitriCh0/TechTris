@@ -35,7 +35,7 @@ void lecture(char*** liste_pieces,int var){
 		printf("Ouverture du fichier impossible \n");
 		printf("Code erreur = %d \n", errno);
 		printf("Message erreur = %s \n", strerror(errno));
-		 (23);
+		exit(23);
 	}
 	
 	//Cette partie du code nécessite que le fichier texte contenant les pièces est une forme bien spécifique !!!
@@ -43,13 +43,13 @@ void lecture(char*** liste_pieces,int var){
 		for (int j = 0; j<DIM;j++){ 			//récupère ligne par ligne les pièces qui se trouvent dans le fichier texte dans le tableau liste_pieces
 			if (fgets(liste_pieces[i][j],DIM+1,fichier) == NULL){
 				printf("Erreur dans le fichier texte, la lecture d'une ligne de la piece n'a pas abouti. \n");
-				(24);
+				exit(24);
 			}
 			fgetc(fichier); 					//passer le '\n' aprés chaque ligne 
 		}
 		if (fgetc(fichier) != '#'){
 			printf("Erreur dans le fichier texte, le separateur n'est pas correcte. \n");
-			(25);
+			exit(25);
 		}  										//passer le '#' qui est le séparateur de pièce
 		fgetc(fichier);  						//passer le '\n' après le '#'
 	}
@@ -58,7 +58,7 @@ void lecture(char*** liste_pieces,int var){
 			for (int k = 0; k<DIM;k++){ 
 				if (liste_pieces[i][j][k] != '1' && liste_pieces[i][j][k] != '0'){
 					printf("Erreur dans le fichier texte, le format n'est pas respecté \n");
-					(26);
+					exit(26);
 				}
 			}
 		}
@@ -131,7 +131,7 @@ const int wall_kicks[6][2] = {
 int rotation_valide(int n, int test_rotation[NUM_CASE][2], int tab[LINE][COL]) {
 	if (test_rotation == NULL){
 		printf("Erreur de pointeur dans rotation !\n");
-		(27);
+		exit(27);
 	}
     	for (int i = 0; i < n; i++) {
         	if (test_rotation[i][0] < 0 || test_rotation[i][0] >= LINE || test_rotation[i][1] < 0 || test_rotation[i][1] >= COL || tab[test_rotation[i][0]][test_rotation[i][1]] >= 8){
@@ -145,7 +145,7 @@ int rotation_valide(int n, int test_rotation[NUM_CASE][2], int tab[LINE][COL]) {
 void appliquer_rotation(Tetromino *t, int test_rotation[NUM_CASE][2], int n) {
 	if (test_rotation == NULL || t == NULL){
 		printf("Erreur de pointeur dans rotation !\n");
-		(28);
+		exit(28);
 	}
     	for (int i = 0; i < n; i++) {
         	t->blocs[i][0] = test_rotation[i][0];
@@ -158,7 +158,7 @@ void appliquer_rotation(Tetromino *t, int test_rotation[NUM_CASE][2], int n) {
 void rotation(int rotation, Tetromino *t, int n, int tab[LINE][COL]) {
     	if (t == NULL) {
         	printf("Erreur : pointeur Tetromino invalide dans rotation !\n");
-        	(29);
+        	exit(29);
    	}
 
 	int dx = 2 - t->blocs[0][0]; //Distance x entre le centre du tetromino et la case (2,2), qui est le centre d'un tableau 5*5

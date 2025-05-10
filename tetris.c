@@ -17,30 +17,30 @@ void sleep_ms(float milliseconds)
 }
 //Procédure qui crée les tétrominos à partir du fichier pieces.txt ou piecedited
 void creation_tetrominos(Tetromino *t){
-    printf("Construction des Tétrominos...\n");
-    if (t == NULL){
-        exit(16);
-    }
-    char ***liste = pieces();
-    lecture(liste,1);
-    for (int i = 0; i<NOMBRE_PIECES; i++){
-        tetrominoConstructor(*(liste+i),t+i);
-    }
-    liberer_pieces(liste);
+	printf("Construction des Tétrominos...\n");
+	if (t == NULL){
+		exit(16);
+	}
+	char ***liste = pieces();
+	lecture(liste,1);
+	for (int i = 0; i<NOMBRE_PIECES; i++){
+		tetrominoConstructor(*(liste+i),t+i);
+	}
+	liberer_pieces(liste);
    
 }
 //Fonction qui a le rôle de vérifier si une ligne est pleine
 int scoreGrille(int *tab){
-    int cpt=0;
-    for(int i=0;i<COL;i++){
-        if(tab[i]>=8 && tab[i]<15){ 
-            cpt++;
+	int cpt=0;
+	for(int i=0;i<COL;i++){
+        	if(tab[i]>=8 && tab[i]<15){ 
+            		cpt++;
+        	}
+            	if(cpt==COL){
+                	return 1;
+            	}
         }
-            if(cpt==COL){
-                return 1;
-            }
-        }
-    return 0;
+	return 0;
 }
 
 void score(Joueur* J,int tab_principal[LINE][COL],int nb_lines){
@@ -224,7 +224,6 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
         	next_tour = rand()%NOMBRE_PIECES;
     	}while(next_tour==tour);
     	while(1){
-        
 		clock_gettime(CLOCK_MONOTONIC, &start);
 		clock_gettime(CLOCK_MONOTONIC, &end);
 		long seconds = end.tv_sec - start.tv_sec;

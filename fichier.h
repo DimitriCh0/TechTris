@@ -42,7 +42,7 @@ void reset_piece(Tetromino *t, int n);
 void sleep_ms(float milliseconds);
 void clear_line(int tab[LINE][COL], int nb);
 void gravitation(int tab[LINE][COL], int d, int start);
-int game_over(int tab[LINE][COL], Tetromino *t, int n);
+int game_over(int tab[LINE][COL], Tetromino *t, int n, int color);
 //Inputs
 int get_input();
 int key_input();

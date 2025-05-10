@@ -28,12 +28,12 @@ Afin de pouvoir bouger le tetromino.
 
 Fonctionnalité : 
 
-Nous avons ajouté un Atelier permettant de modifier les pièces jouées
+Nous avons ajouté un Atelier permettant de modifier les pièces jouées.
+
 Un Atelier :
      ![image](https://github.com/user-attachments/assets/754c8adb-9a95-4f0d-a3df-91c7c6b6c5c8)
 
 
-![image](https://github.com/user-attachments/assets/75db5799-a2ab-4b31-af40-f1c6b4f69cb5)
 
 Un Menu pause :
 Nous avons rajouter un menu pauses pour sauvegarder la partie et la reprendre plus tard.

@@ -19,11 +19,12 @@ Voila le resultat attendue :
 
 ![image](https://github.com/user-attachments/assets/f573d0f7-e3be-4be7-aecc-4181dbcba482)
 
-Utilisation :
+-Utilisation :
 Vous pouvez lancer une partie en y renseignant votre pseudo et la difficulté et utiliser les touches Q (pour aller à gauche)  S (pour aller plus vite) D (Pour aller à droite) et Espace (Pour faire descendre la piece directement).
 Afin de pouvoir bouger le tetromino.
 
-![image](https://github.com/user-attachments/assets/75db5799-a2ab-4b31-af40-f1c6b4f69cb5)
+![image](https://github.com/user-attachments/assets/066fe468-3a04-48f4-ae94-41eb9353066b)
+
 
 Fonctionnalité : 
 

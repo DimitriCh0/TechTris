@@ -64,7 +64,7 @@ Voici ci dessous la représentation des fichiers texte dans notre code :
 
      ![image](https://github.com/user-attachments/assets/e269eb6a-0496-41e0-8798-72c7b600c093)
   
-- Les pièces modifier :
+- Les pièces modifiées :
 
      ![image](https://github.com/user-attachments/assets/da1e8df5-1c9e-410f-9a2c-7f42dc43d658)
 

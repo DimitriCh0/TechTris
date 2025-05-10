@@ -8,17 +8,20 @@ const char *options[] = {"Jouer","Rejouer","Scoreboard","Atelier","Pieces","Quit
 //surlignage
 void print_colored(const char *text, int highlight) {
 	if (highlight) {
-        	printf("> \033[1;32m%s\033[0m <\n", text); // Texte vert si sélectionné
+        	printf("             > \033[1;32m%s\033[0m <\n", text); // Texte vert si sélectionné
 	} 
 	else {
-        	printf("  %s\n", text);
+        	printf("              %s\n", text);
 	}
 }
 
 
 void wait_for_enter() {
+	int ch;
 	printf("\n\nAppuie sur Entrée pour continuer..."); 
-	getchar();
+	do {
+        	ch = getchar();
+    	} while (ch != '\n' && ch != EOF);
 }
 
 void tetris() { 
@@ -43,11 +46,33 @@ void lecture_sauvegarde(FILE *fichier, char tab_char[LINE][COL+1], int tab_int[L
 	}
 	for (int i = 0; i <LINE;i++){
 		for (int j = 0; j<COL;j++){
-			if (tab_char[i][j] == '1' ){
-				tab_int[i][j] = 1;
+			if (tab_char[i][j] == '0'){
+				tab_int[i][j] = 0;
 			}
-			else if (tab_char[i][j] == '2'){
-				tab_int[i][j] = 2;
+			else {
+				switch(tab_char[i][j]){
+		            		case '1':
+				        	tab_int[i][j] = 8;
+				        	break;
+		          		case '2':
+		                		tab_int[i][j] = 9;
+		                		break;
+		            		case '3':
+		               			tab_int[i][j] = 10;
+		                		break;
+		            		case '4':
+		                		tab_int[i][j] = 11;
+		                		break;
+		            		case '5':
+		                		tab_int[i][j] = 12;
+		                		break;
+		            		case '6':
+		                		tab_int[i][j] = 13;
+		                		break;
+		            		case '7':
+		                		tab_int[i][j] = 14;
+		                		break;
+		        	}
 			}
 		}
 	}
@@ -104,7 +129,7 @@ void scoreboard() { //Afficher le scoreboard
 		printf("Ouverture du fichier impossible \n");
 		printf("Code erreur = %d \n", errno);
 		printf("Message erreur = %s \n", strerror(errno));
-		exit (1);
+		exit (157);
 	}
 	lire_scoreboard(fichier);
 	fclose(fichier);
@@ -158,8 +183,8 @@ void display_menu() {
     		printf("  | | |  ___| | | |    _| |____  | \n");
     		printf("  | | | |___  | | | || || |      | \n");
     		printf("  |_| |_____| |_| |_| |_|_|______| \n\n\n");
-		print_colored("===== MENU =====", 0);
-		printf("\n");
+		printf("         ===== MENU =====");
+		printf("\n\n");
 
 		for (int i = 0; i < NUM_OPTIONS; i++) { //Affiche les options du menu
 		    print_colored(options[i], i == selected);
@@ -194,8 +219,10 @@ void display_menu() {
 		            		affichagepieces();
 		            		break;
 				case 5:
-					system("clear");;
+					system("clear");
+					printf("\n\n");
 					print_colored("À bientôt !", 0);
+					printf("\n\n");
 					t = 0;
 					break;
 		    }

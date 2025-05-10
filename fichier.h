@@ -75,6 +75,7 @@ int pause();
 Joueur constru();
 void lire_scoreboard(FILE *f);
 void enregistrement_score(Joueur* J);
+void triInsertion(Joueur* tab, int taille);
 
 //Atelier
 void atelier();

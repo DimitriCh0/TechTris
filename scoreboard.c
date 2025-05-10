@@ -1,5 +1,20 @@
 #include "fichier.h"
 
+void triInsertion(Joueur* tab, int taille) {
+    int i, j;
+    Joueur temp;
+    for (i = 1; i < taille; i++) {
+        temp = tab[i];
+        j = i - 1;
+        while (j >= 0 && tab[j].score < temp.score) { 
+            tab[j + 1] = tab[j];
+            j--;
+        }
+
+        tab[j + 1] = temp;
+    }
+}
+
 void lire_scoreboard(FILE *f){
     int variable;
     Joueur J;
@@ -61,46 +76,77 @@ Joueur constru(){
     return J;
 }
    
-void enregistrement_score(Joueur* J){    
+void enregistrement_score(Joueur* J){
+    if (J == NULL){
+		printf("Pointeur NULL\n");
+		exit (1);
+    }
     FILE *f;
+    int nbr_joueurs,variable;
+    int k = 0;
     f=fopen("scoreboard.txt","a+");
     if (f == NULL){
 		printf("Ouverture du fichier impossible \n");
 		printf("Code erreur = %d \n", errno);
 		printf("Message erreur = %s \n", strerror(errno));
-		exit (1);
+		exit (93);
     }
-    fprintf(f,"Pseudo :#%s\n",J->pseudo);
-    fprintf(f,"Score :&%d\n",J->score);
-    fprintf(f,"Difficulte :/%d\n",J->difficulte);
+    if ((variable = fgetc(f))==EOF){
+    	rewind(f);
+	fprintf(f,"%d\n",1);
+	fprintf(f,"Pseudo :#%s\n",J->pseudo);
+	fprintf(f,"Score :&%d\n",J->score);
+	fprintf(f,"Difficulte :/%d\n",J->difficulte);
+    }
+    else {
+    	rewind(f);
+	if (fscanf(f, "%d", &nbr_joueurs) != 1 || nbr_joueurs < 0) {
+    		printf("Format invalide : nombre de joueurs incorrect.\n");
+    		fclose(f);
+    		exit(1);
+	}	
+	Joueur* tab = NULL;
+	tab = malloc(sizeof(Joueur)*(nbr_joueurs+1));
+	if (tab == NULL){
+		printf("Allocation échoué !\n");
+		exit (1);
+	}
+    	while((variable=fgetc(f))!=EOF){
+		if(variable=='#'){
+			if ((fgets((tab+k)->pseudo,sizeof((tab+k)->pseudo),f)) != NULL){// Lire la ligne.
+			    (tab+k)->pseudo[strcspn((tab+k)->pseudo,"\n")]='\0'; // Remplace le \n en \0 donc il retire \n
+			}
+		}
+		else if (variable=='&'){
+			fscanf(f,"%d ",&(tab+k)->score);
+		}
+		else if (variable=='/'){
+			fscanf(f,"%d ",&(tab+k)->difficulte);
+			k++;
+		}
+	}
+   	*(tab+nbr_joueurs) = *J;
+   	nbr_joueurs ++;
+    	triInsertion(tab, nbr_joueurs);
+    	f = freopen("scoreboard.txt", "w+", f);
+	if (f == NULL){
+		printf("Ouverture du fichier impossible \n");
+		printf("Code erreur = %d \n", errno);
+		printf("Message erreur = %s \n", strerror(errno));
+		exit (90);
+	}
+	fprintf(f,"%d\n",nbr_joueurs);
+	for (int i = 0; i<nbr_joueurs;i++){
+		fprintf(f,"Pseudo :#%s\n",(tab+i)->pseudo);
+	    	fprintf(f,"Score :&%d\n",(tab+i)->score);
+	    	fprintf(f,"Difficulte :/%d\n",(tab+i)->difficulte);
+	}
+	free(tab);
+    }
     fclose(f);
     system("clear");
 
 }
-
-
-
-
-/*void incrementer(char tab[],Joueur J){
-    int c;
-    int Val=scoreGrille(tab);
-    if(Val==1){  // Verifie qu'on a bien une ligne de 2.
-        FILE *f;
-        f=fopen("scoreboard.txt","r+");
-        if(f==NULL){
-            perror("Erreur d'ouverture  du fichier");
-            exit(10);
-        }
-        while((c=fgetc(f))!=EOF){
-            if(c=='&'){
-                J.score++;
-                fprintf(f,"%d",J.score);
-            }
-        }
-        fclose(f);
-    }
-}
-*/    
 
 
 

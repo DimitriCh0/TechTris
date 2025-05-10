@@ -85,8 +85,8 @@ void liberer_pieces(char*** liste_pieces){
 }
 
 void afficheliste(char ***liste_pieces){
-	for (int i = 0;i<DIM;i++){
-		for (int j = 0; j<NOMBRE_PIECES;j++){
+	for (int i = 0; i<DIM;i++){
+		for (int j = 0;j<NOMBRE_PIECES;j++){
 			printf("%s",liste_pieces[j][i]);
 			printf("    ");
 			

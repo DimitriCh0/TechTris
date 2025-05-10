@@ -14,7 +14,6 @@ Bienvenue sur TechTris :
 Notre projet est un jeu vidéo inspiré du jeux Tetris  pouvant être affiché dans le terminal.
 
 
- Markdown :
  
  - Installation
    Téléchargez le projet au format `.zip`.

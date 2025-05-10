@@ -1,9 +1,5 @@
 #include "fichier.h"
 
-const char *options2[] = {"Piece precedente","Quitter l'Atelier","Defaut","Enregistrer","Piece suivante"};
-const char *options3[] = {"Retour","Continuer"};
-#define NUM_OPTIONS2 (sizeof(options2) / sizeof(char*))
-#define NUM_OPTIONS3 (sizeof(options3) / sizeof(char*))
 
 void choix_couleur2(char valeur, const char *Couleur, int highlight){
 	if (highlight){	
@@ -69,13 +65,15 @@ void menu_enregistrement(char*** pieces_dessinees){
 	int selected = 0;
 	int input;
 	int t = 1;
+	const char *options3[] = {"Retour","Continuer"};
+	int num_options3 = (sizeof(options3) / sizeof(char*));
 	while (t) {
 		system("clear");
 		printf("\n\n\n");
 		print_colored("===== Enregistrement =====", 0);
 		printf("\n            Sauvegarder les modifications ? \n \n");
 		printf("    ");
-		for (int i = 0; i < NUM_OPTIONS3; i++) {
+		for (int i = 0; i < num_options3; i++) {
 		    print_colored3(options3[i], i == selected);
 		}
 		
@@ -86,10 +84,10 @@ void menu_enregistrement(char*** pieces_dessinees){
 		
 		//Se déplacer
 		if (input == 'd' || input == 'D') { //Probleme : quand fleche gauche appuyé
-			selected = (selected + 1)%NUM_OPTIONS3;
+			selected = (selected + 1)%num_options3;
 		} 
 		else if (input == 'q' || input == 'Q') {
-			selected = (selected - 1 + NUM_OPTIONS3)%NUM_OPTIONS3;
+			selected = (selected - 1 + num_options3)%num_options3;
 		}  
 		else if (input == 'e' || input == 'E') {
 			switch (selected) {
@@ -186,13 +184,15 @@ int menu_defaut(char *** pieces_dessinees){
 	int input;
 	int t = 1;
 	int statut = 0;
+	const char *options3[] = {"Retour","Continuer"};
+	int num_options3 = (sizeof(options3) / sizeof(char*));
 	while (t) {
 		system("clear");
 		printf("\n\n\n");
 		print_colored("===== Defaut =====", 0);
 		printf("\n   Jouer avec les pièces de TETRIS par défaut ? \n \n");
 
-		for (int i = 0; i < NUM_OPTIONS3; i++) {
+		for (int i = 0; i < num_options3; i++) {
 		    print_colored3(options3[i], i == selected);
 		}
 		
@@ -210,10 +210,10 @@ int menu_defaut(char *** pieces_dessinees){
 		}
 		//Se déplacer
 		if (input == 'd' || input == 'D') { //Probleme : quand fleche gauche appuyé
-			selected = (selected + 1)%NUM_OPTIONS3;
+			selected = (selected + 1)%num_options3;
 		} 
 		else if (input == 'q' || input == 'Q') {
-			selected = (selected - 1 + NUM_OPTIONS3)%NUM_OPTIONS3;
+			selected = (selected - 1 + num_options3)%num_options3;
 		}  
 		else if (input == 'e' || input == 'E') {
 			switch (selected) {
@@ -234,6 +234,8 @@ int menu_defaut(char *** pieces_dessinees){
 }
 	
 void atelier(){
+	const char *options2[] = {"Piece precedente","Quitter l'Atelier","Defaut","Enregistrer","Piece suivante"};
+	int num_options2 = (sizeof(options2) / sizeof(char*));
 	char ***pieces_dessinees = pieces_vide();
 	int selected = 0;
 	int input;
@@ -258,7 +260,7 @@ void atelier(){
 		}
 		printf("\n             Blocs disponibles : %d \n ",bloc_dispo[piece]);
 		printf("\n");
-		for (int i = NUM_CASE; i < NUM_OPTIONS2+NUM_CASE; i++) {
+		for (int i = NUM_CASE; i < num_options2+NUM_CASE; i++) {
 		    print_colored2(options2[i-NUM_CASE], i == selected);
 		}
 		

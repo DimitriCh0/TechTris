@@ -2,8 +2,7 @@
 
 
 
-const char *options[] = {"Jouer","Rejouer","Scoreboard","Atelier","Pieces","Quitter"};
-#define NUM_OPTIONS (sizeof(options) / sizeof(char*))
+
 
 //surlignage
 void print_colored(const char *text, int highlight) {
@@ -66,25 +65,25 @@ void lecture_sauvegarde(FILE *fichier, char tab_char[LINE][COL+1], int tab_int[L
 			else {
 				switch(tab_char[i][j]){
 		            		case '1':
-				        	tab_int[i][j] = 8;
+				        	tab_int[i][j] = 14;
 				        	break;
 		          		case '2':
-		                		tab_int[i][j] = 9;
+		                		tab_int[i][j] = 8;
 		                		break;
 		            		case '3':
-		               			tab_int[i][j] = 10;
+		               			tab_int[i][j] = 9;
 		                		break;
 		            		case '4':
-		                		tab_int[i][j] = 11;
+		                		tab_int[i][j] = 10;
 		                		break;
 		            		case '5':
-		                		tab_int[i][j] = 12;
+		                		tab_int[i][j] = 11;
 		                		break;
 		            		case '6':
-		                		tab_int[i][j] = 13;
+		                		tab_int[i][j] = 12;
 		                		break;
 		            		case '7':
-		                		tab_int[i][j] = 14;
+		                		tab_int[i][j] = 13;
 		                		break;
 		        	}
 			}
@@ -184,6 +183,8 @@ void display_menu() {
 	int selected = 0; //Savoir où se trouve le "curseur"
 	int input;
 	int t = 1;
+	const char *options[] = {"Jouer","Rejouer","Scoreboard","Atelier","Pieces","Quitter"};
+	int num_options = (sizeof(options) / sizeof(char*));
 	char*** pieces_dessinees = pieces();
 	lecture(pieces_dessinees,0);
 	enregistrement(pieces_dessinees);
@@ -200,7 +201,7 @@ void display_menu() {
 		printf("         ===== MENU =====");
 		printf("\n\n");
 
-		for (int i = 0; i < NUM_OPTIONS; i++) { //Affiche les options du menu
+		for (int i = 0; i < num_options; i++) { //Affiche les options du menu
 		    print_colored(options[i], i == selected);
 		}
 
@@ -210,10 +211,10 @@ void display_menu() {
 
 		// Se déplacer
 		if (input == 'z' || input == 'Z') { 
-			selected = (selected - 1 + NUM_OPTIONS) % NUM_OPTIONS;
+			selected = (selected - 1 + num_options) % num_options;
 		} 
 		else if (input == 's' || input == 'S') {
-			selected = (selected + 1) % NUM_OPTIONS;
+			selected = (selected + 1) % num_options;
 		} 
 		else if (input == 'e' || input == 'E') { //Selectionner
 			switch (selected) {

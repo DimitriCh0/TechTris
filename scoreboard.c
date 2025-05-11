@@ -1,14 +1,5 @@
 #include "fichier.h"
 
-
-void formatage(FILE *f){
-	rewind(f);
-	printf("Formatage du fichier...\n");
-	fprintf(f,"%d",0);
-	rewind(f);
-}
-
-
 //Tri par insertion pour trier le scoreboard (chaque appel, le tableau est trié excepté le dernier Joueur, il suffit de l'insérer au bonne endroit pour que le tableau soit trier)
 void triInsertion(Joueur* tab, int taille) {
 	if (tab==NULL || taille<0){
@@ -43,23 +34,11 @@ void lire_scoreboard(FILE *f){
     	int compteur_d = 0;
     	Joueur J;
     	rewind(f);
-		fscanf(f, "%d", &nbr_joueurs);
-		if (nbr_joueurs<0) {
-	    		printf("\nFormat invalide : nombre de joueurs incorrect.\n");
-				formatage(f);
+    	if (fscanf(f, "%d", &nbr_joueurs) != 1 || nbr_joueurs < 0) {
+	    		printf("Format invalide : nombre de joueurs incorrect.\n");
 	    		fclose(f);
-				return;
-	}
-	if(nbr_joueurs==0){
-		return;
-	}
-	
-	if(nbr_joueurs>0 ||( (c=fgetc(f))!=EOF && (c=fgetc(f))==EOF)){
-		printf("\nFormat invalide : nombre de joueurs incorrect.\n");
-		formatage(f);
-		return;
-	}
-	rewind(f);
+	    		exit(42);
+	}	
 	while((c=fgetc(f))!=EOF){
 	        if(c=='#'){
 	        	if ((fgets(J.pseudo,sizeof(J.pseudo),f)) != NULL && J.pseudo[0] != '\n'){// Lire la ligne.
@@ -148,12 +127,8 @@ void enregistrement_score(Joueur* J){
 		printf("Message erreur = %s \n", strerror(errno));
 		exit (48);
     	}
-	if((c = fgetc(f))==EOF || c<0){
-		printf("Format invalide : nombre de joueurs incorrect.\n");
-		formatage(f);
-	}
-	if ((c = fgetc(f))==0){ //Si le fichier "scoreboard.txt" est vide de données
-	    rewind(f);
+	if ((c = fgetc(f))==EOF){ //Si le fichier "scoreboard.txt" est vide de données
+	    	rewind(f);
 		fprintf(f,"%d\n",1);
 		fprintf(f,"Pseudo :#%s\n",J->pseudo);
 		fprintf(f,"Score :&%d\n",J->score);
@@ -161,6 +136,11 @@ void enregistrement_score(Joueur* J){
     	}
     	else { //Créer un tableau contenant les joueurs, formate le fichier, trie les joueurs dans le tableau selon leur score, réinscrit les joueurs dans le fichier "scoreboard.txt"
 	    	rewind(f);
+		if (fscanf(f, "%d", &nbr_joueurs) != 1 || nbr_joueurs < 0) {
+	    		printf("Format invalide : nombre de joueurs incorrect.\n");
+	    		fclose(f);
+	    		exit(49);
+		}	
 		Joueur* tab = NULL;
 		tab = malloc(sizeof(Joueur)*(nbr_joueurs+1));
 		if (tab == NULL){

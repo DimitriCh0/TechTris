@@ -68,7 +68,6 @@ Voici ci-dessous la représentation des fichiers texte dans notre code qu'il fau
 
      ![image](https://github.com/user-attachments/assets/55e744eb-428f-49e3-99e0-9a65d4246cc0)
 
-
   
 - Les pièces modifiées : 0 pour le vide, 1 pour les blocs, # comme séparateur ; une pièce tient dans un carré de 5*5
 
@@ -95,9 +94,3 @@ Les indices sont les suivants :
 - tetromino.c = 50
 - tetris.c = 60
 - draw.c = 70
-
-
-
-
-
-

@@ -25,7 +25,6 @@ Voici le resultat attendu :
 
 ![image](https://github.com/user-attachments/assets/f573d0f7-e3be-4be7-aecc-4181dbcba482)
 
-La grille est de 20 par 10 pour permettre une meilleure expérience utilisateur.
 
 - Utilisation :
 
@@ -33,6 +32,8 @@ Lancez une partie en entrant votre pseudo (50 caractères maximum et sans espace
 
 ![image](https://github.com/user-attachments/assets/066fe468-3a04-48f4-ae94-41eb9353066b)
 
+
+La grille est de 20 par 10 pour permettre une meilleure expérience utilisateur.
 
 Fonctionnalités : 
 

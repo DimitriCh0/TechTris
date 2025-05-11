@@ -2,7 +2,7 @@
 
 //Construit une structure Tetromino à partir d'un double tableau de caractère représentant le dessin du tetromino
 //Elle remplit le tableau "blocs" avec les coordonnées de chaque bloc (représenté par un 1)
-//Le premier élément du tableau blocs contient toujours les coordonnées du bloc central (2,2)
+//Le premier élément du tableau "blocs" contient toujours les coordonnées du bloc central (2,2)
 //Si le programme détecte que la pièce dessinée ne contient pas de bloc central (si la case (2,2) est un 0), celui-ci renvoie une erreur et s'arrête 
 void tetrominoConstructor(char **tab, Tetromino *t){
 	if (t==NULL || tab == NULL){
@@ -65,18 +65,18 @@ int a_survecu(Tetromino *t, Vecteur v, int tab[LIGNE][COL],int n){
 		printf("Erreur : int a_survecu !\n");
         	exit(54);
     	}
-    	if (v.x == 0){
+    	if (v.x == 0){ //On vérifie pour les déplacements horizontaux
     		for (int i=0; i<n; i++){
     			if (tab[t->blocs[i][0]][t->blocs[i][1]+v.y]>=8){
-    				return 0;
+    				return 0; //On renvoie juste 0
     			}
     		}
     
     	}
-    	else {
+    	else {//On vérifie pour les déplacements verticaux
     		for (int i=0; i<n; i++){
     			if(t->blocs[i][0]+v.x==LIGNE || tab[t->blocs[i][0]+v.x][t->blocs[i][1]]>=8){
-    				t->enVie = 0;
+    				t->enVie = 0; //On "tue" le tetromino et on renvoie 0
     				return 0;
     			}	
     		}
@@ -101,7 +101,7 @@ void deplacer_t(Tetromino *t,Vecteur v, int n){
 
 
 
-//Place le Tetromino dans le tableau principal à l'aide des coordonnées contenues dans le double tableau "blocs"
+//Place le Tetromino dans le tableau principal d'entiers à l'aide des coordonnées contenues dans le double tableau "blocs"
 void place_t(Tetromino *t,int tab[LIGNE][COL],Vecteur v, int n, int couleur){
     	if (t==NULL || tab == NULL || n < 0){
 		printf("Erreur : void place_t !\n");
@@ -112,7 +112,7 @@ void place_t(Tetromino *t,int tab[LIGNE][COL],Vecteur v, int n, int couleur){
         	deplacer_t(t,v,t->nb_blocs);
     	}
     
-    	if (t->enVie){
+    	if (t->enVie){ //On entre dans le tableau principal des valeurs différentes en fonction de s'il est vie ou pas
         	for (int i = 0; i<n; i++){
             		tab[t->blocs[i][0]][t->blocs[i][1]] = couleur;  
         	}
@@ -120,7 +120,7 @@ void place_t(Tetromino *t,int tab[LIGNE][COL],Vecteur v, int n, int couleur){
     	}
     	else{
         	for (int j = 0; j<n; j++){
-            		tab[t->blocs[j][0]][t->blocs[j][1]] = couleur + 7;
+            		tab[t->blocs[j][0]][t->blocs[j][1]] = couleur + 7; //Le stetrominos morts sont représentés par des valeurs comprises entre 8 et 14 inclus
         	}
     	}
 }
@@ -136,11 +136,11 @@ void reinitialiser_piece(Tetromino *t,int n){
 	int dy = 2-t->blocs[0][1]; //distance entre le centre du tetromino et le point (2,2)
     	for (int i=0; i<n; i++){
         	t->blocs[i][0]+=dx;
-        	t->blocs[i][1]+=dy+COL/2-2;
+        	t->blocs[i][1]+=dy+COL/2-2; //En haut et au milieu de la grille
     	}
 }
 
-//Cette procédure supprime une ligne en mettant toutes les valeurs à 0
+//Cette procédure supprime une ligne en mettant toutes les valeurs à 0 dans le tableau
 void effacer_ligne(int tab[LIGNE][COL], int nb){
     	if (tab==NULL){
         	printf("Erreur de pointeur dans tetromino !\n");
@@ -162,7 +162,7 @@ void gravitation(int tab[LIGNE][COL], int d, int debut){
     	if(d!=0){
     		for (int i=debut; i>=0; i--){
         		for (int j=0; j<COL; j++){
-            			temp = tab[i][j];
+            			temp = tab[i][j]; //On stocke la valeur
             			if (temp>=8){
                 			tab[i][j] = 0;
                 			tab[i+d][j] = temp;
@@ -182,7 +182,7 @@ int game_over(int tab[LIGNE][COL], Tetromino *t, int n, int couleur){
        			Vecteur d;
             		d.x=0;
             		d.y=0;
-            		place_t(t,tab,d,t->nb_blocs,couleur);
+            		place_t(t,tab,d,t->nb_blocs,couleur); //On place la dernière pièce dans la grille avant d'afficher le game over
             		return 1;
        		}
     	}

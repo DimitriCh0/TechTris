@@ -220,7 +220,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LIGNE][COL]){
     	int nb_lignes = 0; //Variable utilisée pour compter les lignes pleines
     	int p_ligne = LIGNE-1; //Première ligne pleine par défaut
     	int temp; //Variable temporaire
-    	float speed = 1000; //Vitesse d'exécution du jeu
+    	float vitesse = 1000; //Vitesse d'exécution du jeu
     	int quitter; //Booleen quitter
 	int gv = 0; //Booleen du game over
 	int montrer_pro_t = 0; //Booleen pour savoir si on affiche le prochain tetromino
@@ -243,15 +243,15 @@ void jeu_tetris(Joueur* J, int tab_principal[LIGNE][COL]){
         	prochain_tour = rand()%NOMBRE_PIECES;
     	}while(prochain_tour==tour);
     	while(1){
-		clock_gettime(CLOCK_MONOTONIC, &start); //Pour que start et end n'est pas des valeurs non-déclarer
+		clock_gettime(CLOCK_MONOTONIC, &start); //Pour que start et end n'est pas des valeurs non-déclarées
 		clock_gettime(CLOCK_MONOTONIC, &end);
 		long seconds = end.tv_sec - start.tv_sec; //On calcule la période en secondes et en nanosecondes
 	    	long nanoseconds = end.tv_nsec - start.tv_nsec;
 	    	long periode = seconds * 1000 + nanoseconds / 1000000;
 		//Fonctionnement du jeu : à chaque niveau de difficulté est associé une période de temps en millisecondes
 		//Pendant cette période, le joueur peut faire ce qu'il veut (bouger la pièce, la tourner, etc), mais à la fin de chaque période le tétromino descendra forcément de 1 case
-		while(periode<speed/J->difficulte){
-			if (!(liste_t[tour].enVie)){ //Quand la pièce actuelle est arrivée en bas, on change de pièce aléatoirement dans la liste_t en veillant à ce qu'elle ne soit pas identique à la précédente
+		while(periode<vitesse/J->difficulte){
+			if (!(liste_t[tour].enVie)){ //Quand la pièce actuelle est arrivée en bas, on change de pièce aléatoirement dans la liste_t en veillant à ce qu'elle ne soit pas identique aux 2 précédentes
 		    		reinitialiser_piece(liste_t+tour,liste_t[tour].nb_blocs);
 
 				pre_tour = tour;
@@ -285,16 +285,16 @@ void jeu_tetris(Joueur* J, int tab_principal[LIGNE][COL]){
 				v.x = 1;
 				v.y = 0;
 				while (liste_t[tour].enVie){  //Tant que la pièce est vivante
-					place_t(liste_t+tour,tab_principal,v,liste_t[tour].nb_blocs, tour+1);
+					place_t(liste_t+tour,tab_principal,v,liste_t[tour].nb_blocs, tour+1); //Place le tetromino dans le tableau d'entiers en fonction des déplacements du joueur
 					J->score +=2;
-					dessiner(tab_principal,grille);
-					actualiser(grille, tab_principal,J,liste_t+prochain_tour, montrer_pro_t, prochain_tour+1);
-					nb_lignes = 0;
-					enregistrement_partie(tab_principal,J);
+					dessiner(tab_principal,grille); //Convertit le tableau d'entier en la grille de couleurs
+					actualiser(grille, tab_principal,J,liste_t+prochain_tour, montrer_pro_t, prochain_tour+1);//Actualise l'affichage de la grille
+					
+					enregistrement_partie(tab_principal,J); //On enregistre le score du joueur dans le fichier sauvegarde
 				}
 				n=0;
 			}
-			else if (n!=0){ //rotation ou descente de 1
+			else if (n!=0){ //Rotation ou déplcement du joueur
 				v = conversion_entree_vecteur(n);
 				rotation(n,liste_t+tour,liste_t[tour].nb_blocs,tab_principal);
 				place_t(liste_t+tour,tab_principal,v,liste_t[tour].nb_blocs, tour+1);
@@ -304,14 +304,14 @@ void jeu_tetris(Joueur* J, int tab_principal[LIGNE][COL]){
 				n=0;
 				dessiner(tab_principal,grille);
 				actualiser(grille, tab_principal,J,liste_t+prochain_tour, montrer_pro_t, prochain_tour+1);
-				nb_lignes = 0;
+				
 				enregistrement_partie(tab_principal,J);
 			}
-			clock_gettime(CLOCK_MONOTONIC, &end);
+			clock_gettime(CLOCK_MONOTONIC, &end); //On mesure le temps écoulé
 			seconds = end.tv_sec - start.tv_sec;
 		    	nanoseconds = end.tv_nsec - start.tv_nsec;
 		    	periode = seconds * 1000 + nanoseconds / 1000000;
-			sleep_ms(30);
+			sleep_ms(30); //Ralentie l'exéctution du  code pour des raisons esthétiques
 		}
 		
 		if (n==8){ // Pause
@@ -321,7 +321,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LIGNE][COL]){
 			}
 		}
 		J->score ++;
-		place_t(liste_t+tour,tab_principal,d,liste_t[tour].nb_blocs, tour+1);
+		place_t(liste_t+tour,tab_principal,d,liste_t[tour].nb_blocs, tour+1); //Place le tetromino en fonction du déplacement automatique
 		
 	
 		for(int i = 0; i<LIGNE; i++){
@@ -336,7 +336,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LIGNE][COL]){
 		}
 		dessiner(tab_principal,grille);
 		actualiser(grille, tab_principal,J,liste_t+prochain_tour,montrer_pro_t,prochain_tour+1);
-		score(J,tab_principal,nb_lignes);
+		score(J,tab_principal,nb_lignes); //Incrémenter le score du joueur
 
 		nb_lignes = 0;
 		enregistrement_partie(tab_principal,J);
@@ -360,7 +360,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LIGNE][COL]){
 		}
 	}
     
-	free(liste_t);
+	free(liste_t);//On libére le tableau de tetrominos
 	attendre_pour_entree();
     
 }

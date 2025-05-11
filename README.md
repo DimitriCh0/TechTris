@@ -76,7 +76,7 @@ Voici ci-dessous la représentation des fichiers texte dans notre code qu'il fau
   
      ![image](https://github.com/user-attachments/assets/48f2772b-e286-48ff-880c-689b1189be75)
 
-**En cas de souci avec le jeu, vous pouvez formater les fichiers textes sauf le fichier contenant les pièces par defaut du jeu.**
+**En cas de souci avec le jeu, formatez les fichiers textes "piecesmodifies.c", "sauvegardes.c" et "socreboad.c" en remplacant par un 0. Sauf le fichier contenant les pièces par defaut du jeu.**
 
 Erreurs :
 Le programme, en cas de mauvaise lecture d'un fichier texte ou un pointeur mal initialisé par exemple, peut cesser de fonctionner et peut renvoyer une valeur exit comprise entre 10 et 79.

@@ -25,6 +25,8 @@ Voici le resultat attendu :
 
 ![image](https://github.com/user-attachments/assets/f573d0f7-e3be-4be7-aecc-4181dbcba482)
 
+La grille est de 20 par 10 pour permettre une meilleure expérience utilisateur.
+
 - Utilisation :
 
 Lancez une partie en entrant votre pseudo (50 caractères maximum et sans espace) et la difficulté (comprise entre 1 et 4), puis utilisez les touches Q (pour aller à gauche), S (pour descendre la pièce plus rapidement), D (pour aller à droite), E (pour tourner la pièce de 90° vers la droite), A (pour tourner la pièce de 90° vers la gauche) et Espace (pour faire descendre la pièce directement) afin de déplacer le tétromino.

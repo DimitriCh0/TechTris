@@ -94,7 +94,7 @@ int verif_sequence(char* pseudo) {
                 		return 1; // flèche détectée
             		} 
             		else {
-                		return 1; // autre échappement (Échap seul par ex.)
+                		return 1; // autre échappement
             		}
         	}
     	}

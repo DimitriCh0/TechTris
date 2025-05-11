@@ -80,6 +80,27 @@ void lire_scoreboard(FILE *f){
 	}
 }
 
+//Vérifie la présence ou non d'une séquence Echap ou flèches directionnelles
+int verif_sequence(char* pseudo) {
+	if (pseudo == NULL){
+		printf("Erreur : int verif_sequence \n");
+		exit (47);
+	}
+    	for (int i = 0; pseudo[i] != '\0'; i++) {
+        
+        	if (pseudo[i] == 27) { // 27 = Échap
+            		// Vérifie s'il y a une séquence d'une flèche
+            		if (pseudo[i + 1] == '[' && (pseudo[i + 2] == 'A' || pseudo[i + 2] == 'B' || pseudo[i + 2] == 'C' || pseudo[i + 2] == 'D')) {
+                		return 1; // flèche détectée
+            		} 
+            		else {
+                		return 1; // autre échappement (Échap seul par ex.)
+            		}
+        	}
+    	}
+    	return 0; // pas de séquence d'échappement trouvée
+}
+
 //Création du joueur, son pseudo et sa difficulté
 Joueur constru(){
 	int retour;
@@ -87,7 +108,7 @@ Joueur constru(){
     	do{
 		system("clear");
 		printf("Entrez votre pseudo (max 50 caractères):\n");
-		if (scanf(" %50s",J.pseudo)!=1|| strlen(J.pseudo) == 0||J.pseudo[0] == 27||(J.pseudo[0] == 27 && J.pseudo[1] == '[')){            //Le pseudo sera automatiquement tronqué s'il dépasse 50 caractères et les séquences comme Echap ou les flèches ne sont pas valides
+		if (scanf(" %50s",J.pseudo)!=1|| strlen(J.pseudo) == 0||J.pseudo[0] == 27||(J.pseudo[0] == 27 && J.pseudo[1] == '[')||verif_sequence(J.pseudo)){            //Le pseudo sera automatiquement tronqué s'il dépasse 50 caractères
 	    		printf("Pseudo invalide \n");
 	    		J.pseudo[0] ='\0';
 	    		sleep(1);

@@ -366,7 +366,7 @@ void atelier(){
 						pieces_dessinees[piece][selectionne/DIM][selectionne%DIM] = '1';
 						bloc_dispo[piece]--;
 					}
-					else if (pieces_dessinees[piece][selectionne/DIM][selectionne%DIM] == '1' && bloc_dispo[piece] < 4){
+					else if (pieces_dessinees[piece][selectionne/DIM][selectionne%DIM] == '1' && bloc_dispo[piece] < BLOC_MAX-1){
 						pieces_dessinees[piece][selectionne/DIM][selectionne%DIM] = '0';
 						bloc_dispo[piece]++;
 						

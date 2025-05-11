@@ -63,6 +63,11 @@ Voici ci-dessous la représentation des fichiers texte dans notre code qu'il fau
 - Le scoreboard : le nombre de joueurs répertorié dans le scoreboard, puis leurs données (pseudo marqué par le #, le score par & et la difficulté par /)
 
      ![image](https://github.com/user-attachments/assets/e269eb6a-0496-41e0-8798-72c7b600c093)
+
+   En cas de problème, le fichier par défaut doit ressembler à cela : 
+
+     ![image](https://github.com/user-attachments/assets/55e744eb-428f-49e3-99e0-9a65d4246cc0)
+
   
 - Les pièces modifiées : 0 pour le vide, 1 pour les blocs, # comme séparateur ; une pièce tient dans un carré de 5*5
 
@@ -76,7 +81,7 @@ Voici ci-dessous la représentation des fichiers texte dans notre code qu'il fau
   
      ![image](https://github.com/user-attachments/assets/48f2772b-e286-48ff-880c-689b1189be75)
 
-**En cas de souci avec le jeu, formatez les fichiers textes "piecesmodifies.c", "sauvegardes.c" et "socreboad.c" en remplacant par un 0. Sauf le fichier contenant les pièces par defaut du jeu.**
+**En cas de souci avec le jeu, formatez les fichiers textes "piecesmodifiees.txt" et "sauvegardes.txt"; Mettre par défaut le fichier "scoreboard.txt" (voir image).**
 
 Erreurs :
 Le programme, en cas de mauvaise lecture d'un fichier texte ou un pointeur mal initialisé par exemple, peut cesser de fonctionner et peut renvoyer une valeur exit comprise entre 10 et 79.
@@ -89,9 +94,3 @@ Les indices sont les suivants :
 - tetromino.c = 50
 - tetris.c = 60
 - draw.c = 70
-
-
-
-
-
-

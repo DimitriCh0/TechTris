@@ -82,6 +82,7 @@ int pause();
 
 //Scoreboard
 Joueur constru();
+int verif_sequence(char* pseudo);
 void lire_scoreboard(FILE *f);
 void enregistrement_score(Joueur* J);
 void triInsertion(Joueur* tab, int taille);

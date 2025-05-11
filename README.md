@@ -48,6 +48,9 @@ Pour cela, appuyer sur Echap en partie pour y accéder.
  
 ![image](https://github.com/user-attachments/assets/409dbaa0-8c38-413e-ac93-e8b8c5cf3194)
 
+- Le scoreboard :
+Le scoreboard affiche les pseudos, le score et la difficulté des joueurs ayant joués au jeu
+![image](https://github.com/user-attachments/assets/c82596f9-6da9-4cb2-aacc-c745d88de065)
 
 - L'affichage des pièces :
 Une interface permet de visualiser les pièces avec lesquelles vous allez jouer.

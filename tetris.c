@@ -288,7 +288,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 					place_t(liste_t+tour,tab_principal,v,liste_t[tour].nb_blocs, tour+1);
 					J->score +=2;
 					draw(tab_principal,grille);
-					refresh(grille, tab_principal,J,liste_t+next_tour, show_next_t);
+					refresh(grille, tab_principal,J,liste_t+next_tour, show_next_t, next_tour+1);
 					nb_lines = 0;
 					enregistrement_partie(tab_principal,J);
 				}
@@ -303,7 +303,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 				}
 				n=0;
 				draw(tab_principal,grille);
-				refresh(grille, tab_principal,J,liste_t+next_tour, show_next_t);
+				refresh(grille, tab_principal,J,liste_t+next_tour, show_next_t, next_tour+1);
 				nb_lines = 0;
 				enregistrement_partie(tab_principal,J);
 			}
@@ -335,14 +335,14 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 			
 		}
 		draw(tab_principal,grille);
-		refresh(grille, tab_principal,J,liste_t+next_tour,show_next_t);
+		refresh(grille, tab_principal,J,liste_t+next_tour,show_next_t,next_tour+1);
 		score(J,tab_principal,nb_lines);
 
 		nb_lines = 0;
 		enregistrement_partie(tab_principal,J);
 		if (gv || game_over(tab_principal,liste_t+tour,liste_t[tour].nb_blocs,tour+1)){ //On vérifie si le jeu n'est pas terminé (quand les pièces atteignent le haut de la grille)
 			draw(tab_principal,grille);
-			refresh(grille, tab_principal,J,liste_t+next_tour,show_next_t);
+			refresh(grille, tab_principal,J,liste_t+next_tour,show_next_t, next_tour+1);
 			sleep_ms(100);
 			enregistrement_score(J);
 			FILE *f;

@@ -1,9 +1,13 @@
 #include "fichier.h"
 
-
+//Affichage d'une case colorée et si la case est sélectionnée
 void choix_couleur2(char valeur, const char *Couleur, int highlight){
-	if (highlight){	
-		switch(valeur){
+	if (Couleur==NULL){
+		printf("Erreur : void choix_couleur2 !\n");
+        	exit(30);
+        }
+	if (highlight){	//Case sélectionnée
+		switch(valeur){ 
 			case '0':
 				printf("⬛ ");
 				break;
@@ -24,13 +28,22 @@ void choix_couleur2(char valeur, const char *Couleur, int highlight){
 	}
 }
 
-
-void print_tab(char valeur, int highlight, int piece) { //Naviguer dans la grille du dessin de la piece
+//Affiche la case colorée dans l'atelier
+void print_tab(char valeur, int highlight, int piece) {
+	if (piece<0){
+		printf("Erreur : void print_tab !\n");
+        	exit(31);
+        }
 	const char *couleurs[NOMBRE_PIECES] = {"🟧","🟨","🟩","🟫","🟪","🟦","🟥"};
         choix_couleur2(valeur,couleurs[piece],highlight);
 }
 
-void print_colored2(const char *text, int highlight) { //Naviguer dans les options sous la grille
+//Naviguer dans les options sous la grille
+void print_colored2(const char *text, int highlight) { 
+	if (text==NULL){
+		printf("Erreur : void print_colored2 !\n");
+        	exit(32);
+        }
 	if (highlight) {
         	printf("> \033[1;32m%s\033[0m < ", text); // Texte vert si sélectionné
 	} 
@@ -39,29 +52,56 @@ void print_colored2(const char *text, int highlight) { //Naviguer dans les optio
 	}
 }
 
+//Enregistrement des pièces contenues dans le triple pointeur dans le fichier "piecesmodifiees.txt"
 void enregistrement(char*** pieces_dessinees){
+	if (pieces_dessinees==NULL){
+		printf("Erreur : void enregistrement !\n");
+        	exit(33);
+        }
+        for (int i = 0;i<NOMBRE_PIECES;i++){ 		
+		for (int j = 0; j<DIM;j++){ 			
+			for (int k = 0; k<DIM;k++){
+				if (pieces_dessinees[i][j][k] != '0' && pieces_dessinees[i][j][k] != '1'){
+					printf("Erreur dans le tableau de pièces, valeur incorrecte \n");
+					exit(34);
+				}
+			}
+		}
+	}
 	FILE* fichier = NULL;
 	fichier = fopen("piecesmodifiees.txt","r+");
 	if (fichier == NULL){
 		printf("Ouverture du fichier impossible \n");
 		printf("Code erreur = %d \n", errno);
 		printf("Message erreur = %s \n", strerror(errno));
-		exit (30);
+		exit (35);
+
 	}
 	
-	//
 	for (int i = 0;i<NOMBRE_PIECES;i++){ 		
 		for (int j = 0; j<DIM;j++){ 			
-			fputs(pieces_dessinees[i][j],fichier);
+			fputs(pieces_dessinees[i][j],fichier); //ligne par ligne
 			fputs("\n",fichier);
 		}
-		fputs("#\n",fichier);
+		fputs("#\n",fichier); //séparateur
+	}
+	fclose(fichier);
+	fichier = fopen("sauvegarde.txt","w+"); //Supprime la sauvegarde existante pour éviter de jouer à la même partie avec des sets de pièces différents
+	if (fichier == NULL){
+		printf("Ouverture du fichier impossible \n");
+		printf("Code erreur = %d \n", errno);
+		printf("Message erreur = %s \n", strerror(errno));
+		exit (36);
 	}
 	fclose(fichier);
 }
 
-
+//Sous-menu Enregistrer pour valider ou non
 void menu_enregistrement(char*** pieces_dessinees){
+	if (pieces_dessinees==NULL){
+		printf("Erreur : void menu_enregistrement !\n");
+        	exit(37);
+        }
 	int selected = 0;
 	int input;
 	int t = 1;
@@ -77,8 +117,8 @@ void menu_enregistrement(char*** pieces_dessinees){
 		    print_colored3(options3[i], i == selected);
 		}
 		
-		
-		printf("\n\n\nD (droite), Q (gauche), E (valider)\n");
+		printf("\n\n Attention, si vous avez une partie sauvegardée, cette dernière sera supprimée ! \n");
+		printf("\n\n\n D (droite), Q (gauche), E (valider)\n");
 
 		input = get_input();
 		
@@ -102,22 +142,22 @@ void menu_enregistrement(char*** pieces_dessinees){
 		}
 	}
 }
-
-char*** pieces_vide(){ //Créer un tableau de tableau à 2 dimensions rempli de '\0' qui contiendra les dessins
+//Créer un tableau de tableau à 2 dimensions rempli de '\0' qui contiendra les dessins
+char*** pieces_vide(){ 
 	char*** pieces = NULL; 
 	pieces = calloc(NOMBRE_PIECES,sizeof(char**)); 		//Créer le tableau qui contiendra chaque pièce (une pièce étant un tableau a 2 dimensions)
 	if (pieces == NULL){
-		exit(31);
+		exit(38);
 	}
 	for (int i = 0;i<NOMBRE_PIECES;i++){
 		*(pieces+i) = calloc(DIM,sizeof(char*)); 		//Créer les tableaux qui contiendront les chaines de caractères correspondant à chaque ligne qui forme une pièce (5 lignes)
 		if (*(pieces+i) == NULL){
-			exit(32);
+			exit(39);
 		}
 		for (int j = 0; j<DIM;j++){
 			*(*(pieces+i)+j) = calloc((DIM+1),sizeof(char)); 		//Créer les chaines de caractères qui contiendront les pièces ligne par ligne + (DIM+1) pour contenir '\0'
 			if (*(*(pieces+i)+j) == NULL){
-				exit(33);
+				exit(30);
 			}
 		}
 	}
@@ -132,18 +172,27 @@ char*** pieces_vide(){ //Créer un tableau de tableau à 2 dimensions rempli de 
 	return pieces;
 }
 
-int voisin(char*** pieces_dessinees, int piece, int selected) { //condition pour placer un bloc
-    int x = selected / DIM;
-    int y = selected % DIM;
-    int bool = 0;
-    if ((x > 0 && pieces_dessinees[piece][x-1][y] == '1') ||(x < DIM-1 && pieces_dessinees[piece][x+1][y] == '1') ||(y > 0 && pieces_dessinees[piece][x][y-1] == '1') ||(y < DIM-1 && pieces_dessinees[piece][x][y+1] == '1')){
-    	bool = 1;
-    }
-    return bool;
+//Condition pour placer un bloc, avoir un "1" collé
+int voisin(char*** pieces_dessinees, int piece, int selected) { 
+	if (pieces_dessinees==NULL || piece < 0){
+		printf("Erreur : int voisin !\n");
+        	exit(31);
+        }
+    	int x = selected / DIM;
+    	int y = selected % DIM;
+    	int var = 0;
+    	if ((x > 0 && pieces_dessinees[piece][x-1][y] == '1') ||(x < DIM-1 && pieces_dessinees[piece][x+1][y] == '1') ||(y > 0 && pieces_dessinees[piece][x][y-1] == '1') ||(y < DIM-1 && pieces_dessinees[piece][x][y+1] == '1')){
+    		var = 1;
+    	}
+    	return var;
 }
 
 // La procedure / fonction suivantes permettent de verifier si les blocs placés sont bien tous reliés au centre en [2][2] qui est forcément placé
 void lie_centre(char*** pieces_dessinees, int piece, int x, int y, int deja_verif[DIM][DIM]){ // récursivité terminal partant du centre jusqu'aux bords
+	if (pieces_dessinees==NULL || piece < 0){
+		printf("Erreur : void lie_centre !\n");
+        	exit(32);
+        }
 	if (x < 0 || x >= DIM || y < 0 || y >= DIM){ //Hors limite
 		return;
 	}
@@ -162,7 +211,12 @@ void lie_centre(char*** pieces_dessinees, int piece, int x, int y, int deja_veri
 	lie_centre(pieces_dessinees,piece,x,y+1,deja_verif);
 }
 
-int correction(char *** pieces_dessinees, int piece){ //Applique les changements de 1 en 0 s'il n'existe pas de chemin jusqu'au centre
+//Applique les changements de 1 en 0 s'il n'existe pas de chemin jusqu'au centre, retourne le nombre de blocs enlevés et possible à remettre
+int correction(char *** pieces_dessinees, int piece){ 
+	if (pieces_dessinees==NULL || piece < 0){
+		printf("Erreur : int correction !\n");
+        	exit(33);
+        }
 	int bloc_enleve=0;
 	int deja_verif[DIM][DIM]={0}; //Tableau servant de booléen pour savoir si une case a déjà été visité ou non
 	if (pieces_dessinees[piece][2][2] == '1'){
@@ -179,7 +233,12 @@ int correction(char *** pieces_dessinees, int piece){ //Applique les changements
 	return bloc_enleve;
 }
 
+//Sous-menu Defaut pour jouer avec le set de pièces par défaut de Tetris 
 int menu_defaut(char *** pieces_dessinees){
+	if (pieces_dessinees==NULL){
+		printf("Erreur : int menu_defaut !\n");
+        	exit(34);
+        }
 	int selected = 0;
 	int input;
 	int t = 1;
@@ -196,18 +255,11 @@ int menu_defaut(char *** pieces_dessinees){
 		    print_colored3(options3[i], i == selected);
 		}
 		
+		printf("\n\n Attention, si vous avez une partie sauvegardée, cette dernière sera supprimée ! \n");
 		printf("\n\n\nD (droite), Q (gauche), E (valider)\n");
 
 		input = get_input();
-		if (input == 27){ //Probleme : quand la fleche gauche est appuyé, cela déplace le curseur car dans le terminal, flèche gauche = ^[[D, donc cette partie empêche les conflits de touches
-			input = get_input();
-			if (input == '['){
-				input = get_input();
-				if (input == 'D'){
-					//fait rien
-				}
-			}
-		}
+		
 		//Se déplacer
 		if (input == 'd' || input == 'D') { //Probleme : quand fleche gauche appuyé
 			selected = (selected + 1)%num_options3;
@@ -233,6 +285,7 @@ int menu_defaut(char *** pieces_dessinees){
 	return statut;
 }
 	
+//Menu Atelier 
 void atelier(){
 	const char *options2[] = {"Piece precedente","Quitter l'Atelier","Defaut","Enregistrer","Piece suivante"};
 	int num_options2 = (sizeof(options2) / sizeof(char*));
@@ -251,7 +304,7 @@ void atelier(){
 		print_colored("===== Atelier =====", 0);
 		printf("\n                   Piece #%d \n \n",piece+1);
 
-		for (int i = 0; i < DIM; i++) {
+		for (int i = 0; i < DIM; i++) { //Afficher le tableau case par case
 			printf("                ");
 			for (int j = 0; j < DIM; j++) {
 		    		print_tab(pieces_dessinees[piece][i][j], (i*DIM+j) == selected,piece);
@@ -268,17 +321,8 @@ void atelier(){
 
 		input = get_input();
 		
-		if (input == 27){ //Probleme : quand la fleche gauche est appuyé, cela déplace le curseur car dans le terminal, flèche gauche = ^[[D, donc cette partie empêche les conflits de touches
-			input = get_input();
-			if (input == '['){
-				input = get_input();
-				if (input == 'D'){
-					//fait rien
-				}
-			}
-		}
 		//Se déplacer
-		else if (input == 'z' || input == 'Z') {
+		if (input == 'z' || input == 'Z') {
 			if ((selected - DIM) >= 0){
 				selected = selected - DIM;
 			}
@@ -318,7 +362,7 @@ void atelier(){
 		            			piece ++; //Changer de pièce à modifier
 		            		}
 					break;
-				default:
+				default: //placer les blocs selon les conditions
 					if (pieces_dessinees[piece][selected/DIM][selected%DIM] == '0' && bloc_dispo[piece] > 0 && voisin(pieces_dessinees,piece,selected)){
 						pieces_dessinees[piece][selected/DIM][selected%DIM] = '1';
 						bloc_dispo[piece]--;

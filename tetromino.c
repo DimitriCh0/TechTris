@@ -5,14 +5,14 @@
 //Le premier élément du tableau blocs contient toujours les coordonnées du bloc central (2,2)
 //Si le programme détecte que la pièce dessinée ne contient pas de bloc central (si la case (2,2) est un 0), celui-ci renvoie une erreur et s'arrête 
 void tetrominoConstructor(char **tab, Tetromino *t){
-	if (t==NULL){
-		printf("Erreur de pointeur dans tetromino !\n");
+	if (t==NULL || tab == NULL){
+		printf("Erreur : void tetrominoConstructor !\n");
         	exit(50);
    	}
     	int n = 1;
     	if (tab[2][2]=='0'){
     		printf("Pas de Bloc central dans la pièce !!!\n");
-        	exit(50);
+        	exit(51);
     	}
 	t->blocs[0][0] = 2;
 	t->blocs[0][1] = 2+COL/2-2;
@@ -31,9 +31,9 @@ void tetrominoConstructor(char **tab, Tetromino *t){
 
 //Renvoie 1 si le Tetromino ne touche pas la bordure gauche
 int isNotBorderL(Tetromino *t,int n){
-	if (t==NULL){
-        printf("Erreur de pointeur dans tetromino !\n");
-        exit(51);
+	if (t==NULL||n<0){
+        	printf("Erreur : int isNotBorderL !\n");
+        	exit(52);
 	}
 	for (int i = 0; i<n; i++){
         	if (t->blocs[i][1] == 0){
@@ -45,9 +45,9 @@ int isNotBorderL(Tetromino *t,int n){
 }
 //Renvoie 1 si le Tetromino ne touche pas la bordure droite
 int isNotBorderR(Tetromino *t, int n){
-	if (t==NULL){
-        printf("Erreur de pointeur dans tetromino !\n");
-        exit(52);
+	if (t==NULL||n<0){
+        	printf("Erreur : int isNotBorderR !\n");
+        	exit(53);
 	}
 	for (int i = 0; i<n; i++){
         	if (t->blocs[i][1] == COL-1){
@@ -61,9 +61,9 @@ int isNotBorderR(Tetromino *t, int n){
 //Cette fonction, contrairement aux deux précédentes ne va pas vérifier directement les coordonnées du Tétromino mais vérifie si celui-ci, avec le déplacement du vecteur, ne touche pas le sol ou
 //s'il ne touche pas un tétromino déjà "mort" représenté par des 2 dans le tableau principal 
 int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL],int n){
-	if (t == NULL || tab == NULL){
-		printf("Erreur de pointeur dans tetromino !\n");
-        	exit(53);
+	if (t == NULL || tab == NULL || n < 0){
+		printf("Erreur : int stillAlive !\n");
+        	exit(54);
     	}
     	if (v.x == 0){
     		for (int i=0; i<n; i++){
@@ -88,9 +88,9 @@ int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL],int n){
 
 //Applique un déplacement sur tous les blocs du Tetromino avec un vecteur
 void move_t(Tetromino *t,Vecteur v, int n){
-	if (t==NULL){
-		printf("Erreur de pointeur dans tetromino !\n");
-        	exit(54);
+	if (t==NULL || n < 0){
+		printf("Erreur : void move_t !\n");
+        	exit(55);
    	}
     	for (int i =0; i<n;i++){
         	t->blocs[i][0]+= v.x;
@@ -103,9 +103,9 @@ void move_t(Tetromino *t,Vecteur v, int n){
 
 //Place le Tetromino dans le tableau principal à l'aide des coordonnées contenues dans le double tableau "blocs"
 void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v, int n, int color){
-    	if (t==NULL){
-		printf("Erreur de pointeur dans tetromino !\n");
-        	exit(55);
+    	if (t==NULL || tab == NULL || n < 0){
+		printf("Erreur : void place_t !\n");
+        	exit(56);
    	}
     	int st = stillAlive(t,v,tab,t->nb_blocs);
     	if (((v.y<=0 && isNotBorderL(t,t->nb_blocs)) || (v.y>=0 && isNotBorderR(t,t->nb_blocs))) && t->isalive && st){
@@ -117,7 +117,8 @@ void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v, int n, int color){
             		tab[t->blocs[i][0]][t->blocs[i][1]] = color;  
         	}
 
-    	}else{
+    	}
+    	else{
         	for (int j = 0; j<n; j++){
             		tab[t->blocs[j][0]][t->blocs[j][1]] = color + 7;
         	}
@@ -126,9 +127,9 @@ void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v, int n, int color){
 
 //Permet de remmettre les paramètres de base d'une pièce dans le cadre d'un jeu continu
 void reset_piece(Tetromino *t,int n){
-    	if (t==NULL){
-        	printf("Erreur de pointeur dans tetromino !\n");
-        	exit(56);
+    	if (t==NULL || n < 0){
+        	printf("Erreur : void reset_piece !\n");
+        	exit(57);
   	}
     	t->isalive = 1;
     	int dx = 2-t->blocs[0][0]; //distance entre le centre du tetromino et le point (2,2)
@@ -143,7 +144,7 @@ void reset_piece(Tetromino *t,int n){
 void clear_line(int tab[LINE][COL], int nb){
     	if (tab==NULL){
         	printf("Erreur de pointeur dans tetromino !\n");
-        	exit(57);
+        	exit(58);
    	}
         for (int j = 0; j<COL; j++){
             	tab[nb][j] = 0;
@@ -154,9 +155,9 @@ void clear_line(int tab[LINE][COL], int nb){
 //Fait descendre tous les blocs de tétrominos "mort" d'un nombre correspondant au nombre de lignes que l'on a supprimées
 void gravitation(int tab[LINE][COL], int d, int start){
     	int temp;
-    	if (tab==NULL){
-        	printf("Erreur de pointeur dans tetromino !\n");
-        	exit(58);
+    	if (tab==NULL || d < 0){
+        	printf("Erreur : void gravitation !\n");
+        	exit(59);
    	}
     	if(d!=0){
     		for (int i=start; i>=0; i--){
@@ -172,9 +173,9 @@ void gravitation(int tab[LINE][COL], int d, int start){
 }
 //Arrête le jeux si les blocs ont atteint le haut de la grille 
 int game_over(int tab[LINE][COL], Tetromino *t, int n, int color){
-    	if (tab==NULL || t == NULL){
-        	printf("Erreur de pointeur dans tetromino !\n");
-        	exit(59);
+    	if (tab==NULL || t == NULL || n < 0){
+        	printf("Erreur : int game_over !\n");
+        	exit(50);
    	}
     	for (int i = 0; i<n;i++){
        		if (tab[t->blocs[i][0]][t->blocs[i][1]] >=8 && t->blocs[i][0]<4){
@@ -188,11 +189,3 @@ int game_over(int tab[LINE][COL], Tetromino *t, int n, int color){
     	return 0;
 }
 
-//Affiche les coordonnées des blocs du Tétromino pour les tests
-void showCoordonnates(Tetromino *t, int n){
-    	for (int i=0; i<n; i++)
-    	{
-        	printf("x = %d, y = %d\n",t->blocs[i][0],t->blocs[i][1]);
-    	}
-    	printf("\n");
-}

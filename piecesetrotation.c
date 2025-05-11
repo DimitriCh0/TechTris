@@ -1,8 +1,9 @@
 #include "fichier.h"
 
-//une pièce est définie comme : '1' = bloc et '0' = vide
+//une pièce est définie comme : '1' = bloc et '0' = vide dans les fichiers txt
 
-char*** pieces(){ //procedure qui crée un tableau utilisé pour la lecture des pieces dans le jeu
+//procedure qui crée un tableau utilisé pour la lecture des pieces dans le jeu
+char*** pieces(){ 
 	char*** liste_pieces = NULL;
 	liste_pieces = malloc(NOMBRE_PIECES*sizeof(char**)); 		//Créer le tableau qui contiendra chaque pièce (une pièce étant un tableau a 2 dimensions)
 	if (liste_pieces == NULL){
@@ -23,8 +24,14 @@ char*** pieces(){ //procedure qui crée un tableau utilisé pour la lecture des 
 	return liste_pieces;
 }
 
+//Lire les fichiers "piecesmodifiees.txt" et "piecesdefauts.txt" pour récupérer les pièces dans le tableau
 void lecture(char*** liste_pieces,int var){
+	if (liste_pieces == NULL){
+		printf("Erreur : void lecture !\n");
+		exit(23);
+	}
 	FILE* fichier = NULL;
+	char min;
 	if (var){
 		fichier = fopen("piecesmodifiees.txt","r+");
 	}
@@ -35,7 +42,7 @@ void lecture(char*** liste_pieces,int var){
 		printf("Ouverture du fichier impossible \n");
 		printf("Code erreur = %d \n", errno);
 		printf("Message erreur = %s \n", strerror(errno));
-		exit(23);
+		 exit(24);
 	}
 	
 	//Cette partie du code nécessite que le fichier texte contenant les pièces est une forme bien spécifique !!!
@@ -43,22 +50,26 @@ void lecture(char*** liste_pieces,int var){
 		for (int j = 0; j<DIM;j++){ 			//récupère ligne par ligne les pièces qui se trouvent dans le fichier texte dans le tableau liste_pieces
 			if (fgets(liste_pieces[i][j],DIM+1,fichier) == NULL){
 				printf("Erreur dans le fichier texte, la lecture d'une ligne de la piece n'a pas abouti. \n");
-				exit(24);
+				exit(25);
 			}
 			fgetc(fichier); 					//passer le '\n' aprés chaque ligne 
 		}
 		if (fgetc(fichier) != '#'){
-			printf("Erreur dans le fichier texte, le separateur n'est pas correcte. \n");
-			exit(25);
+			printf("Erreur dans le fichier texte, il n'est pas rempli correctement. \n");
+			exit(26);
 		}  										//passer le '#' qui est le séparateur de pièce
 		fgetc(fichier);  						//passer le '\n' après le '#'
+	}
+	if ((min=fgetc(fichier))!=EOF){ //vérifier qu'il y a bien NOMBRE_PIECES pièces dans le fichier
+		printf("Erreur dans le fichier texte, il y a une pièce ou un élément en trop \n");
+		exit(27);
 	}
 	for (int i = 0; i <NOMBRE_PIECES;i++){
 		for (int j = 0; j<DIM;j++){ 
 			for (int k = 0; k<DIM;k++){ 
 				if (liste_pieces[i][j][k] != '1' && liste_pieces[i][j][k] != '0'){
 					printf("Erreur dans le fichier texte, le format n'est pas respecté \n");
-					exit(26);
+					exit(28);
 				}
 			}
 		}
@@ -67,23 +78,26 @@ void lecture(char*** liste_pieces,int var){
 	
 }
 
+//Libérer l'espace alloué au tableau
 void liberer_pieces(char*** liste_pieces){
 	if (liste_pieces == NULL){
-		return;
+		printf("Erreur : void liberer_pieces !\n");
+		exit(29);
 	}
 	for (int i = 0; i < NOMBRE_PIECES; i++) {
-        if (liste_pieces[i] != NULL) {
-            for (int j = 0; j < DIM; j++) {
-                if (liste_pieces[i][j] != NULL) {
-                    free(liste_pieces[i][j]); // Libérer chaque ligne
-                }
-            }
-            free(liste_pieces[i]); // Libérer le tableau de lignes
-        }
-    }
-    free(liste_pieces); // Libérer le tableau des pièces
+		if (liste_pieces[i] != NULL) {
+		    for (int j = 0; j < DIM; j++) {
+		        if (liste_pieces[i][j] != NULL) {
+		            free(liste_pieces[i][j]); // Libérer chaque ligne
+		        }
+		    }
+		    free(liste_pieces[i]); // Libérer le tableau de lignes
+		}
+    	}	
+	free(liste_pieces); // Libérer le tableau des pièces
 }
 
+//Choix de la couleur de la pièce
 void choix_couleur(char ***liste_pieces,int i,int j,int k, const char *Couleur){
 	switch(liste_pieces[j][i][k]){
 		case '0':
@@ -95,57 +109,45 @@ void choix_couleur(char ***liste_pieces,int i,int j,int k, const char *Couleur){
 	}
 }
 
+//Afficher les pièces en fonction de leur couleur
 void afficheliste(char ***liste_pieces) {
-    const char *couleurs[NOMBRE_PIECES] = {"🟧","🟨","🟩","🟫","🟪","🟦","🟥"};
-    for (int i = 0; i < DIM; i++) {
-        for (int j = 0; j < NOMBRE_PIECES; j++) {
-            for (int k = 0; k < DIM; k++) {
-                choix_couleur(liste_pieces, i, j, k, couleurs[j]);
-            }
-            printf("    ");
-        }
-        printf("\n");
-    }
-}
-
-
-void affichepiece(char **piece){
-	for (int j = 0; j<DIM;j++){
-		printf("%s",piece[j]);
-		printf("\n");		
+	if (liste_pieces == NULL){
+		printf("Erreur : void afficheliste !\n");
+		exit(20);
 	}
+    	const char *couleurs[NOMBRE_PIECES] = {"🟧","🟨","🟩","🟫","🟪","🟦","🟥"};
+    	for (int i = 0; i < DIM; i++) {
+        	for (int j = 0; j < NOMBRE_PIECES; j++) {
+            		for (int k = 0; k < DIM; k++) {
+                		choix_couleur(liste_pieces, i, j, k, couleurs[j]);
+            		}
+            	printf("    ");
+        	}
+        	printf("\n");
+    	}
 }
 
-
-//Wall kicks à tester si la rotation échoue : gauche, droite, haut
-//On utilise ici des tuples et non des Vecteurs car c'est plus facile à implémenter (les valeurs des vecteurs devant être changées après leur déclaration)
-const int wall_kicks[6][2] = {
-	{0, -1}, //Déplacement à gauche
-	{0, 1},  //Déplacement à droite
-	{-1, 0}, //Déplacement à haut
-	{0, -2}, 
-	{0, 2},
-	{-2, 0}
-};
 //Fontion qui teste la rotation en vérifiant si la pièce est bien dans la grille et pas en collision avec des pièces "mortes"
 int rotation_valide(int n, int test_rotation[NUM_CASE][2], int tab[LINE][COL]) {
-	if (test_rotation == NULL){
-		printf("Erreur de pointeur dans rotation !\n");
-		exit(27);
+	if (test_rotation == NULL || tab == NULL || n < 0){
+		printf("Erreur : int rotation_valide !\n");
+		exit(21);
 	}
     	for (int i = 0; i < n; i++) {
         	if (test_rotation[i][0] < 0 || test_rotation[i][0] >= LINE || test_rotation[i][1] < 0 || test_rotation[i][1] >= COL || tab[test_rotation[i][0]][test_rotation[i][1]] >= 8){
         		return 0;
 		}
 	}
+
     	return 1;
 }
 
 //Procédure qui applique simplement la rotation en copiant les coordonnées du tableau test dans le tetromino
 void appliquer_rotation(Tetromino *t, int test_rotation[NUM_CASE][2], int n) {
 	if (test_rotation == NULL || t == NULL){
-		printf("Erreur de pointeur dans rotation !\n");
-		exit(28);
+		printf("Erreur : void appliquer_rotation !\n");
+		exit(22);
+
 	}
     	for (int i = 0; i < n; i++) {
         	t->blocs[i][0] = test_rotation[i][0];
@@ -156,11 +158,20 @@ void appliquer_rotation(Tetromino *t, int test_rotation[NUM_CASE][2], int n) {
 //Ainsi les changements de coordonnées peuvent être appliqués comme si on était dans un tableau de 5*5, on redéplace en suite le tetromino à sa position initiale,
 //les coordonnées du centre n'ayant pas changé (car on tourn la pièce autour du centre)
 void rotation(int rotation, Tetromino *t, int n, int tab[LINE][COL]) {
-    	if (t == NULL) {
-        	printf("Erreur : pointeur Tetromino invalide dans rotation !\n");
-        	exit(29);
+    	if (t == NULL || tab == NULL || n < 0 || rotation < 0) {
+        	printf("Erreur : void rotation !\n");
+        	exit(23);
    	}
-
+	//Wall kicks à tester si la rotation échoue : gauche, droite, haut
+//On utilise ici des tuples et non des Vecteurs car c'est plus facile à implémenter (les valeurs des vecteurs devant être changées après leur déclaration)
+	int wall_kicks[6][2] = {
+		{0, -1}, //Déplacement à gauche
+		{0, 1},  //Déplacement à droite
+		{-1, 0}, //Déplacement à haut
+		{0, -2}, 
+		{0, 2},
+		{-2, 0}
+	};
 	int dx = 2 - t->blocs[0][0]; //Distance x entre le centre du tetromino et la case (2,2), qui est le centre d'un tableau 5*5
 	int dy = 2 - t->blocs[0][1]; //Distance y...
 	int temp, posx, posy;
@@ -175,7 +186,8 @@ void rotation(int rotation, Tetromino *t, int n, int tab[LINE][COL]) {
 		        	temp = posy;
 		        	posy = posx;
 		        	posx = DIM - temp - 1;
-		        } else if (rotation == 1) { //Pour tourner à droite
+		        } 
+		        else if (rotation == 1) { //Pour tourner à droite
 		        	temp = posx;
 		        	posx = posy;
 		        	posy = DIM - temp - 1;

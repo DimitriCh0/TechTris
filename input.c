@@ -1,6 +1,7 @@
 #include "fichier.h"
 //CONTROLES : A pour tourner vers la gauche la pièce, E pour la tourner vers la droite, S pour la faire descendre de 1, Q et D pour la déplacer respectivement vers la gauche ou vers la droite de 1
 
+//Deux manières de capterr un input car dans un cas, le programme peut se "stopper"; de l'autre, le programme doit continuer de fonctionner
 
 //Détecte quand on appuie sur une touche du clavier et renvoie un entier en fonction de la touche sur laquelle on appuie
 
@@ -8,7 +9,7 @@ int get_input() {
 	struct termios oldt, newt;
 	int ch;
 
-	tcgetattr(STDIN_FILENO, &oldt);           // Sauvegarder config actuelle
+	tcgetattr(STDIN_FILENO, &oldt);           // Sauvegarder la config actuelle du terminal
 	newt = oldt;
 	newt.c_lflag &= ~(ICANON | ECHO);         // Mode non canonique + pas d'écho
 	tcsetattr(STDIN_FILENO, TCSANOW, &newt);  // Appliquer
@@ -26,7 +27,7 @@ int get_input() {
 					ch = 27;
 		}
 	}
-	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);  // Restaurer config
+	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);  // Restaurer la config
 	return ch;
 }
 

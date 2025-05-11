@@ -1,6 +1,10 @@
 #include "fichier.h"
-//surlignage
+
+//coloration pour la sélection
 void print_colored(const char *text, int highlight) {
+	if (text == NULL){
+		exit(10);
+	}
 	if (highlight) {
         	printf("             > \033[1;32m%s\033[0m <\n", text); // Texte vert si sélectionné
 	} 
@@ -9,7 +13,7 @@ void print_colored(const char *text, int highlight) {
 	}
 }
 
-
+//Pause avant de changer de menu / sous-menu
 void wait_for_enter() {
 	int ch;
 	printf("\n\nAppuie sur Entrée pour continuer..."); 
@@ -18,6 +22,7 @@ void wait_for_enter() {
     	} while (ch != '\n' && ch != EOF);
 }
 
+//Lancer le jeu tetris
 void tetris() { 
 	system("clear");
 	int tab[LINE][COL]= {0};
@@ -25,22 +30,25 @@ void tetris() {
 	jeu_tetris(&J,tab,0);
 }
 
-void lecture_sauvegarde(FILE *fichier, char tab_char[LINE][COL+1], int tab_int[LINE][COL], Joueur* Joueur){
-	char variable;
+//Lire la grille et le joueur sauvegardée dans le fichier sauvegarde.txt
+void lecture_sauvegarde(FILE *fichier, char tab_char[LINE][COL+1], int tab_int[LINE][COL], Joueur* J){
+	char c;
 	int len;
-	if (fichier == NULL || tab_char == NULL || Joueur == NULL){
-		exit(10);
+	int verif = 0;
+	if (fichier == NULL || tab_char == NULL || J== NULL){
+		printf("Erreur : void lecture_sauvegarde !\n");
+		exit(11);
 	}
 	rewind(fichier);
 	for (int i = 0;i<LINE;i++){ 
 		if (fgets(tab_char[i],COL+2,fichier) == NULL){     //COL + 2 permet de consommer le \n et laisse une case pour le \0
 			printf("Erreur dans le fichier texte, la lecture d'une ligne de la grille n'a pas abouti. \n");
-			exit(11);
+			exit(12);
 		}
 		len = strlen(tab_char[i]);
 		if (len < COL || (tab_char[i][COL] != '\n' && tab_char[i][COL] != '\0')) {
         		printf("Erreur dans le fichier texte, la grille n'est pas correctement dessinée \n");
-        		exit(12);
+        		exit(13);
         	}
         	if (tab_char[i][len - 1] == '\n') {
         		tab_char[i][len - 1] = '\0';
@@ -48,7 +56,7 @@ void lecture_sauvegarde(FILE *fichier, char tab_char[LINE][COL+1], int tab_int[L
     		for (int j = 0; j < COL; j++) {
     			if (tab_char[i][j] < '0' || tab_char[i][j] > '7') {
         			printf("Erreur dans la lecture, les valeurs récupérées ne sont pas correctes \n");
-        			exit(13);
+        			exit(14);
     			}
 		}	
 	}
@@ -86,24 +94,41 @@ void lecture_sauvegarde(FILE *fichier, char tab_char[LINE][COL+1], int tab_int[L
 	}
 	if (fgetc(fichier) != '@'){
 		printf("Erreur dans le fichier texte, mauvais séparateur \n");
-		exit(14);
+		exit(15);
 	}
-	while ((variable=fgetc(fichier)) != EOF){
-		if(variable=='#'){
-            		if ((fgets(Joueur->pseudo,sizeof(Joueur->pseudo),fichier)) != NULL){// Lire la ligne.
-            			Joueur->pseudo[strcspn(Joueur->pseudo,"\n")]='\0'; // Remplace le \n en \0 donc il retire \n
-            		}
-        	}
-        	else if (variable=='&'){
-            		fscanf(fichier,"%d ",&Joueur->score);
-        	}
-		else if (variable=='/'){
-			fscanf(fichier,"%d ",&Joueur->difficulte);
+	while((c=fgetc(fichier))!=EOF){
+	        if(c=='#'){
+	        	if ((fgets(J->pseudo,sizeof(J->pseudo),fichier)) != NULL && J->pseudo[0] != '\n'){// Lire la ligne.
+	            		J->pseudo[strcspn(J->pseudo,"\n")]='\0'; // Remplace le \n en \0 donc il retire \n		}
+	            	}
+	            	else {
+	            		printf("Erreur dans la lecture du pseudo \n");
+	            		exit(16);
+	            	}
+	            	verif ++;
+	        }
+	        else if (c=='&'){
+	        	if (fscanf(fichier,"%d ",&J->score)!=1 || J->score >999999){
+	        		printf("Erreur dans la lecture du score \n");
+	            		exit(17);
+	        	}
+	        	verif ++;
+	        }
+	        else if (c=='/'){
+	        	if (fscanf(fichier,"%d ",&J->difficulte) != 1 || J->difficulte < 0 || J->difficulte > 4){
+	        		printf("Erreur dans la lecture de la difficulté \n");
+	            		exit(18);
+	        	}
+	        	verif ++;
 		}
+		if (verif != 3){
+			printf("Erreur dans la lecture du joueur\n");
+	            	exit(19);
+	        }
     	}
 }
 
-
+//sous-menu Rejouer 
 void sauvegarde(){
 	char tab_char[LINE][COL+1];
 	int tab_int [LINE][COL] ={0};
@@ -115,7 +140,7 @@ void sauvegarde(){
 		printf("Ouverture du fichier impossible \n");
 		printf("Code erreur = %d \n", errno);
 		printf("Message erreur = %s \n", strerror(errno));
-		exit (15);
+		exit (10);
 	}
 	if (fgetc(fichier) == EOF){
 		printf("\n\n Aucune sauvegarde detectee ! \n\n");
@@ -127,8 +152,10 @@ void sauvegarde(){
 	}
 }
 
-void scoreboard() { //Afficher le scoreboard
+//Afficher le scoreboard
+void scoreboard() { 
 	system("clear");
+	int c;
 	printf("         ===== Scoreboard =====\n\n");
 	printf("  Pseudo    |     Score    |  Difficulte \n");
 	FILE* fichier = NULL;
@@ -137,18 +164,23 @@ void scoreboard() { //Afficher le scoreboard
 		printf("Ouverture du fichier impossible \n");
 		printf("Code erreur = %d \n", errno);
 		printf("Message erreur = %s \n", strerror(errno));
-		exit (16);
+		exit (11);
 	}
-	lire_scoreboard(fichier);
+	rewind(fichier);
+	if ((c = fgetc(fichier))!=EOF){
+    		lire_scoreboard(fichier);
+    	}
 	fclose(fichier);
 	wait_for_enter();
 }
 
-void dessin() { //Lance la procédure permettant de dessiner les pièces
+//Lance la procédure permettant de dessiner les pièces
+void dessin() { 
 	atelier();
 }
 
-void avantdessin() { //Affiche le règlement pour dessiner les pièces (à finir)
+//Affiche le règlement pour dessiner les pièces
+void avantdessin() { 
 	system("clear");
 	printf("Bienvenue dans le menu pour dessiner tes pieces ! \n");
 	printf("Quelques regles avant de commencer : \n\n");
@@ -164,6 +196,7 @@ void avantdessin() { //Affiche le règlement pour dessiner les pièces (à finir
 	dessin();
 }
 
+//Sous-menu Pieces
 void affichagepieces(){
 	system("clear");
 	printf("Voici les pieces avec lesquelles vous allez jouer !\n\n");
@@ -174,6 +207,7 @@ void affichagepieces(){
 	wait_for_enter();
 }
 
+//Menu principal
 void display_menu() {
 	int selected = 0; //Savoir où se trouve le "curseur"
 	int input;
@@ -235,7 +269,7 @@ void display_menu() {
 					printf("\n\n");
 					t = 0;
 					break;
-		    }
+			}
 		}
 	}
 

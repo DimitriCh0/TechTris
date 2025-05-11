@@ -93,6 +93,7 @@ Joueur constru(){
 	    		sleep(1);
 	    	}
 	    	while (getchar() != '\n');
+
 	} while (strlen(J.pseudo) > 50 || strlen(J.pseudo)==0);
     	J.score=0;
     	do {

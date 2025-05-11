@@ -127,8 +127,6 @@ void afficheliste(char ***liste_pieces) {
     	}
 }
 
-
-
 //Fontion qui teste la rotation en vérifiant si la pièce est bien dans la grille et pas en collision avec des pièces "mortes"
 int rotation_valide(int n, int test_rotation[NUM_CASE][2], int tab[LINE][COL]) {
 	if (test_rotation == NULL || tab == NULL || n < 0){
@@ -140,6 +138,7 @@ int rotation_valide(int n, int test_rotation[NUM_CASE][2], int tab[LINE][COL]) {
         		return 0;
 		}
 	}
+
     	return 1;
 }
 
@@ -148,6 +147,7 @@ void appliquer_rotation(Tetromino *t, int test_rotation[NUM_CASE][2], int n) {
 	if (test_rotation == NULL || t == NULL){
 		printf("Erreur : void appliquer_rotation !\n");
 		exit(22);
+
 	}
     	for (int i = 0; i < n; i++) {
         	t->blocs[i][0] = test_rotation[i][0];

@@ -22,7 +22,7 @@
 #define UTF 8
 
 #define BLOC_MAX 5
-#define NUM_CASE DIM*DIM
+#define NUM_CASE 25
 
 
 

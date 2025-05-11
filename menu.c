@@ -142,6 +142,7 @@ void sauvegarde(){
 	else {
 		lecture_sauvegarde(fichier,tab_char,tab_int,&J);
 		jeu_tetris(&J,tab_int,1);
+		scoreboard();
 	}
 }
 

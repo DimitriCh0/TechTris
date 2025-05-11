@@ -149,8 +149,6 @@ void sauvegarde(){
 void scoreboard() { 
 	system("clear");
 	int c;
-	printf("         ===== Scoreboard =====\n\n");
-	printf("  Pseudo    |     Score    |  Difficulte \n");
 	FILE* fichier = NULL;
 	fichier = fopen("scoreboard.txt","r+");
 	if (fichier == NULL){
@@ -160,10 +158,19 @@ void scoreboard() {
 		exit (11);
 	}
 	rewind(fichier);
-	if ((c = fgetc(fichier))!=EOF){
-    		lire_scoreboard(fichier);
-    }else{
-		fprintf(fichier,"%d",0);
+	c = fgetc(fichier);
+	if (c=='0'){
+		if ((c=fgetc(fichier)) != EOF){
+			printf("Erreur dans le fichier scoreboard !\n");
+			exit(12);
+		}
+    	printf("\n     Il n'y a pas de score enregistré ! \n,\n");
+		
+    }
+	else {
+		printf("         ===== Scoreboard =====\n\n");
+		printf("  Pseudo    |     Score    |  Difficulte \n");
+		lire_scoreboard(fichier);
 	}
 	fclose(fichier);
 	wait_for_enter();

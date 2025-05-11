@@ -75,7 +75,6 @@ void enregistrement(char*** pieces_dessinees){
 		printf("Code erreur = %d \n", errno);
 		printf("Message erreur = %s \n", strerror(errno));
 		exit (35);
-
 	}
 	
 	for (int i = 0;i<NOMBRE_PIECES;i++){ 		

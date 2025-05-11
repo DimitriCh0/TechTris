@@ -109,11 +109,11 @@ void draw(int tab[LINE][COL], char grille[LINE][COL][UTF]){
                 	if(tab[i][j]==0){
                 		strcpy(grille[i][j],"  ");
             		}
-	            else{
+	            	else{
 			        if (tab[i][j] <0 || tab[i][j]>14 || tab==NULL){
 			            printf("Erreur de saisie. %d\n", tab[i][j]);
 			            exit(75); 
-	            } 
+	                	} 
 			        switch(tab[i][j]%7+1){
 			            case 1:
 			                strcpy(grille[i][j],"🟥");

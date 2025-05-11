@@ -108,7 +108,7 @@ Joueur constru(){
     	do{
 		system("clear");
 		printf("Entrez votre pseudo (max 50 caractères):\n");
-		if (scanf(" %50s",J.pseudo)!=1|| strlen(J.pseudo) == 0||J.pseudo[0] == 27||(J.pseudo[0] == 27 && J.pseudo[1] == '[')||verif_sequence(J.pseudo)){            //Le pseudo sera automatiquement tronqué s'il dépasse 50 caractères
+		if (scanf(" %50s",J.pseudo)!=1|| strlen(J.pseudo) == 0||J.pseudo[0] == 27||(J.pseudo[0] == 27 && J.pseudo[1] == '[')||verif_sequence(J.pseudo)){            //Le pseudo sera automatiquement tronqué s'il dépasse 50 caractères et les séquences comme Echap ou les flèches ne sont pas valides
 	    		printf("Pseudo invalide \n");
 	    		J.pseudo[0] ='\0';
 	    		sleep(1);

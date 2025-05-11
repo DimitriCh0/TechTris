@@ -164,7 +164,7 @@ void scoreboard() {
 			printf("Erreur dans le fichier scoreboard !\n");
 			exit(12);
 		}
-    	printf("\n     Il n'y a pas de score enregistré ! \n,\n");
+    	printf("\n     Il n'y a pas de score enregistré ! \n\n");
 		
     }
 	else {

@@ -49,7 +49,7 @@ Pour cela, appuyer sur Echap en partie pour y accéder.
 ![image](https://github.com/user-attachments/assets/409dbaa0-8c38-413e-ac93-e8b8c5cf3194)
 
 - Le scoreboard :
-Le scoreboard affiche le pseudos, le score et la difficulté des joueurs ayant joués au jeu.
+Le scoreboard affiche le pseudo, le score et la difficulté des joueurs ayant joués au jeu.
 
 ![image](https://github.com/user-attachments/assets/2bf5ff4b-2373-4725-9502-1efecd8a04ea)
 

@@ -14,7 +14,7 @@ void afficher_colore(const char *text, int surligner) {
 }
 
 //Pause avant de changer de menu / sous-menu
-void wait_for_enter() {
+void attendre_pour_entree() {
 	int ch;
 	printf("\n\nAppuie sur Entrée pour continuer..."); 
 	do {
@@ -137,7 +137,7 @@ void sauvegarde(){
 	}
 	if (fgetc(fichier) == EOF){
 		printf("\n\n Aucune sauvegarde detectee ! \n\n");
-		wait_for_enter();
+		attendre_pour_entree();
 	}
 	else {
 		lecture_sauvegarde(fichier,tab_char,tab_int,&J);
@@ -173,7 +173,7 @@ void scoreboard() {
 		lire_scoreboard(fichier);
 	}
 	fclose(fichier);
-	wait_for_enter();
+	attendre_pour_entree();
 }
 
 //Lancer le jeu tetris
@@ -203,7 +203,7 @@ void avantdessin() {
 	printf(" - 'Defaut' permet de jouer avec les pieces de base de Tetris. \n\n");
 	printf(" - 'Enregistrer' permet de sauvegarder vos pieces apres les avoir dessiner. \n\n");
 	printf(" - ATTENTION une fois sauvegardée, vous ne pourrez pas remodifier les pieces si vous quittez l'Atelier. \n\n");
-	wait_for_enter();
+	attendre_pour_entree();
 	dessin();
 }
 
@@ -215,7 +215,7 @@ void affichagepieces(){
 	lecture(piecesactives,1);
 	afficheliste(piecesactives);
 	liberer_pieces(piecesactives);
-	wait_for_enter();
+	attendre_pour_entree();
 }
 
 //Menu principal

@@ -110,7 +110,7 @@ void choix_couleur2(char valeur, const char *Couleur, int surligner);
 int saisir_entree();
 
 
-void wait_for_enter();
+void attendre_pour_entree();
 //Menu
 void afficher_menu();
 

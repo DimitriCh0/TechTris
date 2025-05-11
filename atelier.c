@@ -8,15 +8,15 @@ void choix_couleur2(char valeur, const char *Couleur, int surligner){
         }
 	if (surligner){	//Case sélectionnée
 		switch(valeur){ 
-			case '0':
+			case '0': //La case n'est pas validée
 				printf("⬛ ");
 				break;
 			case '1':
-				printf("\033[47m%s \033[0m",Couleur);
+				printf("\033[47m%s \033[0m",Couleur); //La case est validée
 				break;
 		}
 	}
-	else{
+	else{ //Case pas sélectionnée
 		switch(valeur){
 			case '0':
 				printf("⬜ ");
@@ -69,7 +69,7 @@ void enregistrement(char*** pieces_dessinees){
 		}
 	}
 	FILE* fichier = NULL;
-	fichier = fopen("piecesmodifiees.txt","r+");
+	fichier = fopen("piecesmodifiees.txt","r+"); //On ouvre le fichier des pièces modifiées
 	if (fichier == NULL){
 		printf("Ouverture du fichier impossible \n");
 		printf("Code erreur = %d \n", errno);
@@ -79,10 +79,10 @@ void enregistrement(char*** pieces_dessinees){
 	
 	for (int i = 0;i<NOMBRE_PIECES;i++){ 		
 		for (int j = 0; j<DIM;j++){ 			
-			fputs(pieces_dessinees[i][j],fichier); //ligne par ligne
+			fputs(pieces_dessinees[i][j],fichier); //On rentre les pièces ligne par ligne
 			fputs("\n",fichier);
 		}
-		fputs("#\n",fichier); //séparateur
+		fputs("#\n",fichier); //Ajout du séparateur des pièces dans le fichier
 	}
 	fclose(fichier);
 	fichier = fopen("sauvegarde.txt","w+"); //Supprime la sauvegarde existante pour éviter de jouer à la même partie avec des sets de pièces différents
@@ -95,7 +95,7 @@ void enregistrement(char*** pieces_dessinees){
 	fclose(fichier);
 }
 
-//Sous-menu Enregistrer pour valider ou non
+//Sous-menu Enregistrer pour valider ou non l'enregistrement des pièces nouvellement créées
 void menu_enregistrement(char*** pieces_dessinees){
 	if (pieces_dessinees==NULL){
 		printf("Erreur : void menu_enregistrement !\n");
@@ -121,7 +121,7 @@ void menu_enregistrement(char*** pieces_dessinees){
 
 		entree = saisir_entree();
 		
-		//Se déplacer
+		//Se déplacer dans le menu
 		if (entree == 'd' || entree == 'D') { //Probleme : quand fleche gauche appuyé
 			selectionne = (selectionne + 1)%num_options3;
 		} 

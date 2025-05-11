@@ -5,17 +5,17 @@ void afficher_tetromino(Tetromino *t, int ligne, int couleur){
         	printf("Erreur : void afficher_tetromino \n");
         	exit(70);
 	}
-    	int bloc_placed = 0;
+    	int bloc_place = 0;
     	int dx = 2 - t->blocs[0][0]; //Distance x entre le centre du tetromino et la case (2,2), qui est le centre d'un tableau 5*5
     	int dy = 2 - t->blocs[0][1]; //Distance y...
     	printf("🧱      🧱");
     	for (int i = 0; i<DIM; i++){
         	for (int j=0; j<t->nb_blocs;j++){
             		if(t->blocs[j][0]+dx == ligne && t->blocs[j][1]+dy == i){
-                		bloc_placed = 1;
+                		bloc_place = 1;
             		}
         	}
-        	if(bloc_placed){
+        	if(bloc_place){
             		switch((couleur%7)+1){
 			            case 1:
 			                printf("🟥");
@@ -43,7 +43,7 @@ void afficher_tetromino(Tetromino *t, int ligne, int couleur){
 		else{
             		printf("  ");
         	}
-        	bloc_placed = 0;
+        	bloc_place = 0;
 	}
     	printf("🧱\n");
 }

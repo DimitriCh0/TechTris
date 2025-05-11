@@ -72,7 +72,7 @@ void afficher(char grille[LIGNE][COL][UTF], Joueur* J, Tetromino *t, int s, int 
             		}
             		printf("🧱      Score : %d\n",J->score);
         	}
-		else if (LIGNE >12 && i>5 && i<=12 && s){
+		else if (LIGNE >12 && i>5 && i<=12 && s){ //On ne peut afficher le prochain tetromino que lorsque le nombre de lignes est supérieur à 12
             		if (i==6){
                 		printf("🧱      🧱🧱🧱🧱🧱🧱🧱\n");
             		}

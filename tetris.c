@@ -206,7 +206,7 @@ void enregistrement_partie(int tab[LIGNE][COL], Joueur* J){
 
 
 //Exécution du code principal du jeu
-void jeu_tetris(Joueur* J, int tab_principal[LIGNE][COL],int sauvegarde){
+void jeu_tetris(Joueur* J, int tab_principal[LIGNE][COL]){
 	if (tab_principal == NULL || J == NULL){
 		printf("Erreur : void jeu_tetris ! \n");
 		exit(66);

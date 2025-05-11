@@ -7,7 +7,7 @@ void choix_couleur2(char valeur, const char *Couleur, int surligner){
         	exit(30);
         }
 	if (surligner){	//Case sélectionnée
-		switch(valeur){ 
+		switch(valeur){ //Bloc vide ou bloc plein
 			case '0': //La case n'est pas validée
 				printf("⬛ ");
 				break;
@@ -35,7 +35,7 @@ void print_tab(char valeur, int surligner, int piece) {
         	exit(31);
         }
 	const char *couleurs[NOMBRE_PIECES] = {"🟧","🟨","🟩","🟫","🟪","🟦","🟥"};
-        choix_couleur2(valeur,couleurs[piece],surligner);
+        choix_couleur2(valeur,couleurs[piece],surligner); //Affichage coloré en fonction de la couleur des tetrominos
 }
 
 //Naviguer dans les options sous la grille
@@ -61,7 +61,7 @@ void enregistrement(char*** pieces_dessinees){
         for (int i = 0;i<NOMBRE_PIECES;i++){ 		
 		for (int j = 0; j<DIM;j++){ 			
 			for (int k = 0; k<DIM;k++){
-				if (pieces_dessinees[i][j][k] != '0' && pieces_dessinees[i][j][k] != '1'){
+				if (pieces_dessinees[i][j][k] != '0' && pieces_dessinees[i][j][k] != '1'){ //Si les valeurs ne sont pas des 0 ou des 1
 					printf("Erreur dans le tableau de pièces, valeur incorrecte \n");
 					exit(34);
 				}
@@ -77,9 +77,9 @@ void enregistrement(char*** pieces_dessinees){
 		exit (35);
 	}
 	
-	for (int i = 0;i<NOMBRE_PIECES;i++){ 		
+	for (int i = 0;i<NOMBRE_PIECES;i++){ //Pour chaque pièce
 		for (int j = 0; j<DIM;j++){ 			
-			fputs(pieces_dessinees[i][j],fichier); //On rentre les pièces ligne par ligne
+			fputs(pieces_dessinees[i][j],fichier); //On écrit les pièces ligne par ligne dans le fichier
 			fputs("\n",fichier);
 		}
 		fputs("#\n",fichier); //Ajout du séparateur des pièces dans le fichier
@@ -122,7 +122,7 @@ void menu_enregistrement(char*** pieces_dessinees){
 		entree = saisir_entree();
 		
 		//Se déplacer dans le menu
-		if (entree == 'd' || entree == 'D') { //Probleme : quand fleche gauche appuyé
+		if (entree == 'd' || entree == 'D') { 
 			selectionne = (selectionne + 1)%num_options3;
 		} 
 		else if (entree == 'q' || entree == 'Q') {
@@ -134,7 +134,7 @@ void menu_enregistrement(char*** pieces_dessinees){
 					t=0;
 					break;
 		        	case 1:
-		            		enregistrement(pieces_dessinees);
+		            		enregistrement(pieces_dessinees); //Si validé, on appelle la procédure enregistrement
 		            		t=0;
 		            		break;
 		        }
@@ -171,7 +171,7 @@ char*** pieces_vide(){
 	return pieces;
 }
 
-//Condition pour placer un bloc, avoir un "1" collé
+//Condition pour placer un bloc, avoir un "1" collé, elle va vérifier le voisin du blox sélectionné
 int voisin(char*** pieces_dessinees, int piece, int selectionne) { 
 	if (pieces_dessinees==NULL || piece < 0){
 		printf("Erreur : int voisin !\n");

@@ -28,7 +28,7 @@
 
 //Fonctions et procédures
 //Jeu
-void jeu_tetris(Joueur* J, int tab_principal[LIGNE][COL],int sauvegarde);
+void jeu_tetris(Joueur* J, int tab_principal[LIGNE][COL]);
 
 //Tétrominos
 void creation_tetrominos(Tetromino *t);

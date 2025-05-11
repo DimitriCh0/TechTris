@@ -141,7 +141,9 @@ void sauvegarde(){
 	}
 	else {
 		lecture_sauvegarde(fichier,tab_char,tab_int,&J);
-		jeu_tetris(&J,tab_int,1);
+
+		jeu_tetris(&J,tab_int);
+		
 		scoreboard();
 	}
 }
@@ -182,7 +184,7 @@ void tetris() {
 	system("clear");
 	int tab[LIGNE][COL]= {0};
 	Joueur J = constru();
-	jeu_tetris(&J,tab,0);
+	jeu_tetris(&J,tab);
 	scoreboard();
 }
 

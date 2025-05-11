@@ -66,7 +66,7 @@ Voici ci-dessous la représentation des fichiers texte dans notre code qu'il fau
 
    En cas de problème, le fichier par défaut doit ressembler à cela : 
 
-![image](https://github.com/user-attachments/assets/55e744eb-428f-49e3-99e0-9a65d4246cc0)
+     ![image](https://github.com/user-attachments/assets/55e744eb-428f-49e3-99e0-9a65d4246cc0)
 
 
   

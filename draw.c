@@ -1,5 +1,5 @@
 #include "fichier.h"
-//Affiche une ligne line du tetromino t
+//Affiche une ligne LIGNE du tetromino t
 void afficher_tetromino(Tetromino *t, int ligne, int couleur){
 	if (t==NULL){
         	printf("Erreur : void afficher_tetromino \n");
@@ -49,12 +49,12 @@ void afficher_tetromino(Tetromino *t, int ligne, int couleur){
 }
 
 //Affiche dans le terminal la grille avec les tetrominos, le pseudo, le score et la pièce suivante
-void afficher(char grille[LINE][COL][UTF], Joueur* J, Tetromino *t, int s, int couleur){
+void afficher(char grille[LIGNE][COL][UTF], Joueur* J, Tetromino *t, int s, int couleur){
 	if (t==NULL || J==NULL || grille == NULL){
         	printf("Erreur : void afficher \n");
         	exit(71);
     	}
-    	for (int i = 0; i<LINE; i++){
+    	for (int i = 0; i<LIGNE; i++){
         	printf("      🧱");
         	for (int j = 0; j<COL; j++){
             		printf("%s",grille[i][j]);
@@ -72,7 +72,7 @@ void afficher(char grille[LINE][COL][UTF], Joueur* J, Tetromino *t, int s, int c
             		}
             		printf("🧱      Score : %d\n",J->score);
         	}
-		else if (LINE >12 && i>5 && i<=12 && s){
+		else if (LIGNE >12 && i>5 && i<=12 && s){
             		if (i==6){
                 		printf("🧱      🧱🧱🧱🧱🧱🧱🧱\n");
             		}
@@ -91,12 +91,12 @@ void afficher(char grille[LINE][COL][UTF], Joueur* J, Tetromino *t, int s, int c
     
 }
 //Affiche dans le terminal un double tableau d'entiers
-void afficher_int(int tab[LINE][COL]){
+void afficher_int(int tab[LIGNE][COL]){
 	if (tab==NULL){
         	printf("Erreur : void afficher_int \n");
         	exit(72);
 	}
-	for (int i = 0; i<LINE; i++){
+	for (int i = 0; i<LIGNE; i++){
        		for (int j = 0; j<COL; j++){
             		printf("%d ",tab[i][j]);
         	}
@@ -104,12 +104,12 @@ void afficher_int(int tab[LINE][COL]){
     	}
 }
 //Remet à 0 tous les entiers de la grille d'entiers afin de pouvoir le modifier avec la fonction "place_t"
-void effacer(int tab[LINE][COL]){
+void effacer(int tab[LIGNE][COL]){
 	if (tab==NULL){
         	printf("Erreur : void clear \n");
         	exit(73);
 	}
-    	for (int i = 0; i<LINE; i++){
+    	for (int i = 0; i<LIGNE; i++){
         	for (int j = 0; j<COL; j++){
             		if (tab[i][j] <8){
                        		tab[i][j] = 0;
@@ -121,12 +121,12 @@ void effacer(int tab[LINE][COL]){
 }
 
 //Modifie la grille de caractère en fonction du tableau d'entiers pour afficher les pièces colorées
-void dessiner(int tab[LINE][COL], char grille[LINE][COL][UTF]){
+void dessiner(int tab[LIGNE][COL], char grille[LIGNE][COL][UTF]){
 	if (tab==NULL || grille == NULL){
         	printf("Erreur : void draw \n");
         	exit(74);
 	}
-	for (int i = 0; i<LINE; i++){
+	for (int i = 0; i<LIGNE; i++){
 		for (int j = 0; j<COL; j++){
                 	if(tab[i][j]==0){
                 		strcpy(grille[i][j],"  ");
@@ -166,7 +166,7 @@ void dessiner(int tab[LINE][COL], char grille[LINE][COL][UTF]){
 }
 
 //Permet de rassembler toutes les fonctions qui modifie le terminal en une seule
-void actualiser(char grille[LINE][COL][UTF], int tab[LINE][COL], Joueur* J,Tetromino *t, int s, int couleur){
+void actualiser(char grille[LIGNE][COL][UTF], int tab[LIGNE][COL], Joueur* J,Tetromino *t, int s, int couleur){
 	if (t==NULL || J==NULL|| grille==NULL|| tab==NULL){
         	printf("Erreur : void refresh !\n");
         	exit(76);

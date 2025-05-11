@@ -130,13 +130,13 @@ void afficheliste(char ***liste_pieces) {
 
 
 //Fontion qui teste la rotation en vérifiant si la pièce est bien dans la grille et pas en collision avec des pièces "mortes"
-int rotation_valide(int n, int test_rotation[NUM_CASE][2], int tab[LINE][COL]) {
+int rotation_valide(int n, int test_rotation[NUM_CASE][2], int tab[LIGNE][COL]) {
 	if (test_rotation == NULL || tab == NULL || n < 0){
 		printf("Erreur : int rotation_valide !\n");
 		exit(21);
 	}
     	for (int i = 0; i < n; i++) {
-        	if (test_rotation[i][0] < 0 || test_rotation[i][0] >= LINE || test_rotation[i][1] < 0 || test_rotation[i][1] >= COL || tab[test_rotation[i][0]][test_rotation[i][1]] >= 8){
+        	if (test_rotation[i][0] < 0 || test_rotation[i][0] >= LIGNE || test_rotation[i][1] < 0 || test_rotation[i][1] >= COL || tab[test_rotation[i][0]][test_rotation[i][1]] >= 8){
         		return 0;
 		}
 	}
@@ -157,7 +157,7 @@ void appliquer_rotation(Tetromino *t, int test_rotation[NUM_CASE][2], int n) {
 //Cette fonction utilise un algorithme simple de rotation dans un tableau de 5*5, pour ce faire on commence par "déplacer" le tetromino jusqu'en haut à gauche de la grille
 //Ainsi les changements de coordonnées peuvent être appliqués comme si on était dans un tableau de 5*5, on redéplace en suite le tetromino à sa position initiale,
 //les coordonnées du centre n'ayant pas changé (car on tourn la pièce autour du centre)
-void rotation(int rotation, Tetromino *t, int n, int tab[LINE][COL]) {
+void rotation(int rotation, Tetromino *t, int n, int tab[LIGNE][COL]) {
     	if (t == NULL || tab == NULL || n < 0 || rotation < 0) {
         	printf("Erreur : void rotation !\n");
         	exit(23);

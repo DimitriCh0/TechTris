@@ -101,8 +101,8 @@ void menu_enregistrement(char*** pieces_dessinees){
 		printf("Erreur : void menu_enregistrement !\n");
         	exit(37);
         }
-	int selected = 0;
-	int input;
+	int selectionne = 0;
+	int entree;
 	int t = 1;
 	const char *options3[] = {"Retour","Continuer"};
 	int num_options3 = (sizeof(options3) / sizeof(char*));
@@ -113,23 +113,23 @@ void menu_enregistrement(char*** pieces_dessinees){
 		printf("\n            Sauvegarder les modifications ? \n \n");
 		printf("    ");
 		for (int i = 0; i < num_options3; i++) {
-		    print_colored3(options3[i], i == selected);
+		    print_colored3(options3[i], i == selectionne);
 		}
 		
 		printf("\n\n Attention, si vous avez une partie sauvegardée, cette dernière sera supprimée ! \n");
 		printf("\n\n\n D (droite), Q (gauche), E (valider)\n");
 
-		input = saisir_entree();
+		entree = saisir_entree();
 		
 		//Se déplacer
-		if (input == 'd' || input == 'D') { //Probleme : quand fleche gauche appuyé
-			selected = (selected + 1)%num_options3;
+		if (entree == 'd' || entree == 'D') { //Probleme : quand fleche gauche appuyé
+			selectionne = (selectionne + 1)%num_options3;
 		} 
-		else if (input == 'q' || input == 'Q') {
-			selected = (selected - 1 + num_options3)%num_options3;
+		else if (entree == 'q' || entree == 'Q') {
+			selectionne = (selectionne - 1 + num_options3)%num_options3;
 		}  
-		else if (input == 'e' || input == 'E') {
-			switch (selected) {
+		else if (entree == 'e' || entree == 'E') {
+			switch (selectionne) {
 				case 0:
 					t=0;
 					break;
@@ -172,13 +172,13 @@ char*** pieces_vide(){
 }
 
 //Condition pour placer un bloc, avoir un "1" collé
-int voisin(char*** pieces_dessinees, int piece, int selected) { 
+int voisin(char*** pieces_dessinees, int piece, int selectionne) { 
 	if (pieces_dessinees==NULL || piece < 0){
 		printf("Erreur : int voisin !\n");
         	exit(31);
         }
-    	int x = selected / DIM;
-    	int y = selected % DIM;
+    	int x = selectionne / DIM;
+    	int y = selectionne % DIM;
     	int var = 0;
     	if ((x > 0 && pieces_dessinees[piece][x-1][y] == '1') ||(x < DIM-1 && pieces_dessinees[piece][x+1][y] == '1') ||(y > 0 && pieces_dessinees[piece][x][y-1] == '1') ||(y < DIM-1 && pieces_dessinees[piece][x][y+1] == '1')){
     		var = 1;
@@ -238,8 +238,8 @@ int menu_defaut(char *** pieces_dessinees){
 		printf("Erreur : int menu_defaut !\n");
         	exit(34);
         }
-	int selected = 0;
-	int input;
+	int selectionne = 0;
+	int entree;
 	int t = 1;
 	int statut = 0;
 	const char *options3[] = {"Retour","Continuer"};
@@ -251,23 +251,23 @@ int menu_defaut(char *** pieces_dessinees){
 		printf("\n   Jouer avec les pièces de TETRIS par défaut ? \n \n");
 
 		for (int i = 0; i < num_options3; i++) {
-		    print_colored3(options3[i], i == selected);
+		    print_colored3(options3[i], i == selectionne);
 		}
 		
 		printf("\n\n Attention, si vous avez une partie sauvegardée, cette dernière sera supprimée ! \n");
 		printf("\n\n\nD (droite), Q (gauche), E (valider)\n");
 
-		input = saisir_entree();
+		entree = saisir_entree();
 		
 		//Se déplacer
-		if (input == 'd' || input == 'D') { //Probleme : quand fleche gauche appuyé
-			selected = (selected + 1)%num_options3;
+		if (entree == 'd' || entree == 'D') { //Probleme : quand fleche gauche appuyé
+			selectionne = (selectionne + 1)%num_options3;
 		} 
-		else if (input == 'q' || input == 'Q') {
-			selected = (selected - 1 + num_options3)%num_options3;
+		else if (entree == 'q' || entree == 'Q') {
+			selectionne = (selectionne - 1 + num_options3)%num_options3;
 		}  
-		else if (input == 'e' || input == 'E') {
-			switch (selected) {
+		else if (entree == 'e' || entree == 'E') {
+			switch (selectionne) {
 				case 0:
 					t=0;
 					statut = 1;
@@ -289,8 +289,8 @@ void atelier(){
 	const char *options2[] = {"Piece precedente","Quitter l'Atelier","Defaut","Enregistrer","Piece suivante"};
 	int num_options2 = (sizeof(options2) / sizeof(char*));
 	char ***pieces_dessinees = pieces_vide();
-	int selected = 0;
-	int input;
+	int selectionne = 0;
+	int entree;
 	int bloc_dispo[NOMBRE_PIECES]; // Nombre de blocs disponibles par piece
 	for (int i = 0; i < NOMBRE_PIECES;i++){
 		bloc_dispo[i] = BLOC_MAX-1;
@@ -306,39 +306,39 @@ void atelier(){
 		for (int i = 0; i < DIM; i++) { //Afficher le tableau case par case
 			printf("                ");
 			for (int j = 0; j < DIM; j++) {
-		    		print_tab(pieces_dessinees[piece][i][j], (i*DIM+j) == selected,piece);
+		    		print_tab(pieces_dessinees[piece][i][j], (i*DIM+j) == selectionne,piece);
 			}
 			printf("\n");
 		}
 		printf("\n             Blocs disponibles : %d \n ",bloc_dispo[piece]);
 		printf("\n");
 		for (int i = NUM_CASE; i < num_options2+NUM_CASE; i++) {
-		    print_colored2(options2[i-NUM_CASE], i == selected);
+		    print_colored2(options2[i-NUM_CASE], i == selectionne);
 		}
 		
 		printf("\n\n\nUtilise Z (haut), S (bas), D (droite), Q (gauche), E (valider)\n");
 
-		input = saisir_entree();
+		entree = saisir_entree();
 		
 		//Se déplacer
-		if (input == 'z' || input == 'Z') {
-			if ((selected - DIM) >= 0){
-				selected = selected - DIM;
+		if (entree == 'z' || entree == 'Z') {
+			if ((selectionne - DIM) >= 0){
+				selectionne = selectionne - DIM;
 			}
 		} 
-		else if (input == 's' || input == 'S') {
-			if ((selected + DIM) < NUM_CASE+DIM){
-				selected = selected + DIM;
+		else if (entree == 's' || entree == 'S') {
+			if ((selectionne + DIM) < NUM_CASE+DIM){
+				selectionne = selectionne + DIM;
 			}
 		}
-		else if (input == 'd'|| input == 'D') { 
-			selected = (selected + 1) % DIM + DIM * (selected/DIM);
+		else if (entree == 'd'|| entree == 'D') { 
+			selectionne = (selectionne + 1) % DIM + DIM * (selectionne/DIM);
 		} 
-		else if (input == 'q' || input == 'Q') {
-			selected = (selected - 1+DIM) % DIM + DIM * (selected/DIM);
+		else if (entree == 'q' || entree == 'Q') {
+			selectionne = (selectionne - 1+DIM) % DIM + DIM * (selectionne/DIM);
 		}  
-		else if (input == 'e' || input == 'E') {
-			switch (selected) {
+		else if (entree == 'e' || entree == 'E') {
+			switch (selectionne) {
 				case((NUM_CASE-1) / 2):
 					break; //Bloquer la modification du bloc au milieu
 		        	case (NUM_CASE):
@@ -362,12 +362,12 @@ void atelier(){
 		            		}
 					break;
 				default: //placer les blocs selon les conditions
-					if (pieces_dessinees[piece][selected/DIM][selected%DIM] == '0' && bloc_dispo[piece] > 0 && voisin(pieces_dessinees,piece,selected)){
-						pieces_dessinees[piece][selected/DIM][selected%DIM] = '1';
+					if (pieces_dessinees[piece][selectionne/DIM][selectionne%DIM] == '0' && bloc_dispo[piece] > 0 && voisin(pieces_dessinees,piece,selectionne)){
+						pieces_dessinees[piece][selectionne/DIM][selectionne%DIM] = '1';
 						bloc_dispo[piece]--;
 					}
-					else if (pieces_dessinees[piece][selected/DIM][selected%DIM] == '1' && bloc_dispo[piece] < 4){
-						pieces_dessinees[piece][selected/DIM][selected%DIM] = '0';
+					else if (pieces_dessinees[piece][selectionne/DIM][selectionne%DIM] == '1' && bloc_dispo[piece] < 4){
+						pieces_dessinees[piece][selectionne/DIM][selectionne%DIM] = '0';
 						bloc_dispo[piece]++;
 						
 					}

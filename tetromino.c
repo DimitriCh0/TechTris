@@ -60,7 +60,7 @@ int NestPasBordureD(Tetromino *t, int n){
 //Renvoie 1 si le tetromino est toujours "en vie"
 //Cette fonction, contrairement aux deux précédentes ne va pas vérifier directement les coordonnées du Tétromino mais vérifie si celui-ci, avec le déplacement du vecteur, ne touche pas le sol ou
 //s'il ne touche pas un tétromino déjà "mort" représenté par des 2 dans le tableau principal 
-int a_survecu(Tetromino *t, Vecteur v, int tab[LINE][COL],int n){
+int a_survecu(Tetromino *t, Vecteur v, int tab[LIGNE][COL],int n){
 	if (t == NULL || tab == NULL || n < 0){
 		printf("Erreur : int a_survecu !\n");
         	exit(54);
@@ -75,7 +75,7 @@ int a_survecu(Tetromino *t, Vecteur v, int tab[LINE][COL],int n){
     	}
     	else {
     		for (int i=0; i<n; i++){
-    			if(t->blocs[i][0]+v.x==LINE || tab[t->blocs[i][0]+v.x][t->blocs[i][1]]>=8){
+    			if(t->blocs[i][0]+v.x==LIGNE || tab[t->blocs[i][0]+v.x][t->blocs[i][1]]>=8){
     				t->enVie = 0;
     				return 0;
     			}	
@@ -102,7 +102,7 @@ void deplacer_t(Tetromino *t,Vecteur v, int n){
 
 
 //Place le Tetromino dans le tableau principal à l'aide des coordonnées contenues dans le double tableau "blocs"
-void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v, int n, int color){
+void place_t(Tetromino *t,int tab[LIGNE][COL],Vecteur v, int n, int color){
     	if (t==NULL || tab == NULL || n < 0){
 		printf("Erreur : void place_t !\n");
         	exit(56);
@@ -141,7 +141,7 @@ void reinitialiser_piece(Tetromino *t,int n){
 }
 
 //Cette procédure supprime une ligne en mettant toutes les valeurs à 0
-void effacer_ligne(int tab[LINE][COL], int nb){
+void effacer_ligne(int tab[LIGNE][COL], int nb){
     	if (tab==NULL){
         	printf("Erreur de pointeur dans tetromino !\n");
         	exit(58);
@@ -153,7 +153,7 @@ void effacer_ligne(int tab[LINE][COL], int nb){
 }
 
 //Fait descendre tous les blocs de tétrominos "mort" d'un nombre correspondant au nombre de lignes que l'on a supprimées
-void gravitation(int tab[LINE][COL], int d, int start){
+void gravitation(int tab[LIGNE][COL], int d, int start){
     	int temp;
     	if (tab==NULL || d < 0){
         	printf("Erreur : void gravitation !\n");
@@ -172,7 +172,7 @@ void gravitation(int tab[LINE][COL], int d, int start){
     	}
 }
 //Arrête le jeux si les blocs ont atteint le haut de la grille 
-int game_over(int tab[LINE][COL], Tetromino *t, int n, int color){
+int game_over(int tab[LIGNE][COL], Tetromino *t, int n, int color){
     	if (tab==NULL || t == NULL || n < 0){
         	printf("Erreur : int game_over !\n");
         	exit(50);

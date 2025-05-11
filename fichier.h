@@ -18,7 +18,7 @@
 #define DIM 5
 //Les dimensions de la grille principale
 #define COL 10
-#define LINE 20
+#define LIGNE 20
 #define UTF 8
 
 #define BLOC_MAX 5
@@ -28,24 +28,24 @@
 
 //Fonctions et procédures
 //Jeu
-void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde);
+void jeu_tetris(Joueur* J, int tab_principal[LIGNE][COL],int sauvegarde);
 
 //Tétrominos
 void creation_tetrominos(Tetromino *t);
 void tetrominoConstructor(char **tab, Tetromino *t);
 void deplacer_t(Tetromino *t,Vecteur v,int n);
-void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v, int n, int color);
-int a_survecu(Tetromino *t, Vecteur v, int tab[LINE][COL], int n);
+void place_t(Tetromino *t,int tab[LIGNE][COL],Vecteur v, int n, int color);
+int a_survecu(Tetromino *t, Vecteur v, int tab[LIGNE][COL], int n);
 int NestPasBordureD(Tetromino *t, int n);
 int NestPasBordureG(Tetromino *t, int n);
 void reinitialiser_piece(Tetromino *t, int n);
 
 //Fonctions du jeu
 void sleep_ms(float milliseconds);
-void effacer_ligne(int tab[LINE][COL], int nb);
-void gravitation(int tab[LINE][COL], int d, int start);
-int game_over(int tab[LINE][COL], Tetromino *t, int n,int color);
-void score(Joueur* J,int tab_principal[LINE][COL],int nb_lines);
+void effacer_ligne(int tab[LIGNE][COL], int nb);
+void gravitation(int tab[LIGNE][COL], int d, int start);
+int game_over(int tab[LIGNE][COL], Tetromino *t, int n,int color);
+void score(Joueur* J,int tab_principal[LIGNE][COL],int nb_LIGNEs);
 int scoreGrille(int *tab);
 
 //Inputs
@@ -54,16 +54,16 @@ int entree_clavier();
 Vecteur keyToVect(int r);
 
 //Draw
-void afficher(char grille[LINE][COL][UTF], Joueur* J, Tetromino *t, int s, int couleur);
-void afficher_int(int tab[LINE][COL]);
-void effacer(int tab[LINE][COL]);
-void dessiner(int tab[LINE][COL], char grille[LINE][COL][UTF]);
-void actualiser(char grille[LINE][COL][UTF], int tab[LINE][COL], Joueur* J, Tetromino *t, int s, int couleur);
+void afficher(char grille[LIGNE][COL][UTF], Joueur* J, Tetromino *t, int s, int couleur);
+void afficher_int(int tab[LIGNE][COL]);
+void effacer(int tab[LIGNE][COL]);
+void dessiner(int tab[LIGNE][COL], char grille[LIGNE][COL][UTF]);
+void actualiser(char grille[LIGNE][COL][UTF], int tab[LIGNE][COL], Joueur* J, Tetromino *t, int s, int couleur);
 void afficher_tetromino(Tetromino *t, int ligne, int couleur);
 
 //Rotation et pièces
-void rotation(int rotation, Tetromino *t, int n, int tab[LINE][COL]);
-int rotation_valide(int n, int test_rotation[NUM_CASE][2], int tab[LINE][COL]);
+void rotation(int rotation, Tetromino *t, int n, int tab[LIGNE][COL]);
+int rotation_valide(int n, int test_rotation[NUM_CASE][2], int tab[LIGNE][COL]);
 void appliquer_rotation(Tetromino *t, int test_rotation[NUM_CASE][2], int n);
 
 //Création des pièces
@@ -76,7 +76,7 @@ void choix_couleur(char ***liste_pieces,int i,int j,int k, const char *Couleur);
 
 
 //sauvegarde
-void enregistrement_partie(int tab[LINE][COL], Joueur* J);
+void enregistrement_partie(int tab[LIGNE][COL], Joueur* J);
 
 //pause
 int pause();
@@ -116,7 +116,7 @@ void afficher_menu();
 
 //Sous-menu
 void tetris();
-void lecture_sauvegarde(FILE *fichier, char tab_char[LINE][COL+1], int tab_int[LINE][COL], Joueur* Joueur);
+void lecture_sauvegarde(FILE *fichier, char tab_char[LIGNE][COL+1], int tab_int[LIGNE][COL], Joueur* Joueur);
 void sauvegarde();
 void scoreboard();
 void dessin(); //Atelier

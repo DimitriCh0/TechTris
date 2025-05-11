@@ -1,15 +1,15 @@
 #include "fichier.h"
 
 //Naviguer dans les options de Pause
-void print_colored3(const char *text, int highlight) { 
-	if (text == NULL){
+void print_colored3(const char *texte, int surligner) { 
+	if (texte == NULL){
 		exit(60);
 	}
-	if (highlight) {
-        	printf("         > \033[1;32m%s\033[0m < ", text); // Texte vert si sélectionné
+	if (surligner) {
+        	printf("         > \033[1;32m%s\033[0m < ", texte); // Texte vert si sélectionné
 	} 
 	else {
-        	printf("         %s ", text);
+        	printf("         %s ", texte);
 	}
 }
 
@@ -51,46 +51,46 @@ int scoreGrille(int *tab){
 }
 
 //Incrémentation du score en fonction des lignes complétées et si la grille est totalement vide de blocs
-void score(Joueur* J,int tab_principal[LINE][COL],int nb_lignes){
+void score(Joueur* J,int tab_principal[LIGNE][COL],int nb_lignes){
 	if (tab_principal == NULL || J == NULL){
 		printf("Erreur : void score ! \n");
 		exit(63);
 	}
-	int clear = 1;
-	for (int i = 0; i<LINE; i++){
+	int effacer = 1;
+	for (int i = 0; i<LIGNE; i++){
 		for (int j = 0; j<COL; j++){
 			if (tab_principal[i][j] != 0){
-				clear = 0;
+				effacer = 0;
 			}
 		}
 	}
 	switch(nb_lignes){
 			case 1 :
-				if (clear == 1){
+				if (effacer == 1){
 					J->score +=800*J->difficulte;
 				}
 				J->score +=100*J->difficulte;
 				break;
 			case 2 :
-				if (clear == 1){
+				if (effacer == 1){
 					J->score +=1200*J->difficulte;
 				}
 				J->score +=300*J->difficulte;	
 				break;
 			case 3 :
-				if (clear == 1){
+				if (effacer == 1){
 					J->score +=1800*J->difficulte;
 				}
 				J->score +=500*J->difficulte;	
 				break;
 			case 4 :
-				if (clear == 1){
+				if (effacer == 1){
 					J->score +=2000*J->difficulte;
 				}
 				J->score +=800*J->difficulte;	
 				break;
 			case 5 :
-				if (clear == 1){
+				if (effacer == 1){
 					J->score +=2500*J->difficulte;
 				}
 				J->score +=1000*J->difficulte;	
@@ -100,10 +100,10 @@ void score(Joueur* J,int tab_principal[LINE][COL],int nb_lignes){
 
 //Sous-menu Pause pour quitter ou faire une pause dans la partie, renvoie le statut "quit" pour savoir si le jeu doit se stopper
 int pause(){
-	int selected = 0;
-	int input;
+	int selectionne = 0;
+	int entree;
 	int t = 1;
-	int quit;
+	int quitter;
 	const char *options4[] = {"Quitter","Continuer"};
 	int num_options4 = (sizeof(options4) / sizeof(char*));
 	while (t) {
@@ -112,43 +112,43 @@ int pause(){
 		print_colored("===== Pause =====", 0);
 		printf("\n");
 		for (int i = 0; i < num_options4; i++) {
-		    print_colored3(options4[i], i == selected);
+		    print_colored3(options4[i], i == selectionne);
 		}
 		
 		printf("\n\n\nD (droite), Q (gauche), E (valider)\n");
 
-		input = saisir_entree();
+		entree = saisir_entree();
 		
-		if (input == 'd' || input == 'D') { 
-			selected = (selected + 1)%num_options4;
+		if (entree == 'd' || entree == 'D') { 
+			selectionne = (selectionne + 1)%num_options4;
 		} 
-		else if (input == 'q' || input == 'Q') {
-			selected = (selected - 1 + num_options4)%num_options4;
+		else if (entree == 'q' || entree == 'Q') {
+			selectionne = (selectionne - 1 + num_options4)%num_options4;
 		}  
-		else if (input == 'e' || input == 'E') {
-			switch (selected) {
+		else if (entree == 'e' || entree == 'E') {
+			switch (selectionne) {
 				case 0:
 					t=0;
-					quit = 1;
+					quitter = 1;
 					break;
 		        	case 1:
 		            		t=0;
-		            		quit = 0;
+		            		quitter = 0;
 		            		break;
 		        }
 		}
 	}
-	return quit;
+	return quitter;
 }
 
 //Sauvegarde de la partie dans le fichier "sauvegarde.txt"
-void enregistrement_partie(int tab[LINE][COL], Joueur* J){
+void enregistrement_partie(int tab[LIGNE][COL], Joueur* J){
 	if (tab == NULL || J == NULL){
 		printf("Erreur : void enregistrement_partie ! \n");
 		exit(64);
 	}
-	char tab_char[LINE][COL+1]; 
-	for (int i = 0; i <LINE;i++){ // Convertir le tableau de int en tableau de char
+	char tab_char[LIGNE][COL+1]; 
+	for (int i = 0; i <LIGNE;i++){ // Convertir le tableau de int en tableau de char
 		for (int j = 0; j<COL+1;j++){
 			if(j == COL){
 				tab_char[i][j] = '\0';
@@ -191,7 +191,7 @@ void enregistrement_partie(int tab[LINE][COL], Joueur* J){
 		printf("Message erreur = %s \n", strerror(errno));
 		exit (65);
 	}
-	for (int i = 0; i<LINE;i++){ //Ecriture ligne par ligne du tableau de char correspondant à la grille du Tetris
+	for (int i = 0; i<LIGNE;i++){ //Ecriture ligne par ligne du tableau de char correspondant à la grille du Tetris
 		fputs(tab_char[i],f);
 		fputs("\n",f);
 	}
@@ -206,19 +206,19 @@ void enregistrement_partie(int tab[LINE][COL], Joueur* J){
 
 
 //Exécution du code principal du jeu
-void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
+void jeu_tetris(Joueur* J, int tab_principal[LIGNE][COL],int sauvegarde){
 	if (tab_principal == NULL || J == NULL){
 		printf("Erreur : void jeu_tetris ! \n");
 		exit(66);
 	}
 	struct timespec start, end;
-    	char grille[LINE][COL][UTF];
+    	char grille[LIGNE][COL][UTF];
     	int n; //Sortie de key_input()
     	int tour = rand()%NOMBRE_PIECES; //Valeur permettant de choisir la pièce à jouer
 	int prochain_tour; //Valeur désignant la prochaine pièce à jouer
 	int pre_tour;
     	int nb_lignes = 0; //Variable utilisée pour compter les lignes pleines
-    	int p_ligne = LINE-1; //Première ligne pleine par défaut
+    	int p_ligne = LIGNE-1; //Première ligne pleine par défaut
     	int temp; //Variable temporaire
     	float speed = 1000; //Vitesse d'exécution du jeu
     	int quit;
@@ -271,7 +271,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 				break;
 			}
 		    	if (n==8){ // Pause
-		    		quit = pause();
+		    		quitter = pause();
 		    		if (quit){
 		    			break;
 		    		}
@@ -315,7 +315,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 		}
 		
 		if (n==8){ // Pause
-			quit = pause();
+			quitter = pause();
 			if (quit){
 				break;
 			}
@@ -324,7 +324,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 		place_t(liste_t+tour,tab_principal,d,liste_t[tour].nb_blocs, tour+1);
 		
 	
-		for(int i = 0; i<LINE; i++){
+		for(int i = 0; i<LIGNE; i++){
 			temp = scoreGrille(tab_principal[i]); //On vérifie si une ligne est pleine
 			if (temp){
 				effacer_ligne(tab_principal,i); //Si c'est le cas, on supprime la ligne en question

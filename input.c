@@ -38,7 +38,7 @@ int entree_clavier(){
 	int flags = fcntl(STDIN_FILENO, F_GETFL, 0);
 	fcntl(STDIN_FILENO, F_SETFL, flags | O_NONBLOCK); //O_NONBLOCK dit à getchar() de ne pas attendre si rien n'est dispo.
     	char c;
-    	c = get_input();
+    	c = saisir_entree();
     	while(getchar()!=EOF);
     	fcntl(STDIN_FILENO, F_SETFL, flags); // On remet stdin en mode bloquant (stdin étant la variable associée au terminal)
     	if (c==EOF){

@@ -55,13 +55,13 @@ Une interface permet de visualiser les pièces avec lesquelles vous allez jouer.
 - La fonction "Rejouer" :
 Accessible depuis le menu principal, cette fonction permet de reprendre la dernière partie sauvegardée.
 
-Voici ci-dessous la représentation des fichiers texte dans notre code :
+Voici ci-dessous la représentation des fichiers texte dans notre code qu'il faut respecter pour avoir un jeu fonctionnel:
 
 - Le scoreboard : le nombre de joueurs répertorié dans le scoreboard, puis leurs données (pseudo marqué par le #, le score par & et la difficulté par /)
 
      ![image](https://github.com/user-attachments/assets/e269eb6a-0496-41e0-8798-72c7b600c093)
   
-- Les pièces modifiées : 0 pour le vide, 1 pour les blocs, " comme séparateur ; une pièce tient dans un carré de 5*5
+- Les pièces modifiées : 0 pour le vide, 1 pour les blocs, # comme séparateur ; une pièce tient dans un carré de 5*5
 
      ![image](https://github.com/user-attachments/assets/da1e8df5-1c9e-410f-9a2c-7f42dc43d658)
 

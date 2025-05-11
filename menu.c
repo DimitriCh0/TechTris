@@ -162,7 +162,9 @@ void scoreboard() {
 	rewind(fichier);
 	if ((c = fgetc(fichier))!=EOF){
     		lire_scoreboard(fichier);
-    	}
+    }else{
+		fprintf(fichier,"%d",0);
+	}
 	fclose(fichier);
 	wait_for_enter();
 }

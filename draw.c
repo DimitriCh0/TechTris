@@ -87,8 +87,11 @@ void afficher(char grille[LIGNE][COL][UTF], Joueur* J, Tetromino *t, int s, int 
             		printf("🧱\n");
         	}
     }
-    printf("      🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱\n");
-    
+	printf("      ");
+	for (int i = 0; i < COL+2; i ++){
+		printf("🧱");
+	}
+	printf("\n");
 }
 //Affiche dans le terminal un double tableau d'entiers
 void afficher_int(int tab[LIGNE][COL]){

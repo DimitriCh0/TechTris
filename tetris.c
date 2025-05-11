@@ -221,7 +221,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LIGNE][COL],int sauvegarde){
     	int p_ligne = LIGNE-1; //Première ligne pleine par défaut
     	int temp; //Variable temporaire
     	float speed = 1000; //Vitesse d'exécution du jeu
-    	int quit;
+    	int quitter;
 	int gv = 0;
 	int montrer_pro_t = 0;
     	Vecteur v;
@@ -272,7 +272,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LIGNE][COL],int sauvegarde){
 			}
 		    	if (n==8){ // Pause
 		    		quitter = pause();
-		    		if (quit){
+		    		if (quitter){
 		    			break;
 		    		}
 		    	}
@@ -316,7 +316,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LIGNE][COL],int sauvegarde){
 		
 		if (n==8){ // Pause
 			quitter = pause();
-			if (quit){
+			if (quitter){
 				break;
 			}
 		}

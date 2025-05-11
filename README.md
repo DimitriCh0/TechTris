@@ -49,7 +49,8 @@ La modification d’une pièce doit commencer depuis le centre, car celui-ci ser
 Un menu pause a été ajouté pour permettre de sauvegarder la partie et la reprendre plus tard.
 Pour cela, appuyer sur Echap en partie pour y accéder.
  
-![image](https://github.com/user-attachments/assets/aba4002b-42ae-41ba-a8cb-13bafefc46c6)
+![image](https://github.com/user-attachments/assets/409dbaa0-8c38-413e-ac93-e8b8c5cf3194)
+
 
 - L'affichage des pièces :
 Une interface permet de visualiser les pièces avec lesquelles vous allez jouer.

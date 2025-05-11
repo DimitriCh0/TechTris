@@ -33,9 +33,6 @@ Lancez une partie en entrant votre pseudo (50 caractères maximum et sans espace
 ![image](https://github.com/user-attachments/assets/3240935a-abb2-421b-8220-a606e32d7f3f)
 
 
-
-La grille est de 20 par 10 pour permettre une meilleure expérience utilisateur.
-
 Fonctionnalités : 
 
 - L'Atelier :

@@ -1,6 +1,6 @@
 #include "fichier.h"
 
-//Naviguer dans les options de Pause
+//Naviguer dans les options du menu Pause
 void afficher_colore_tetris(const char *texte, int surligner) { 
 	if (texte == NULL){
 		exit(60);
@@ -9,7 +9,7 @@ void afficher_colore_tetris(const char *texte, int surligner) {
         	printf("         > \033[1;32m%s\033[0m < ", texte); // Texte vert si sélectionné
 	} 
 	else {
-        	printf("         %s ", texte);
+        	printf("         %s ", texte); //Si non selectionné
 	}
 }
 
@@ -17,8 +17,8 @@ void sleep_ms(float milliseconds){
 	usleep(milliseconds * 1000);//Convertit les millisecondes en microsecondes
 }
 
-//Procédure qui crée les tétrominos à partir du fichier pieces.txt ou piecedited
-void creation_tetrominos(Tetromino *t){
+//Procédure qui crée les tétrominos à partir du fichier piecesmodifiees.txt
+void creation_tetrominos(Tetromino *t){//Prend en argument le pointeur du tableau de tetromino, donc du premier tetromino
 	printf("Construction des Tétrominos...\n");
 	if (t == NULL){
 		printf("Erreur : void creation_tetrominos ! \n");
@@ -56,7 +56,7 @@ void score(Joueur* J,int tab_principal[LIGNE][COL],int nb_lignes){
 		printf("Erreur : void score ! \n");
 		exit(63);
 	}
-	int effacer = 1;
+	int effacer = 1; //Pour savoir si la grille est totalement vide (dans ce cas le score incrémenté est augmenté)
 	for (int i = 0; i<LIGNE; i++){
 		for (int j = 0; j<COL; j++){
 			if (tab_principal[i][j] != 0){
@@ -64,7 +64,7 @@ void score(Joueur* J,int tab_principal[LIGNE][COL],int nb_lignes){
 			}
 		}
 	}
-	switch(nb_lignes){
+	switch(nb_lignes){//Score différent en fonction du nombre de lignes complétées
 			case 1 :
 				if (effacer == 1){
 					J->score +=800*J->difficulte;
@@ -89,7 +89,7 @@ void score(Joueur* J,int tab_principal[LIGNE][COL],int nb_lignes){
 				}
 				J->score +=800*J->difficulte;	
 				break;
-			case 5 :
+			case 5 : //On peut au maximum avoir 5 lignes complétées à la fois
 				if (effacer == 1){
 					J->score +=2500*J->difficulte;
 				}
@@ -98,7 +98,7 @@ void score(Joueur* J,int tab_principal[LIGNE][COL],int nb_lignes){
 	}
 }
 
-//Sous-menu Pause pour quitter ou faire une pause dans la partie, renvoie le statut "quit" pour savoir si le jeu doit se stopper
+//Sous-menu Pause pour quitter ou faire une pause dans la partie, renvoie le statut "quitter" pour savoir si le jeu doit se stopper
 int pause(){
 	int selectionne = 0;
 	int entree;
@@ -212,26 +212,26 @@ void jeu_tetris(Joueur* J, int tab_principal[LIGNE][COL]){
 		exit(66);
 	}
 	struct timespec start, end;
-    	char grille[LIGNE][COL][UTF];
+    	char grille[LIGNE][COL][UTF]; //Grille qui va être affichée dans le terminal
     	int n; //Sortie de key_input()
     	int tour = rand()%NOMBRE_PIECES; //Valeur permettant de choisir la pièce à jouer
-	int prochain_tour; //Valeur désignant la prochaine pièce à jouer
-	int pre_tour;
+	int prochain_tour; //Indice du prochain tetromino
+	int pre_tour; //Indice du tetromino précédent
     	int nb_lignes = 0; //Variable utilisée pour compter les lignes pleines
     	int p_ligne = LIGNE-1; //Première ligne pleine par défaut
     	int temp; //Variable temporaire
     	float speed = 1000; //Vitesse d'exécution du jeu
-    	int quitter;
-	int gv = 0;
-	int montrer_pro_t = 0;
-    	Vecteur v;
-    	Vecteur d;
+    	int quitter; //Booleen quitter
+	int gv = 0; //Booleen du game over
+	int montrer_pro_t = 0; //Booleen pour savoir si on affiche le prochain tetromino
+    	Vecteur v; //Vecteur déplacement du joueur
+    	Vecteur d; //Vecteur déplacement automatique à chaque période (vers le bas)
     	d.x = 1;
     	d.y = 0;
 	
     	//printf("Sah Dimitri\n"); La première ligne de code qui a été écrite pour le projet
 
-	Tetromino *liste_t;
+	Tetromino *liste_t; //Tableau contenant les tetromino à jouer
     	liste_t = malloc(NOMBRE_PIECES*sizeof(Tetromino));
     	if (liste_t == NULL){
         	exit(67);
@@ -243,9 +243,9 @@ void jeu_tetris(Joueur* J, int tab_principal[LIGNE][COL]){
         	prochain_tour = rand()%NOMBRE_PIECES;
     	}while(prochain_tour==tour);
     	while(1){
-		clock_gettime(CLOCK_MONOTONIC, &start);
+		clock_gettime(CLOCK_MONOTONIC, &start); //Pour que start et end n'est pas des valeurs non-déclarer
 		clock_gettime(CLOCK_MONOTONIC, &end);
-		long seconds = end.tv_sec - start.tv_sec;
+		long seconds = end.tv_sec - start.tv_sec; //On calcule la période en secondes et en nanosecondes
 	    	long nanoseconds = end.tv_nsec - start.tv_nsec;
 	    	long periode = seconds * 1000 + nanoseconds / 1000000;
 		//Fonctionnement du jeu : à chaque niveau de difficulté est associé une période de temps en millisecondes

@@ -40,7 +40,7 @@ void lire_scoreboard(FILE *f){
 	    		exit(42);
 	}	
 	while((c=fgetc(f))!=EOF){
-	        if(c=='#'){
+	        if(c=='#'){//Vérification du pseudo
 	        	if ((fgets(J.pseudo,sizeof(J.pseudo),f)) != NULL && J.pseudo[0] != '\n'){// Lire la ligne.
 	            		J.pseudo[strcspn(J.pseudo,"\n")]='\0'; // Remplace le \n en \0 donc il retire \n
 	            		if (strlen(J.pseudo) > 10){ //Si le pseudo est légèrement long, il est tronqué pour assurer un bon affichage
@@ -56,14 +56,14 @@ void lire_scoreboard(FILE *f){
 	            		exit(43);
 	            	}
 	        }
-	        else if (c=='&'){
+	        else if (c=='&'){//Vérification du score
 	        	if (fscanf(f,"%d ",&J.score)!=1 || J.score >999999){
 	        		printf("Erreur dans la lecture du score \n");
 	            		exit(44);
 	        	}
 	        	compteur_s ++;
 	        }
-	        else if (c=='/'){
+	        else if (c=='/'){//Vérification de la difficulté
 	        	if (fscanf(f,"%d ",&J.difficulte) != 1 || J.difficulte < 0 || J.difficulte > 4){
 	        		printf("Erreur dans la lecture de la difficulté \n");
 	            		exit(45);
@@ -74,7 +74,7 @@ void lire_scoreboard(FILE *f){
 	        }
 	        
 	}
-	if (nbr_joueurs != compteur_d || nbr_joueurs != compteur_p || nbr_joueurs != compteur_s){
+	if (nbr_joueurs != compteur_d || nbr_joueurs != compteur_p || nbr_joueurs != compteur_s){//Vérifie si les compteurs de pseudo, de score et de difficulté sont égaux au nombre de joueur indiqué au début du fichier scoreboard.txt
 		printf("Erreur dans la lecture des joueurs : voir fichier texte \n");
 	        exit(46);
 	}
@@ -108,7 +108,7 @@ Joueur constru(){
 	return J;
 }
 
-//Enregistrement du score du Joueur dans le fichier "scoreboard.txt"   
+//Enregistrement du score du Joueur dans le fichier "scoreboard.txt" 
 void enregistrement_score(Joueur* J){
 	if (J == NULL){
 		printf("Erreur : void enregistrement\n");
@@ -174,13 +174,13 @@ void enregistrement_score(Joueur* J){
 				k++;
 			}
 		}
-		if (nbr_joueurs != compteur_d || nbr_joueurs != compteur_p || nbr_joueurs != compteur_s){
+		if (nbr_joueurs != compteur_d || nbr_joueurs != compteur_p || nbr_joueurs != compteur_s){//Voir plus haut la vérification
 			printf("Erreur dans la lecture des joueurs : voir fichier texte \n");
 	        	exit(44);
 		}
 	   	*(tab+nbr_joueurs) = *J;
 	   	nbr_joueurs ++;
-	    	triInsertion(tab, nbr_joueurs);
+	    	triInsertion(tab, nbr_joueurs); //Trie les joueurs dans l'ordre décroissant des scores 
 	    	f = freopen("scoreboard.txt", "w+", f); //Réouvre le fichier selon "w+" et non "a+"
 		if (f == NULL){
 			printf("Ouverture du fichier impossible \n");
@@ -188,7 +188,7 @@ void enregistrement_score(Joueur* J){
 			printf("Message erreur = %s \n", strerror(errno));
 			exit (45);
 		}
-		fprintf(f,"%d\n",nbr_joueurs);
+		fprintf(f,"%d\n",nbr_joueurs); //On écrit le nouveau nombre de joueurs au début du fichier
 		for (int i = 0; i<nbr_joueurs;i++){ //Ecriture des joueurs dans le fichier "scoreboard.txt"
 			fprintf(f,"Pseudo :#%s\n",(tab+i)->pseudo);
 		    	fprintf(f,"Score :&%d\n",(tab+i)->score);

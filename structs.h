@@ -10,7 +10,7 @@ typedef struct{
 typedef struct{
     int blocs[5][2];
     int enVie;
-    int nb_blocs;
+    int nb_blocs; //Nombre de blocs pouvant être variable (de 1 à BLOC_MAX)
 
 }Tetromino;
 

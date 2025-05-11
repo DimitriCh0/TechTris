@@ -259,8 +259,8 @@ int menu_defaut(char *** pieces_dessinees){
 
 		entree = saisir_entree();
 		
-		//Se déplacer
-		if (entree == 'd' || entree == 'D') { //Probleme : quand fleche gauche appuyé
+		//Se déplacer dans le menu
+		if (entree == 'd' || entree == 'D') { 
 			selectionne = (selectionne + 1)%num_options3;
 		} 
 		else if (entree == 'q' || entree == 'Q') {
@@ -318,9 +318,9 @@ void atelier(){
 		
 		printf("\n\n\nUtilise Z (haut), S (bas), D (droite), Q (gauche), E (valider)\n");
 
-		entree = saisir_entree();
+		entree = saisir_entree(); //On prend l'entrée du clavier saisie s'il y en a
 		
-		//Se déplacer
+		//Se déplacer dans le menu
 		if (entree == 'z' || entree == 'Z') {
 			if ((selectionne - DIM) >= 0){
 				selectionne = selectionne - DIM;

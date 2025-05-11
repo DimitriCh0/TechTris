@@ -93,19 +93,7 @@ void afficher(char grille[LIGNE][COL][UTF], Joueur* J, Tetromino *t, int s, int 
 	}
 	printf("\n");
 }
-//Affiche dans le terminal un double tableau d'entiers
-void afficher_int(int tab[LIGNE][COL]){
-	if (tab==NULL){
-        	printf("Erreur : void afficher_int \n");
-        	exit(72);
-	}
-	for (int i = 0; i<LIGNE; i++){
-       		for (int j = 0; j<COL; j++){
-            		printf("%d ",tab[i][j]);
-        	}
-        	printf("\n");
-    	}
-}
+
 //Remet à 0 tous les entiers de la grille d'entiers afin de pouvoir le modifier avec la fonction "place_t"
 void effacer(int tab[LIGNE][COL]){
 	if (tab==NULL){
@@ -174,7 +162,7 @@ void actualiser(char grille[LIGNE][COL][UTF], int tab[LIGNE][COL], Joueur* J,Tet
         	printf("Erreur : void refresh !\n");
         	exit(76);
     	}
-    	system("clear");
-    	effacer(tab);
-    	afficher(grille,J,t,s,couleur);
+    	system("clear"); //On efface le terminal
+    	effacer(tab); //On efface le tetromino en vie dans le tableau d'entiers (voir la fonction ci-dessus)
+    	afficher(grille,J,t,s,couleur); //On affiche de nouveau la grille
 }

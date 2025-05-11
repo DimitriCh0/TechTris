@@ -55,7 +55,6 @@ Vecteur conversion_entree_vecteur(int r);
 
 //Draw
 void afficher(char grille[LIGNE][COL][UTF], Joueur* J, Tetromino *t, int s, int couleur);
-void afficher_int(int tab[LIGNE][COL]);
 void effacer(int tab[LIGNE][COL]);
 void dessiner(int tab[LIGNE][COL], char grille[LIGNE][COL][UTF]);
 void actualiser(char grille[LIGNE][COL][UTF], int tab[LIGNE][COL], Joueur* J, Tetromino *t, int s, int couleur);

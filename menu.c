@@ -1,6 +1,6 @@
 #include "fichier.h"
 
-//coloration pour la sélection
+//Coloration pour la sélection
 void afficher_colore(const char *text, int surligner) {
 	if (text == NULL){
 		exit(10);
@@ -9,11 +9,11 @@ void afficher_colore(const char *text, int surligner) {
         	printf("             > \033[1;32m%s\033[0m <\n", text); // Texte vert si sélectionné
 	} 
 	else {
-        	printf("              %s\n", text);
+        	printf("              %s\n", text); //Texte normal sinon
 	}
 }
 
-//Pause avant de changer de menu / sous-menu
+//Pause avant de changer de menu / sous-menu, on attend que le joueur appuie sur Entrée
 void attendre_pour_entree() {
 	int ch;
 	printf("\n\nAppuie sur Entrée pour continuer..."); 
@@ -59,7 +59,7 @@ void lecture_sauvegarde(FILE *fichier, char tab_char[LIGNE][COL+1], int tab_int[
 				tab_int[i][j] = 0;
 			}
 			else {
-				switch(tab_char[i][j]){
+				switch(tab_char[i][j]){//Transforme le tableau de caractères récupéré plus tôt en tableau d'entiers représentant les blocs morts, les différentes valeurs indiquant les couleurs
 		            		case '1':
 				        	tab_int[i][j] = 14;
 				        	break;
@@ -89,7 +89,7 @@ void lecture_sauvegarde(FILE *fichier, char tab_char[LIGNE][COL+1], int tab_int[
 		printf("Erreur dans le fichier texte, mauvais séparateur \n");
 		exit(15);
 	}
-	while((c=fgetc(fichier))!=EOF){
+	while((c=fgetc(fichier))!=EOF){ //Lecture des infos du joueur (pseudo, score et difficulté)
 	        if(c=='#'){
 	        	if ((fgets(J->pseudo,sizeof(J->pseudo),fichier)) != NULL && J->pseudo[0] != '\n'){// Lire la ligne.
 	            		J->pseudo[strcspn(J->pseudo,"\n")]='\0'; // Remplace le \n en \0 donc il retire \n		}
@@ -115,13 +115,13 @@ void lecture_sauvegarde(FILE *fichier, char tab_char[LIGNE][COL+1], int tab_int[
 	        	verif ++;
 		}
     	}
-    	if (verif != 3){
+    	if (verif != 3){ //Vérifie que les 3 informations du joueur soient bien présentes
 			printf("Erreur dans la lecture du joueur\n");
 	            	exit(19);
 	}
 }
 
-//sous-menu Rejouer 
+//Sous-menu Rejouer, il récupère la sauvegarde contenue dans le fichier sauvegarde.txt
 void sauvegarde(){
 	char tab_char[LIGNE][COL+1];
 	int tab_int [LIGNE][COL] ={0};
@@ -135,16 +135,16 @@ void sauvegarde(){
 		printf("Message erreur = %s \n", strerror(errno));
 		exit (10);
 	}
-	if (fgetc(fichier) == EOF){
+	if (fgetc(fichier) == EOF){ //Si le fichier est vide
 		printf("\n\n Aucune sauvegarde detectee ! \n\n");
 		attendre_pour_entree();
 	}
-	else {
+	else { //Sinon on lit la sauvegarde et lance le jeu
 		lecture_sauvegarde(fichier,tab_char,tab_int,&J);
 
 		jeu_tetris(&J,tab_int);
 		
-		scoreboard();
+		scoreboard(); //Affiche le score après la partie
 	}
 }
 
@@ -162,18 +162,18 @@ void scoreboard() {
 	}
 	rewind(fichier);
 	c = fgetc(fichier);
-	if (c=='0'){
-		if ((c=fgetc(fichier)) != EOF){
+	if (c=='0'){ //0 dans le scoreboard.txt signifie qu'il n'y a pas de score enregistré dans le fichier
+		if ((c=fgetc(fichier)) != EOF){//Vérification du format du fichier, le 0 doit être tout seul dans le fichier
 			printf("Erreur dans le fichier scoreboard !\n");
 			exit(12);
 		}
     	printf("\n     Il n'y a pas de score enregistré ! \n\n");
 		
     }
-	else {
+	else { //Sinon on affiche le score des joueurs enregistrés
 		printf("         ===== Scoreboard =====\n\n");
 		printf("  Pseudo    |     Score    |  Difficulte \n");
-		lire_scoreboard(fichier);
+		lire_scoreboard(fichier); 
 	}
 	fclose(fichier);
 	attendre_pour_entree();
@@ -184,7 +184,7 @@ void tetris() {
 	system("clear");
 	int tab[LIGNE][COL]= {0};
 	Joueur J = constru();
-	jeu_tetris(&J,tab);
+	jeu_tetris(&J,tab);//On lance le jeu avec un nouveau joueur
 	scoreboard();
 }
 
@@ -215,9 +215,9 @@ void affichagepieces(){
 	system("clear");
 	printf("Voici les pieces avec lesquelles vous allez jouer !\n\n");
 	char *** piecesactives=pieces();
-	lecture(piecesactives,1);
-	afficheliste(piecesactives);
-	liberer_pieces(piecesactives);
+	lecture(piecesactives,1); //Mettre les pièces contenues dans le fichier piecesmodifiees.txt dans triple pointeur 
+	afficheliste(piecesactives); //Affiche chaque pièce
+	liberer_pieces(piecesactives); //Libère l'espace mémoire alloué au triple pointeur
 	attendre_pour_entree();
 }
 
@@ -229,9 +229,9 @@ void afficher_menu() {
 	const char *options[] = {"Jouer","Rejouer","Scoreboard","Atelier","Pieces","Quitter"};
 	int num_options = (sizeof(options) / sizeof(char*));
 	char*** pieces_dessinees = pieces();
-	lecture(pieces_dessinees,0);
-	enregistrement(pieces_dessinees);
-	liberer_pieces(pieces_dessinees);
+	lecture(pieces_dessinees,0); //Mettre les pièces par défaut de Tetris contenues dans le fichier piecesdefauts.txt
+	enregistrement(pieces_dessinees); //Enregistre les pièces par défaut dans le fichier piecesdmodifiees.txt
+	liberer_pieces(pieces_dessinees);//Libère l'espace mémoire alloué au triple pointeur
 	while (t) {
 		system("clear");
 		printf("\n\n\n");
@@ -260,7 +260,7 @@ void afficher_menu() {
 			selectionne = (selectionne + 1) % num_options;
 		} 
 		else if (entree == 'e' || entree == 'E') { //Selectionner
-			switch (selectionne) {
+			switch (selectionne) {//Si le joueur valide, on lance l'une des procédures suivantes en fonction de selectionne
 		        	case 0:
 		            		tetris();
 		            		break;
@@ -276,7 +276,7 @@ void afficher_menu() {
 		            	case 4:
 		            		affichagepieces();
 		            		break;
-				case 5:
+				case 5: //Dans ce cas on quitte le jeu et arrête le programme
 					system("clear");
 					printf("\n\n");
 					afficher_colore("À bientôt !", 0);

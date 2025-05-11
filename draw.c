@@ -109,34 +109,34 @@ void draw(int tab[LINE][COL], char grille[LINE][COL][UTF]){
                 	if(tab[i][j]==0){
                 		strcpy(grille[i][j],"  ");
             		}
-		        else{
-				if (tab[i][j] <0 || tab[i][j]>14 || tab==NULL){
-					printf("Erreur de saisie. %d\n", tab[i][j]);
-				        exit(75); 
-		        	} 
-				switch(tab[i][j]%7+1){
-				        case 1:
-				        	strcpy(grille[i][j],"🟥");
-				                break;
-				        case 2:
-				                strcpy(grille[i][j],"🟧");
-				                break;
-				        case 3:
-				                strcpy(grille[i][j],"🟨");
-				                break;
-				        case 4:
-				                strcpy(grille[i][j],"🟩");
-				                break;
-				        case 5:
-				                strcpy(grille[i][j],"🟫");
-				                break;
-				        case 6:
-				                strcpy(grille[i][j],"🟪");
-				                break;
-				        case 7:
-				                strcpy(grille[i][j],"🟦");
-				                break;
-		        	}
+	            	else{
+			        if (tab[i][j] <0 || tab[i][j]>14 || tab==NULL){
+			            printf("Erreur de saisie. %d\n", tab[i][j]);
+			            exit(75); 
+	                	} 
+			        switch(tab[i][j]%7+1){
+			            case 1:
+			                strcpy(grille[i][j],"🟥");
+			                break;
+			            case 2:
+			                strcpy(grille[i][j],"🟧");
+			                break;
+			            case 3:
+			                strcpy(grille[i][j],"🟨");
+			                break;
+			            case 4:
+			                strcpy(grille[i][j],"🟩");
+			                break;
+			            case 5:
+			                strcpy(grille[i][j],"🟫");
+			                break;
+			            case 6:
+			                strcpy(grille[i][j],"🟪");
+			                break;
+			            case 7:
+			                strcpy(grille[i][j],"🟦");
+			                break;
+	                	}
             		}
 		}
 	}

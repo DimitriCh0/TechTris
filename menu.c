@@ -22,13 +22,6 @@ void wait_for_enter() {
     	} while (ch != '\n' && ch != EOF);
 }
 
-//Lancer le jeu tetris
-void tetris() { 
-	system("clear");
-	int tab[LINE][COL]= {0};
-	Joueur J = constru();
-	jeu_tetris(&J,tab,0);
-}
 
 //Lire la grille et le joueur sauvegardée dans le fichier sauvegarde.txt
 void lecture_sauvegarde(FILE *fichier, char tab_char[LINE][COL+1], int tab_int[LINE][COL], Joueur* J){
@@ -156,8 +149,6 @@ void sauvegarde(){
 void scoreboard() { 
 	system("clear");
 	int c;
-	printf("         ===== Scoreboard =====\n\n");
-	printf("  Pseudo    |     Score    |  Difficulte \n");
 	FILE* fichier = NULL;
 	fichier = fopen("scoreboard.txt","r+");
 	if (fichier == NULL){
@@ -167,11 +158,31 @@ void scoreboard() {
 		exit (11);
 	}
 	rewind(fichier);
-	if ((c = fgetc(fichier))!=EOF){
-    		lire_scoreboard(fichier);
-    	}
+	c = fgetc(fichier);
+	if (c=='0'){
+		if ((c=fgetc(fichier)) != EOF){
+			printf("Erreur dans le fichier scoreboard !\n");
+			exit(12);
+		}
+    	printf("\n     Il n'y a pas de score enregistré ! \n,\n");
+		
+    }
+	else {
+		printf("         ===== Scoreboard =====\n\n");
+		printf("  Pseudo    |     Score    |  Difficulte \n");
+		lire_scoreboard(fichier);
+	}
 	fclose(fichier);
 	wait_for_enter();
+}
+
+//Lancer le jeu tetris
+void tetris() { 
+	system("clear");
+	int tab[LINE][COL]= {0};
+	Joueur J = constru();
+	jeu_tetris(&J,tab,0);
+	scoreboard();
 }
 
 //Lance la procédure permettant de dessiner les pièces

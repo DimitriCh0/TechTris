@@ -102,25 +102,25 @@ void deplacer_t(Tetromino *t,Vecteur v, int n){
 
 
 //Place le Tetromino dans le tableau principal à l'aide des coordonnées contenues dans le double tableau "blocs"
-void place_t(Tetromino *t,int tab[LIGNE][COL],Vecteur v, int n, int color){
+void place_t(Tetromino *t,int tab[LIGNE][COL],Vecteur v, int n, int couleur){
     	if (t==NULL || tab == NULL || n < 0){
 		printf("Erreur : void place_t !\n");
         	exit(56);
    	}
-    	int st = a_survecu(t,v,tab,t->nb_blocs);
-    	if (((v.y<=0 && NestPasBordureG(t,t->nb_blocs)) || (v.y>=0 && NestPasBordureD(t,t->nb_blocs))) && t->enVie && st){
+    	int as = a_survecu(t,v,tab,t->nb_blocs);
+    	if (((v.y<=0 && NestPasBordureG(t,t->nb_blocs)) || (v.y>=0 && NestPasBordureD(t,t->nb_blocs))) && t->enVie && as){
         	deplacer_t(t,v,t->nb_blocs);
     	}
     
     	if (t->enVie){
         	for (int i = 0; i<n; i++){
-            		tab[t->blocs[i][0]][t->blocs[i][1]] = color;  
+            		tab[t->blocs[i][0]][t->blocs[i][1]] = couleur;  
         	}
 
     	}
     	else{
         	for (int j = 0; j<n; j++){
-            		tab[t->blocs[j][0]][t->blocs[j][1]] = color + 7;
+            		tab[t->blocs[j][0]][t->blocs[j][1]] = couleur + 7;
         	}
     	}
 }
@@ -153,14 +153,14 @@ void effacer_ligne(int tab[LIGNE][COL], int nb){
 }
 
 //Fait descendre tous les blocs de tétrominos "mort" d'un nombre correspondant au nombre de lignes que l'on a supprimées
-void gravitation(int tab[LIGNE][COL], int d, int start){
+void gravitation(int tab[LIGNE][COL], int d, int debut){
     	int temp;
     	if (tab==NULL || d < 0){
         	printf("Erreur : void gravitation !\n");
         	exit(59);
    	}
     	if(d!=0){
-    		for (int i=start; i>=0; i--){
+    		for (int i=debut; i>=0; i--){
         		for (int j=0; j<COL; j++){
             			temp = tab[i][j];
             			if (temp>=8){
@@ -172,7 +172,7 @@ void gravitation(int tab[LIGNE][COL], int d, int start){
     	}
 }
 //Arrête le jeux si les blocs ont atteint le haut de la grille 
-int game_over(int tab[LIGNE][COL], Tetromino *t, int n, int color){
+int game_over(int tab[LIGNE][COL], Tetromino *t, int n, int couleur){
     	if (tab==NULL || t == NULL || n < 0){
         	printf("Erreur : int game_over !\n");
         	exit(50);
@@ -182,7 +182,7 @@ int game_over(int tab[LIGNE][COL], Tetromino *t, int n, int color){
        			Vecteur d;
             		d.x=0;
             		d.y=0;
-            		place_t(t,tab,d,t->nb_blocs,color);
+            		place_t(t,tab,d,t->nb_blocs,couleur);
             		return 1;
        		}
     	}

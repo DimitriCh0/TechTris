@@ -30,7 +30,8 @@ Voici le resultat attendu :
 
 Lancez une partie en entrant votre pseudo (50 caractères maximum et sans espace) et la difficulté (comprise entre 1 et 4), puis utilisez les touches Q (pour aller à gauche), S (pour descendre la pièce plus rapidement), D (pour aller à droite), E (pour tourner la pièce de 90° vers la droite), A (pour tourner la pièce de 90° vers la gauche) et Espace (pour faire descendre la pièce directement) afin de déplacer le tétromino.
 
-![image](https://github.com/user-attachments/assets/3240935a-abb2-421b-8220-a606e32d7f3f)
+![image](https://github.com/user-attachments/assets/6cd987ac-a586-4913-92bf-5ee43b3f6609)
+
 
 
 Fonctionnalités : 

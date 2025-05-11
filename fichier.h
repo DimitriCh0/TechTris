@@ -18,7 +18,7 @@
 #define DIM 5
 //Les dimensions de la grille principale
 #define COL 10
-#define LIGNE 20
+#define LIGNE 10
 #define UTF 8
 
 #define BLOC_MAX 5

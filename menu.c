@@ -1,11 +1,11 @@
 #include "fichier.h"
 
 //coloration pour la sélection
-void print_colored(const char *text, int highlight) {
+void print_colored(const char *text, int surligner) {
 	if (text == NULL){
 		exit(10);
 	}
-	if (highlight) {
+	if (surligner) {
         	printf("             > \033[1;32m%s\033[0m <\n", text); // Texte vert si sélectionné
 	} 
 	else {
@@ -219,7 +219,7 @@ void affichagepieces(){
 }
 
 //Menu principal
-void display_menu() {
+void afficher_menu() {
 	int selected = 0; //Savoir où se trouve le "curseur"
 	int input;
 	int t = 1;
@@ -247,7 +247,7 @@ void display_menu() {
 
 		printf("\n\n\nUtilise Z (haut), S (bas), E (valider)\n");
 
-		input = get_input();
+		input = saisir_entree();
 
 		// Se déplacer
 		if (input == 'z' || input == 'Z') { 

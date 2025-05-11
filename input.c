@@ -5,7 +5,7 @@
 
 //Détecte quand on appuie sur une touche du clavier et renvoie un entier en fonction de la touche sur laquelle on appuie
 
-int get_input() {
+int saisir_entree() {
 	struct termios oldt, newt;
 	int ch;
 
@@ -32,7 +32,7 @@ int get_input() {
 }
 
 //Cela marche avec les majuscules et les minuscules
-int key_input(){
+int entree_clavier(){
 	//Programme qui permet de faire en sorte que le programme continue de s'exécuter si le joueur n'utilise pas le clavier
 	//pour passer stdin en non-blocking mode.
 	int flags = fcntl(STDIN_FILENO, F_GETFL, 0);
@@ -97,7 +97,7 @@ int key_input(){
 //Elle ne sert qu'à traduire ce que renvoie la fonction "key_input" en vecteur on peut le faire en une seule fonction mais ce serait un peu long avec les majuscules
 //A noter que la fonction keyToVect() ne traite que 3 valeurs sur les 5 que peut renvoyer key_input() (à part le 0)
 //car les valeurs 5 et 1 sont utilisées par la fonction rotation() (voir les fichiers piecesetrotation et main)
-Vecteur keyToVect(int r){
+Vecteur conversion_entree_vecteur(int r){
 	Vecteur v;
 	switch(r){
         	case 2:

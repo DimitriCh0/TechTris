@@ -2,6 +2,6 @@
 
 int main(){
 	srand(time(NULL));
-	display_menu();
+	afficher_menu();
 	return 0;
 }

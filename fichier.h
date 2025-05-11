@@ -33,33 +33,33 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde);
 //Tétrominos
 void creation_tetrominos(Tetromino *t);
 void tetrominoConstructor(char **tab, Tetromino *t);
-void move_t(Tetromino *t,Vecteur v,int n);
+void deplacer_t(Tetromino *t,Vecteur v,int n);
 void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v, int n, int color);
-int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL], int n);
-int isNotBorderR(Tetromino *t, int n);
-int isNotBorderL(Tetromino *t, int n);
-void reset_piece(Tetromino *t, int n);
+int a_survecu(Tetromino *t, Vecteur v, int tab[LINE][COL], int n);
+int NestPasBordureD(Tetromino *t, int n);
+int NestPasBordureG(Tetromino *t, int n);
+void reinitialiser_piece(Tetromino *t, int n);
 
 //Fonctions du jeu
 void sleep_ms(float milliseconds);
-void clear_line(int tab[LINE][COL], int nb);
+void effacer_ligne(int tab[LINE][COL], int nb);
 void gravitation(int tab[LINE][COL], int d, int start);
 int game_over(int tab[LINE][COL], Tetromino *t, int n,int color);
 void score(Joueur* J,int tab_principal[LINE][COL],int nb_lines);
 int scoreGrille(int *tab);
 
 //Inputs
-int get_input();
-int key_input();
+int saisir_entree();
+int entree_clavier();
 Vecteur keyToVect(int r);
 
 //Draw
-void display(char grille[LINE][COL][UTF], Joueur* J, Tetromino *t, int s, int couleur);
-void display_int(int tab[LINE][COL]);
-void clear(int tab[LINE][COL]);
-void draw(int tab[LINE][COL], char grille[LINE][COL][UTF]);
-void refresh(char grille[LINE][COL][UTF], int tab[LINE][COL], Joueur* J, Tetromino *t, int s, int couleur);
-void display_tetromino(Tetromino *t, int ligne, int couleur);
+void afficher(char grille[LINE][COL][UTF], Joueur* J, Tetromino *t, int s, int couleur);
+void afficher_int(int tab[LINE][COL]);
+void effacer(int tab[LINE][COL]);
+void dessiner(int tab[LINE][COL], char grille[LINE][COL][UTF]);
+void actualiser(char grille[LINE][COL][UTF], int tab[LINE][COL], Joueur* J, Tetromino *t, int s, int couleur);
+void afficher_tetromino(Tetromino *t, int ligne, int couleur);
 
 //Rotation et pièces
 void rotation(int rotation, Tetromino *t, int n, int tab[LINE][COL]);
@@ -102,17 +102,17 @@ int correction(char *** pieces_dessinees, int piece);
 
 
 //Selection colorée
-void print_tab(char valeur, int highlight, int piece); 
-void print_colored(const char *text, int highlight);
-void print_colored2(const char *text, int highlight);
-void print_colored3(const char *text, int highlight);
-void choix_couleur2(char valeur, const char *Couleur, int highlight);
-int get_input();
+void print_tab(char valeur, int surligner, int piece); 
+void print_colored(const char *text, int surligner);
+void print_colored2(const char *text, int surligner);
+void print_colored3(const char *text, int surligner);
+void choix_couleur2(char valeur, const char *Couleur, int surligner);
+int saisir_entree();
 
 
 void wait_for_enter();
 //Menu
-void display_menu();
+void afficher_menu();
 
 //Sous-menu
 void tetris();

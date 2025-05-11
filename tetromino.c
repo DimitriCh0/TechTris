@@ -26,13 +26,13 @@ void tetrominoConstructor(char **tab, Tetromino *t){
         	}
     	}
 	t->nb_blocs = n;
-	t->isalive = 1;
+	t->enVie = 1;
 }
 
 //Renvoie 1 si le Tetromino ne touche pas la bordure gauche
-int isNotBorderL(Tetromino *t,int n){
+int NestPasBordureG(Tetromino *t,int n){
 	if (t==NULL||n<0){
-        	printf("Erreur : int isNotBorderL !\n");
+        	printf("Erreur : int NestPasBordureG !\n");
         	exit(52);
 	}
 	for (int i = 0; i<n; i++){
@@ -44,9 +44,9 @@ int isNotBorderL(Tetromino *t,int n){
 
 }
 //Renvoie 1 si le Tetromino ne touche pas la bordure droite
-int isNotBorderR(Tetromino *t, int n){
+int NestPasBordureD(Tetromino *t, int n){
 	if (t==NULL||n<0){
-        	printf("Erreur : int isNotBorderR !\n");
+        	printf("Erreur : int NestPasBordureD !\n");
         	exit(53);
 	}
 	for (int i = 0; i<n; i++){
@@ -60,9 +60,9 @@ int isNotBorderR(Tetromino *t, int n){
 //Renvoie 1 si le tetromino est toujours "en vie"
 //Cette fonction, contrairement aux deux précédentes ne va pas vérifier directement les coordonnées du Tétromino mais vérifie si celui-ci, avec le déplacement du vecteur, ne touche pas le sol ou
 //s'il ne touche pas un tétromino déjà "mort" représenté par des 2 dans le tableau principal 
-int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL],int n){
+int a_survecu(Tetromino *t, Vecteur v, int tab[LINE][COL],int n){
 	if (t == NULL || tab == NULL || n < 0){
-		printf("Erreur : int stillAlive !\n");
+		printf("Erreur : int a_survecu !\n");
         	exit(54);
     	}
     	if (v.x == 0){
@@ -76,7 +76,7 @@ int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL],int n){
     	else {
     		for (int i=0; i<n; i++){
     			if(t->blocs[i][0]+v.x==LINE || tab[t->blocs[i][0]+v.x][t->blocs[i][1]]>=8){
-    				t->isalive = 0;
+    				t->enVie = 0;
     				return 0;
     			}	
     		}
@@ -87,7 +87,7 @@ int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL],int n){
 
 
 //Applique un déplacement sur tous les blocs du Tetromino avec un vecteur
-void move_t(Tetromino *t,Vecteur v, int n){
+void deplacer_t(Tetromino *t,Vecteur v, int n){
 	if (t==NULL || n < 0){
 		printf("Erreur : void move_t !\n");
         	exit(55);
@@ -107,12 +107,12 @@ void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v, int n, int color){
 		printf("Erreur : void place_t !\n");
         	exit(56);
    	}
-    	int st = stillAlive(t,v,tab,t->nb_blocs);
-    	if (((v.y<=0 && isNotBorderL(t,t->nb_blocs)) || (v.y>=0 && isNotBorderR(t,t->nb_blocs))) && t->isalive && st){
-        	move_t(t,v,t->nb_blocs);
+    	int st = a_survecu(t,v,tab,t->nb_blocs);
+    	if (((v.y<=0 && NestPasBordureG(t,t->nb_blocs)) || (v.y>=0 && NestPasBordureD(t,t->nb_blocs))) && t->enVie && st){
+        	deplacer_t(t,v,t->nb_blocs);
     	}
     
-    	if (t->isalive){
+    	if (t->enVie){
         	for (int i = 0; i<n; i++){
             		tab[t->blocs[i][0]][t->blocs[i][1]] = color;  
         	}
@@ -126,12 +126,12 @@ void place_t(Tetromino *t,int tab[LINE][COL],Vecteur v, int n, int color){
 }
 
 //Permet de remmettre les paramètres de base d'une pièce dans le cadre d'un jeu continu
-void reset_piece(Tetromino *t,int n){
+void reinitialiser_piece(Tetromino *t,int n){
     	if (t==NULL || n < 0){
         	printf("Erreur : void reset_piece !\n");
         	exit(57);
   	}
-    	t->isalive = 1;
+    	t->enVie = 1;
     	int dx = 2-t->blocs[0][0]; //distance entre le centre du tetromino et le point (2,2)
 	int dy = 2-t->blocs[0][1]; //distance entre le centre du tetromino et le point (2,2)
     	for (int i=0; i<n; i++){
@@ -141,7 +141,7 @@ void reset_piece(Tetromino *t,int n){
 }
 
 //Cette procédure supprime une ligne en mettant toutes les valeurs à 0
-void clear_line(int tab[LINE][COL], int nb){
+void effacer_ligne(int tab[LINE][COL], int nb){
     	if (tab==NULL){
         	printf("Erreur de pointeur dans tetromino !\n");
         	exit(58);

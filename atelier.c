@@ -1,12 +1,12 @@
 #include "fichier.h"
 
 //Affichage d'une case colorée et si la case est sélectionnée
-void choix_couleur2(char valeur, const char *Couleur, int highlight){
+void choix_couleur2(char valeur, const char *Couleur, int surligner){
 	if (Couleur==NULL){
 		printf("Erreur : void choix_couleur2 !\n");
         	exit(30);
         }
-	if (highlight){	//Case sélectionnée
+	if (surligner){	//Case sélectionnée
 		switch(valeur){ 
 			case '0':
 				printf("⬛ ");
@@ -29,22 +29,22 @@ void choix_couleur2(char valeur, const char *Couleur, int highlight){
 }
 
 //Affiche la case colorée dans l'atelier
-void print_tab(char valeur, int highlight, int piece) {
+void print_tab(char valeur, int surligner, int piece) {
 	if (piece<0){
 		printf("Erreur : void print_tab !\n");
         	exit(31);
         }
 	const char *couleurs[NOMBRE_PIECES] = {"🟧","🟨","🟩","🟫","🟪","🟦","🟥"};
-        choix_couleur2(valeur,couleurs[piece],highlight);
+        choix_couleur2(valeur,couleurs[piece],surligner);
 }
 
 //Naviguer dans les options sous la grille
-void print_colored2(const char *text, int highlight) { 
+void print_colored2(const char *text, int surligner) { 
 	if (text==NULL){
 		printf("Erreur : void print_colored2 !\n");
         	exit(32);
         }
-	if (highlight) {
+	if (surligner) {
         	printf("> \033[1;32m%s\033[0m < ", text); // Texte vert si sélectionné
 	} 
 	else {
@@ -119,7 +119,7 @@ void menu_enregistrement(char*** pieces_dessinees){
 		printf("\n\n Attention, si vous avez une partie sauvegardée, cette dernière sera supprimée ! \n");
 		printf("\n\n\n D (droite), Q (gauche), E (valider)\n");
 
-		input = get_input();
+		input = saisir_entree();
 		
 		//Se déplacer
 		if (input == 'd' || input == 'D') { //Probleme : quand fleche gauche appuyé
@@ -257,7 +257,7 @@ int menu_defaut(char *** pieces_dessinees){
 		printf("\n\n Attention, si vous avez une partie sauvegardée, cette dernière sera supprimée ! \n");
 		printf("\n\n\nD (droite), Q (gauche), E (valider)\n");
 
-		input = get_input();
+		input = saisir_entree();
 		
 		//Se déplacer
 		if (input == 'd' || input == 'D') { //Probleme : quand fleche gauche appuyé
@@ -318,7 +318,7 @@ void atelier(){
 		
 		printf("\n\n\nUtilise Z (haut), S (bas), D (droite), Q (gauche), E (valider)\n");
 
-		input = get_input();
+		input = saisir_entree();
 		
 		//Se déplacer
 		if (input == 'z' || input == 'Z') {

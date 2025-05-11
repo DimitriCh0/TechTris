@@ -22,13 +22,6 @@ void wait_for_enter() {
     	} while (ch != '\n' && ch != EOF);
 }
 
-//Lancer le jeu tetris
-void tetris() { 
-	system("clear");
-	int tab[LINE][COL]= {0};
-	Joueur J = constru();
-	jeu_tetris(&J,tab,0);
-}
 
 //Lire la grille et le joueur sauvegardée dans le fichier sauvegarde.txt
 void lecture_sauvegarde(FILE *fichier, char tab_char[LINE][COL+1], int tab_int[LINE][COL], Joueur* J){
@@ -172,6 +165,15 @@ void scoreboard() {
     	}
 	fclose(fichier);
 	wait_for_enter();
+}
+
+//Lancer le jeu tetris
+void tetris() { 
+	system("clear");
+	int tab[LINE][COL]= {0};
+	Joueur J = constru();
+	jeu_tetris(&J,tab,0);
+	scoreboard();
 }
 
 //Lance la procédure permettant de dessiner les pièces

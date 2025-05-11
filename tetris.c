@@ -1,7 +1,10 @@
 #include "fichier.h"
 
-
-void print_colored3(const char *text, int highlight) { //Naviguer dans les options sous la grille
+//Naviguer dans les options de Pause
+void print_colored3(const char *text, int highlight) { 
+	if (text == NULL){
+		exit(60);
+	}
 	if (highlight) {
         	printf("         > \033[1;32m%s\033[0m < ", text); // Texte vert si sélectionné
 	} 
@@ -10,40 +13,49 @@ void print_colored3(const char *text, int highlight) { //Naviguer dans les optio
 	}
 }
 
-void sleep_ms(float milliseconds)
-{
-    //Convertit les millisecondes en microsecondes
-    usleep(milliseconds * 1000);
+void sleep_ms(float milliseconds){
+	usleep(milliseconds * 1000);//Convertit les millisecondes en microsecondes
 }
+
 //Procédure qui crée les tétrominos à partir du fichier pieces.txt ou piecedited
 void creation_tetrominos(Tetromino *t){
-    printf("Construction des Tétrominos...\n");
-    if (t == NULL){
-        exit(16);
-    }
-    char ***liste = pieces();
-    lecture(liste,1);
-    for (int i = 0; i<NOMBRE_PIECES; i++){
-        tetrominoConstructor(*(liste+i),t+i);
-    }
-    liberer_pieces(liste);
+	printf("Construction des Tétrominos...\n");
+	if (t == NULL){
+		printf("Erreur : void creation_tetrominos ! \n");
+		exit(61);
+	}
+	char ***liste = pieces();
+	lecture(liste,1);
+	for (int i = 0; i<NOMBRE_PIECES; i++){
+		tetrominoConstructor(*(liste+i),t+i);
+	}
+	liberer_pieces(liste);
    
 }
 //Fonction qui a le rôle de vérifier si une ligne est pleine
 int scoreGrille(int *tab){
-    int cpt=0;
-    for(int i=0;i<COL;i++){
-        if(tab[i]>=8 && tab[i]<15){ 
-            cpt++;
+	if (tab == NULL){
+		printf("Erreur : int scoreGrille ! \n");
+		exit(62);
+	}
+	int cpt=0;
+	for(int i=0;i<COL;i++){
+        	if(tab[i]>=8 && tab[i]<15){ 
+            		cpt++;
+        	}
+            	if(cpt==COL){
+                	return 1;
+            	}
         }
-            if(cpt==COL){
-                return 1;
-            }
-        }
-    return 0;
+	return 0;
 }
 
+//Incrémentation du score en fonction des lignes complétées et si la grille est totalement vide de blocs
 void score(Joueur* J,int tab_principal[LINE][COL],int nb_lines){
+	if (tab_principal == NULL || J == NULL){
+		printf("Erreur : void score ! \n");
+		exit(63);
+	}
 	int clear = 1;
 	for (int i = 0; i<LINE; i++){
 		for (int j = 0; j<COL; j++){
@@ -86,6 +98,7 @@ void score(Joueur* J,int tab_principal[LINE][COL],int nb_lines){
 	}
 }
 
+//Sous-menu Pause pour quitter ou faire une pause dans la partie, renvoie le statut "quit" pour savoir si le jeu doit se stopper
 int pause(){
 	int selected = 0;
 	int input;
@@ -106,7 +119,7 @@ int pause(){
 
 		input = get_input();
 		
-		if (input == 'd' || input == 'D') { //Probleme : quand fleche gauche appuyé
+		if (input == 'd' || input == 'D') { 
 			selected = (selected + 1)%num_options4;
 		} 
 		else if (input == 'q' || input == 'Q') {
@@ -128,12 +141,14 @@ int pause(){
 	return quit;
 }
 
+//Sauvegarde de la partie dans le fichier "sauvegarde.txt"
 void enregistrement_partie(int tab[LINE][COL], Joueur* J){
 	if (tab == NULL || J == NULL){
-		exit(10);
+		printf("Erreur : void enregistrement_partie ! \n");
+		exit(64);
 	}
-	char tab_char[LINE][COL+1];
-	for (int i = 0; i <LINE;i++){
+	char tab_char[LINE][COL+1]; 
+	for (int i = 0; i <LINE;i++){ // Convertir le tableau de int en tableau de char
 		for (int j = 0; j<COL+1;j++){
 			if(j == COL){
 				tab_char[i][j] = '\0';
@@ -174,15 +189,15 @@ void enregistrement_partie(int tab[LINE][COL], Joueur* J){
 		printf("Ouverture du fichier impossible \n");
 		printf("Code erreur = %d \n", errno);
 		printf("Message erreur = %s \n", strerror(errno));
-		exit (1);
+		exit (65);
 	}
-	for (int i = 0; i<LINE;i++){
+	for (int i = 0; i<LINE;i++){ //Ecriture ligne par ligne du tableau de char correspondant à la grille du Tetris
 		fputs(tab_char[i],f);
 		fputs("\n",f);
 	}
 	
-	fprintf(f,"@\n");
-	fprintf(f,"#%s\n",J->pseudo);
+	fprintf(f,"@\n"); // Séparateur
+	fprintf(f,"#%s\n",J->pseudo); //Données du joueur
 	fprintf(f,"&%d\n",J->score);
 	fprintf(f,"/%d\n",J->difficulte);
 	fclose(f);
@@ -192,6 +207,10 @@ void enregistrement_partie(int tab[LINE][COL], Joueur* J){
 
 //Exécution du code principal du jeu
 void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
+	if (tab_principal == NULL || J == NULL){
+		printf("Erreur : void jeu_tetris ! \n");
+		exit(66);
+	}
 	struct timespec start, end;
     	char grille[LINE][COL][UTF];
     	int n; //Sortie de key_input()
@@ -210,12 +229,12 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
     	d.x = 1;
     	d.y = 0;
 	
-    	printf("Sah Dimitri\n");
+    	//printf("Sah Dimitri\n"); La première ligne de code qui a été écrite pour le projet
 
 	Tetromino *liste_t;
     	liste_t = malloc(NOMBRE_PIECES*sizeof(Tetromino));
     	if (liste_t == NULL){
-        	exit(15);
+        	exit(67);
     	}
 	//Création des Tetrominos
     	creation_tetrominos(liste_t);
@@ -224,7 +243,6 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
         	next_tour = rand()%NOMBRE_PIECES;
     	}while(next_tour==tour);
     	while(1){
-        
 		clock_gettime(CLOCK_MONOTONIC, &start);
 		clock_gettime(CLOCK_MONOTONIC, &end);
 		long seconds = end.tv_sec - start.tv_sec;
@@ -252,7 +270,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 				gv = 1;
 				break;
 			}
-		    	if (n==8){
+		    	if (n==8){ // Pause
 		    		quit = pause();
 		    		if (quit){
 		    			break;
@@ -296,7 +314,8 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 			sleep_ms(30);
 		}
 		
-		if (n==8){
+		if (n==8){ // Pause
+			quit = pause();
 			if (quit){
 				break;
 			}
@@ -332,7 +351,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 				printf("Ouverture du fichier impossible pour la sauvegarde \n");
 				printf("Code erreur = %d \n", errno);
 				printf("Message erreur = %s \n", strerror(errno));
-				exit (1);
+				exit (68);
 			}
 			fclose(f);
 			system("clear");
@@ -341,7 +360,7 @@ void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde){
 		}
 	}
     
-    free(liste_t);
-    wait_for_enter();
+	free(liste_t);
+	wait_for_enter();
     
 }

@@ -29,6 +29,7 @@
 //Fonctions et procédures
 //Jeu
 void jeu_tetris(Joueur* J, int tab_principal[LINE][COL],int sauvegarde);
+
 //Tétrominos
 void creation_tetrominos(Tetromino *t);
 void tetrominoConstructor(char **tab, Tetromino *t);
@@ -38,35 +39,41 @@ int stillAlive(Tetromino *t, Vecteur v, int tab[LINE][COL], int n);
 int isNotBorderR(Tetromino *t, int n);
 int isNotBorderL(Tetromino *t, int n);
 void reset_piece(Tetromino *t, int n);
+
 //Fonctions du jeu
 void sleep_ms(float milliseconds);
 void clear_line(int tab[LINE][COL], int nb);
 void gravitation(int tab[LINE][COL], int d, int start);
 int game_over(int tab[LINE][COL], Tetromino *t, int n,int color);
 void score(Joueur* J,int tab_principal[LINE][COL],int nb_lines);
+int scoreGrille(int *tab);
 
 //Inputs
 int get_input();
 int key_input();
 Vecteur keyToVect(int r);
+
 //Draw
 void display(char grille[LINE][COL][UTF], Joueur* J, Tetromino *t, int s);
 void display_int(int tab[LINE][COL]);
 void clear(int tab[LINE][COL]);
 void draw(int tab[LINE][COL], char grille[LINE][COL][UTF]);
 void refresh(char grille[LINE][COL][UTF], int tab[LINE][COL], Joueur* J, Tetromino *t, int s);
+void display_tetromino(Tetromino *t, int line);
+
 //Rotation et pièces
 void rotation(int rotation, Tetromino *t, int n, int tab[LINE][COL]);
-void affichepiece(char **piece);
+int rotation_valide(int n, int test_rotation[NUM_CASE][2], int tab[LINE][COL]);
+void appliquer_rotation(Tetromino *t, int test_rotation[NUM_CASE][2], int n);
+
 //Création des pièces
 char*** pieces(); // Création de tableau
-
 void lecture(char*** liste_pieces, int var); // Remplissage de tableau
 void liberer_pieces(char*** liste_pieces); // Libération de mémoire
 void afficheliste(char ***liste_pieces); 
 void choix_couleur(char ***liste_pieces,int i,int j,int k, const char *Couleur);
-void affichepiece(char **piece);
-int scoreGrille(int *tab);
+
+
 
 //sauvegarde
 void enregistrement_partie(int tab[LINE][COL], Joueur* J);
@@ -108,7 +115,6 @@ void wait_for_enter();
 void display_menu();
 
 //Sous-menu
-
 void tetris();
 void lecture_sauvegarde(FILE *fichier, char tab_char[LINE][COL+1], int tab_int[LINE][COL], Joueur* Joueur);
 void sauvegarde();

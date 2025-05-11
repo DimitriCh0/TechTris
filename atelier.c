@@ -39,9 +39,9 @@ void print_tab(char valeur, int surligner, int piece) {
 }
 
 //Naviguer dans les options sous la grille
-void print_colored2(const char *text, int surligner) { 
+void afficher_colore_atelier(const char *text, int surligner) { 
 	if (text==NULL){
-		printf("Erreur : void print_colored2 !\n");
+		printf("Erreur : void afficher_colore_atelier !\n");
         	exit(32);
         }
 	if (surligner) {
@@ -109,11 +109,11 @@ void menu_enregistrement(char*** pieces_dessinees){
 	while (t) {
 		system("clear");
 		printf("\n\n\n");
-		print_colored("===== Enregistrement =====", 0);
+		afficher_colore("===== Enregistrement =====", 0);
 		printf("\n            Sauvegarder les modifications ? \n \n");
 		printf("    ");
 		for (int i = 0; i < num_options3; i++) {
-		    print_colored3(options3[i], i == selectionne);
+		    afficher_colore_tetris(options3[i], i == selectionne);
 		}
 		
 		printf("\n\n Attention, si vous avez une partie sauvegardée, cette dernière sera supprimée ! \n");
@@ -247,11 +247,11 @@ int menu_defaut(char *** pieces_dessinees){
 	while (t) {
 		system("clear");
 		printf("\n\n\n");
-		print_colored("===== Defaut =====", 0);
+		afficher_colore("===== Defaut =====", 0);
 		printf("\n   Jouer avec les pièces de TETRIS par défaut ? \n \n");
 
 		for (int i = 0; i < num_options3; i++) {
-		    print_colored3(options3[i], i == selectionne);
+		    afficher_colore_tetris(options3[i], i == selectionne);
 		}
 		
 		printf("\n\n Attention, si vous avez une partie sauvegardée, cette dernière sera supprimée ! \n");
@@ -300,7 +300,7 @@ void atelier(){
 	while (t) {
 		system("clear");
 		printf("\n\n\n");
-		print_colored("===== Atelier =====", 0);
+		afficher_colore("===== Atelier =====", 0);
 		printf("\n                   Piece #%d \n \n",piece+1);
 
 		for (int i = 0; i < DIM; i++) { //Afficher le tableau case par case
@@ -313,7 +313,7 @@ void atelier(){
 		printf("\n             Blocs disponibles : %d \n ",bloc_dispo[piece]);
 		printf("\n");
 		for (int i = NUM_CASE; i < num_options2+NUM_CASE; i++) {
-		    print_colored2(options2[i-NUM_CASE], i == selectionne);
+		    afficher_colore_atelier(options2[i-NUM_CASE], i == selectionne);
 		}
 		
 		printf("\n\n\nUtilise Z (haut), S (bas), D (droite), Q (gauche), E (valider)\n");

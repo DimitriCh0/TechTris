@@ -103,9 +103,9 @@ int correction(char *** pieces_dessinees, int piece);
 
 //Selection colorée
 void print_tab(char valeur, int surligner, int piece); 
-void print_colored(const char *text, int surligner);
-void print_colored2(const char *text, int surligner);
-void print_colored3(const char *text, int surligner);
+void afficher_colore(const char *text, int surligner);
+void afficher_colore_atelier(const char *text, int surligner);
+void afficher_colore_tetris(const char *text, int surligner);
 void choix_couleur2(char valeur, const char *Couleur, int surligner);
 int saisir_entree();
 

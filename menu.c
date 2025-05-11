@@ -1,7 +1,7 @@
 #include "fichier.h"
 
 //coloration pour la sélection
-void print_colored(const char *text, int surligner) {
+void afficher_colore(const char *text, int surligner) {
 	if (text == NULL){
 		exit(10);
 	}
@@ -242,7 +242,7 @@ void afficher_menu() {
 		printf("\n\n");
 
 		for (int i = 0; i < num_options; i++) { //Affiche les options du menu
-		    print_colored(options[i], i == selectionne);
+		    afficher_colore(options[i], i == selectionne);
 		}
 
 		printf("\n\n\nUtilise Z (haut), S (bas), E (valider)\n");
@@ -276,7 +276,7 @@ void afficher_menu() {
 				case 5:
 					system("clear");
 					printf("\n\n");
-					print_colored("À bientôt !", 0);
+					afficher_colore("À bientôt !", 0);
 					printf("\n\n");
 					t = 0;
 					break;

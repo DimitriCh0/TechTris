@@ -1,7 +1,7 @@
 #include "fichier.h"
 
 //Naviguer dans les options de Pause
-void print_colored3(const char *texte, int surligner) { 
+void afficher_colore_tetris(const char *texte, int surligner) { 
 	if (texte == NULL){
 		exit(60);
 	}
@@ -109,10 +109,10 @@ int pause(){
 	while (t) {
 		system("clear");
 		printf("\n\n\n");
-		print_colored("===== Pause =====", 0);
+		afficher_colore("===== Pause =====", 0);
 		printf("\n");
 		for (int i = 0; i < num_options4; i++) {
-		    print_colored3(options4[i], i == selectionne);
+		    afficher_colore_tetris(options4[i], i == selectionne);
 		}
 		
 		printf("\n\n\nD (droite), Q (gauche), E (valider)\n");

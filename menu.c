@@ -121,11 +121,11 @@ void lecture_sauvegarde(FILE *fichier, char tab_char[LINE][COL+1], int tab_int[L
 	        	}
 	        	verif ++;
 		}
-		if (verif != 3){
+    	}
+    	if (verif != 3){
 			printf("Erreur dans la lecture du joueur\n");
 	            	exit(19);
-	        }
-    	}
+	}
 }
 
 //sous-menu Rejouer 

@@ -86,15 +86,13 @@ Joueur constru(){
     	Joueur J;
     	do{
 		system("clear");
-		printf("Entrez votre pseudo :\n");
-		scanf(" %s",J.pseudo);
-		if (strlen(J.pseudo) > 50){
-	    		printf("Pseudo trop long ! \n");
+		printf("Entrez votre pseudo (max 50 caractères):\n");
+		if (scanf(" %50s",J.pseudo)!=1){            //Le pseudo sera automatiquement tronqué s'il dépasse 50 caractères
+	    		printf("Pseudo invalide \n");
 	    		sleep(1);
 	    	}
 	    	while (getchar() != '\n');
-
-	} while (strlen(J.pseudo) > 50 || strlen(J.pseudo)==0);
+	} while (strlen(J.pseudo)==0);
     	J.score=0;
     	do {
 		system("clear");

@@ -43,15 +43,15 @@ void reinitialiser_piece(Tetromino *t, int n);
 //Fonctions du jeu
 void sleep_ms(float milliseconds);
 void effacer_ligne(int tab[LIGNE][COL], int nb);
-void gravitation(int tab[LIGNE][COL], int d, int start);
+void gravitation(int tab[LIGNE][COL], int d, int debut);
 int game_over(int tab[LIGNE][COL], Tetromino *t, int n,int color);
-void score(Joueur* J,int tab_principal[LIGNE][COL],int nb_LIGNEs);
+void score(Joueur* J,int tab_principal[LIGNE][COL],int nb_lignes);
 int scoreGrille(int *tab);
 
 //Inputs
 int saisir_entree();
 int entree_clavier();
-Vecteur keyToVect(int r);
+Vecteur conversion_entree_vecteur(int r);
 
 //Draw
 void afficher(char grille[LIGNE][COL][UTF], Joueur* J, Tetromino *t, int s, int couleur);
